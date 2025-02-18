@@ -1,0 +1,1 @@
+1). When you think about loop also think about updating the things which can be reused in loop

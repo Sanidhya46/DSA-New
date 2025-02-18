@@ -1,0 +1,8 @@
+1).PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> g++ basics.cpp -o basics   # Compiles the code
+   PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> .\basics
+2).returning statement inside  the for loop imediately exits the main function
+3). returning statement with no value in int functioin returning error
+4). when you want to work on every iteration you have to make an variable  to storing the result on every iteration
+5). calling function is used for making compiler to jump on particular function
+6). by passing & then this variable can modify in calling function
+7). 

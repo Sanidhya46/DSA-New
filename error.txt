@@ -1,0 +1,3 @@
+1). variable is not declared in the scope   ---sol ---     first declares variables
+2). error: expected unqualified-id before '=' token     ---sol---  error when u r using keyword as identifier
+3). logicbuilding.cpp:218:9: error: declaration of 'int b' shadows a parameter 
