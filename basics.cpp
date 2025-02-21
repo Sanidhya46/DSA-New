@@ -143,7 +143,7 @@ There were 6 type of tokens --
    6).operators - operators are used to perform operation on operands such as variables , constants  and operands
         i).unary operators -  single operands
         ii). binary operators -two operands
-        iii). ternary operators - takes  three operands
+        iii). ternary operators - takes  three operands             
         
         alignas	alignof	and	and_eq	asm
 auto	bitand	bitor	bool	break
