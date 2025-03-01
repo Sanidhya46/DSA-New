@@ -1,0 +1,1 @@
+1). Segementation fault - you want to acess that memory which is never allocated.
