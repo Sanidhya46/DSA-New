@@ -1,1 +1,7 @@
 1). Segementation fault - you want to acess that memory which is never allocated.
+2). If you do not declare size of array through error.
+3). local array are stored in stack of size of 8 mb 10^5, and global array declare in data segment 
+4). Returs ends the execution of function
+5). Pass by value only sends copy of value , but for refrences it completely change the value in other function
+6). In c pointer is used for referene but in c++ we using & empersand.
+7). swap(a, b) returns void cout expects to displaying integer values.
