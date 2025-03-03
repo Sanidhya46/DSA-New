@@ -160,16 +160,48 @@ using namespace std;
 //     cout << a[0][0];
 // }
 // If you want to declare an array void and main both declare globally.
-const int N = 1e3 + 10;   // 1010  // always declare in const
-int a[N][N];   // Total memory used = 1010 * 1010 * 4 = 4.08 MB .... Stack size - 8 MB
-void func(){
-    a[0][0] = 5;    // In c++ array in curly braces
-}
+// const int N = 1e3 + 10;   // 1010  // always declare in const
+// int a[N][N];   // Total memory used = 1010 * 1010 * 4 = 4.08 MB .... Stack size - 8 MB
+// void func(){
+//     a[0][0] = 5;    // In c++ array in curly braces
+// }
+// int main(){   
+//     a[0][0] = 7;
+//     cout << a[0][0];
+//     func();
+//     cout << a[0][0];
+// }
+//                      Video no. 12   ||
+// 1). in memory the address is store for every bytes
+// 2). int x; --> int have four bytes so x only stores the address of 1st bytes
+// 3). pointer is an data type which  stores memory address of variables
+// 4). read this as (*p_x = value at p_x) 
+
 int main(){
+    // int n = 4;
+    // int *p_n;   // p_n is an pointer which stores the address of an integer variable
+    // p_n = &n;   // p_n stores the address of n. &n = 1; address of first byte of int data type which is 1 ,  
+    // cout << *p_n;   // value at p_n or value at adreess of n.
+    // *p_n = 5;  //change the value at p_n to 5
+    // p_n = p_n + 1;   //p_n adds the size of int bytes
+    // cout << p_n;
+
+    // int a[4] =  {10,20,30,40};   // a is also an pointer
+    // cout << a;  // a stores address of 1st integer 
+    // cout << *a;  // *a means value at address of 0th index
+    // // a and &a[0] is same
+    // cout << *(a + 1);  // value at a+1 means value at a[1] which is 20
+
+    //int *p;  // *p is an pointer which stores the address of integer
+    //int **p;   // **p is an pointer which stores the addres of an integer pointer(*pp)
+    int x = 4;
+    int *p = &x;   // *p is value at p, or value at address of x which is 4
+    cout << *p;
+    int **pp = &p;   // value at integer pointer (*pp) stores the address of pointer p which is 
+    cout << **pp;
     
-    
-    a[0][0] = 7;
-    cout << a[0][0];
-    func();
-    cout << a[0][0];
 }
+// 5).
+
+
+
