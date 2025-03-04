@@ -177,31 +177,81 @@ using namespace std;
 // 3). pointer is an data type which  stores memory address of variables
 // 4). read this as (*p_x = value at p_x) 
 
-int main(){
-    // int n = 4;
-    // int *p_n;   // p_n is an pointer which stores the address of an integer variable
-    // p_n = &n;   // p_n stores the address of n. &n = 1; address of first byte of int data type which is 1 ,  
-    // cout << *p_n;   // value at p_n or value at adreess of n.
-    // *p_n = 5;  //change the value at p_n to 5
-    // p_n = p_n + 1;   //p_n adds the size of int bytes
-    // cout << p_n;
+// int main(){
+//     int n = 4;
+//     int *p_n;   // p_n is an pointer which stores the address of an integer variable
+//     p_n = &n;   // p_n stores the address of n. &n = 1; address of first byte of int data type which is 1 ,  
+//     cout << *p_n;   // value at p_n or value at adreess of n.
+//     *p_n = 5;  //change the value at p_n to 5
+//     p_n = p_n + 1;   //p_n adds the size of int bytes
+//     cout << p_n;
 
-    // int a[4] =  {10,20,30,40};   // a is also an pointer
-    // cout << a;  // a stores address of 1st integer 
-    // cout << *a;  // *a means value at address of 0th index
-    // // a and &a[0] is same
-    // cout << *(a + 1);  // value at a+1 means value at a[1] which is 20
+//     int a[4] =  {10,20,30,40};   // a is also an pointer
+//     cout << a;  // a stores address of 1st integer 
+//     cout << *a;  // *a means value at address of 0th index
+//     // a and &a[0] is same
+//     cout << *(a + 1);  // value at a+1 means value at a[1] which is 20
 
-    //int *p;  // *p is an pointer which stores the address of integer
-    //int **p;   // **p is an pointer which stores the addres of an integer pointer(*pp)
-    int x = 4;
-    int *p = &x;   // *p is value at p, or value at address of x which is 4
-    cout << *p;
-    int **pp = &p;   // value at integer pointer (*pp) stores the address of pointer p which is 
-    cout << **pp;
+//     int *p;  // *p is an pointer which stores the address of integer
+//     int **p;   // **p is an pointer which stores the addres of an integer pointer(*pp)
+//     int x = 4;
+//     int *p = &x;   // *p is value at p, or value at address of x which is 4
+//     cout << *p;
+//     int **pp = &p;   // value at integer pointer (*pp) stores the value at pp , pp is address of p which is adress of x) 
+//     cout << **pp;    //value at p print 4;
+
+//     int x = 4;
+//     int *p_x = &x;
+//     // (int **p_p_x = &p_x)  means (&p_x == p_p_x)
+//     // double pointer(p_p_x) stores the address of an pointer
+
+//     // **p_p_x = 7;  // now we can also change value by using double pointer
+
+//     int a[10];
+//     a[0] = 1;
+//     a[1] =2;
+//     cout << "pointer a is = " << a << "  value at  pointer a is = " <<*a;
+//     cout << "pointer a = " << a << " and " << " &a[0] is " << &a[0];
+
     
-}
-// 5).
+// }
+//                2). passing pointer by pass by reference in competitive programming
 
+// void increment(int *x){  // we except address of that value means address of a.
+//     (*x)++;  // we have to increment the value at x 
+// }
+// int main(){
+//     int a = 4;
+//     cout << a << " ";
+//     increment(&a);   // pointer wants address of an value so we have to pass with & ampersand
+//     cout << a;
+// }
+
+// void increment(int *x){
+//     (*x)++;
+// }
+// int main(){
+//     int a = 4;
+//     cout << a;
+//     increment(&a);
+//     cout << a;
+// }
+
+//                      Video no. 13   ||  Verdicts an error on coding sites
+// 1). Compilation error - syntax error
+// 2). Memory limit exceeded - when memory limit exceed
+// 3). Run time error - illegal access of memory - segementation fault in gcc // for ex. when you try to access that index which is not in array
+//                    - sometime comes in pointer like you try to access that pointer which is not available
+//                    - undefined behaviour for ex. 4/0
+//         * What to do - i). check are you want to access that index of array which is outer than defined limit
+//                       ii). check for undefined behaviour like you are dividing the result which becames 0 
+// 4). Time limit exceeded - when you exceed execution time limit for your code
+//                    - coding sites time complexity depends at run time not compilation time... so no effect of all header files
+//         * When     - i). when you try to do many number of operations in limited time.
+
+//  *5). Errors in Recursion -
+//                      i). Time limit exceeded - stack is not full but limit exceeded
+//                     ii). Run time error - stack is full(due to over calling of function) but time limit not exceeded
+//                                         - also when recursion runs infinitely
 
 
