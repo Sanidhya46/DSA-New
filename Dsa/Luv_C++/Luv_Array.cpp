@@ -237,7 +237,7 @@ using namespace std;
 //     cout << a;
 // }
 
-//                      Video no. 13   ||  Verdicts an error on coding sites
+//                      Video no. 14   ||  Verdicts an error on coding sites
 // 1). Compilation error - syntax error
 // 2). Memory limit exceeded - when memory limit exceed
 // 3). Run time error - illegal access of memory - segementation fault in gcc // for ex. when you try to access that index which is not in array
@@ -254,4 +254,108 @@ using namespace std;
 //                     ii). Run time error - stack is full(due to over calling of function) but time limit not exceeded
 //                                         - also when recursion runs infinitely
 
+//                     Video no. 15  || Time Complexity and space complexity
 
+// 1). int x , int sum = 0; these takes constant time , each takes one iterations
+
+// int main(){
+//       int x;
+//       int sum = 0;  // takes one iteration O(1)
+//       int n;
+//       cin >> n;
+//       for (int i =0; i<n; i++){    //O(n)  because it iterates n times for each of operations
+//         int y;
+//         y = 5;
+//         y++;
+//       }
+// }
+// number of iterations - 3
+// n < 100000    n value is very large so other things are neglecting
+// O(5) + O(3*n)  // 5 constant times iteration and 3 times in loop 
+
+// *2). No. of iteration in one second in coding platformm is - 10^7 - 10^8 seconds
+//  note*- if(10^7 - 1second, 10^8 - 10 second, 10^9 - 100 second, 10^10 iteration takes - 1000 sec - 15 min very large...)
+//      *- in power time complexity increases very fast
+
+
+// N < 100000  // n size array which limits is 10^5
+// a[i] < 100000  // range of an element of an array is 10^5
+
+// int main(){
+//     int n;
+//     cin >> n;
+//     int a[] = {};
+//     for(int i =0; i<n; i++){
+//         cin >> a[i];
+//     }
+// }
+
+// O(1) + O(1) + O(n) -> O(n)
+// if we are adding more no. of loops O(n) + O(n) + O(n) + O(n)... it still O(n)
+// O(n) is 10^5 < 10^7 -- so it runs 
+// for O(n^2) is 10^10(15 min)> 10^7 -- so it not runs
+// Note* - time limit of coding platforms never be exceeded
+// Note* - we can get no. of iterations by placing counter
+
+// N < 10^5
+// int main(){
+//     int n;  //O(1)
+//     cin >> n;   //O(1)
+//     int count = 0;
+//     while(n>0){  // **At how many steps we can divide n/2 for making n 0
+//         n=n/2;  //O(n/2)
+//         count++;
+//     }
+//     cout << count;
+//     return 0;
+// }
+// 10 - 5 - 2 - 1 - 0    // 3 steps
+// 2^a = n    // for means 2^a times is equal to n
+// log(2(2a)) = log(2(n))
+// a = log(2(N)) = log N
+// if loop runs for (10^5)... if it is log n then there time complexity becomes - 5 log(2(10))
+
+// T.C - O(1)+ O(1)+ O(log(n))  ** log n is very good complexity
+
+// n = 10^5
+// int main(){
+//     int n;
+//     cin >> n;
+//     for(int i = 0; i<n; i++){    //loop runs for 1 to n which sum is ... n(n+1/2)
+//         for(int j= 0; j<i; j++){
+
+//         }
+//     }
+// }
+// O(n^2/2) + O(n/2) .. we can ignore n/2 because n is 10^5 which is very large 
+// O(n^2)
+
+/* *3).In coding platform, Given T test cases  and an array of size N. pring sum of array in eacch test case
+constraints:
+1 <= T <= 1000  // limit of test cases is 1000
+1 <= N <= 1000     // range of input lies is between 1 to 1000
+1 <= a[i] <= 1000  // every single element of arrays is also lies between range of 1 to 1000
+***Sum of N over all Test case is 10^7***  if t and n is both 10^5 then code not runs (10^10) > 10^7 🚫
+***Sum of N over all Test case is 10^7***  if you put counter then it runs for loop conditions  
+*/
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){     // T.C - O(T*N) sum of all inner loop iterations
+        int n;
+        cin >> n;
+        int sum = 0;
+     //* int ct = 0;  // sum of all inner loop iterations equal to counter value
+        for (int i =0; i<n; i++){  // loop run for n times .. O(n)
+            int x;
+            cin >> x;
+            sum += x;
+      //      ct++;    //* their time complexity is less than  10^7 is already mentioned
+        }
+        cout << sum << endl;
+    }
+}
+
+// T.C - O(T*N) + O(N) --- their ranges are similar we can write they run for O(N^2)
+//  O(N^2) - means their time complexity is (ranges)^2 is (10^3)^2 --- 10^6 < 10^7 ✅  ... so it runs
