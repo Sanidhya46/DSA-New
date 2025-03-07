@@ -339,23 +339,80 @@ constraints:
 ***Sum of N over all Test case is 10^7***  if you put counter then it runs for loop conditions  
 */
 
-int main(){
-    int t;
-    cin >> t;
-    while(t--){     // T.C - O(T*N) sum of all inner loop iterations
-        int n;
-        cin >> n;
-        int sum = 0;
-     //* int ct = 0;  // sum of all inner loop iterations equal to counter value
-        for (int i =0; i<n; i++){  // loop run for n times .. O(n)
-            int x;
-            cin >> x;
-            sum += x;
-      //      ct++;    //* their time complexity is less than  10^7 is already mentioned
-        }
-        cout << sum << endl;
-    }
-}
+// int main(){
+//     int t;
+//     cin >> t;
+//     while(t--){     // T.C - O(T*N) sum of all inner loop iterations
+//         int n;
+//         cin >> n;
+//         int sum = 0;
+//      //* int ct = 0;  // sum of all inner loop iterations equal to counter value
+//         for (int i =0; i<n; i++){  // loop run for n times .. O(n)
+//             int x;
+//             cin >> x;
+//             sum += x;
+//       //      ct++;    //* their time complexity is less than  10^7 is already mentioned
+//         }
+//         cout << sum << endl;
+//     }
+// }
 
 // T.C - O(T*N) + O(N) --- their ranges are similar we can write they run for O(N^2)
 //  O(N^2) - means their time complexity is (ranges)^2 is (10^3)^2 --- 10^6 < 10^7 ✅  ... so it runs
+
+
+//                   Video no. 16  ||  Space complexity
+//   1). space complexity refers to how much additional memory(apart from input storage) is requires as the input size n grows
+//   2). if input size grows and space is constant then it counts in O(1) - constant space
+//   1). space complexity is how many space your code takes
+
+
+//                  Video no. 17  || Modulo arithmetic (why print 10^9)
+// 1).(a+b)%m = ((a%m) + (b%m) %m
+// 2).(a-b)%m = ((a%m) - (b%m)+m)% m //  we adding m for making it positive 
+// 3).(a*b)%m = ((a%m) *(b%m)%m 
+// 4).(a/b)%m = ((a%m)*(b^-1)%m)%m  // b^-1 is multiplicative inverse it get by using binary conversion
+
+/*1). GIven a number N.Print its factorial. constrains
+       1 <= N <= 100    we can take range to 100 but we can not run loop for 100 times 
+       print answer in modulo m = 47    // so we are storing answer in form of modulo
+       A%m
+*/
+// int main(){
+//     int n;
+//     cin >> n;
+//     long long fact= 1;
+//     int m = 47;
+//     for(int i =0; i <=n; i++){   // if we run loop for 100 times then it becames overflow
+//         fact = (fact * i)%m;    // we are taking modulo m in each result one by one by formula on
+//     }
+//     cout << fact;
+// }
+//    2). Significance of using (m = 10^9 + 7)
+//        1). 10^9 + 7 - very close to integer 
+//        2). can take m as int, no take extra spaces
+//        2). m is prime so we can find multiplicative inverse of any number between 10^9 + 7
+
+//                  Video no. 18 ||  Pre computation technique and hashing
+/* Given T test cases and in each test case a umber N. prinnt its factorial for each test case % m
+where m= 10^9 + 7
+constraints 
+1<= T <= 10^5
+1<= N <= 10^5
+*/
+
+int main(){
+    
+    int n; 
+    cin >> n;
+    long long fact = 1;  // creates a constant space in memory of 8mb to store large integer values
+    int m = 1e9 + 7;  // taking given modulo integer as int
+
+    for(int i = 1; i<= n; i++){   //* for factorial loop never start from 0 
+        fact = (fact*i)%m;
+    }
+    cout << fact;
+}
+//  what i learn - 1). fact grows exponentially causes overflow when deal with factorial so we using long long variable;
+//                 2). for factorial loop never start from 0
+//                 3). long long fact - creates an constant space of 8mb in memory to store large integer values
