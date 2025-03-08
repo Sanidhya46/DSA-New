@@ -29,7 +29,7 @@ using namespace std;
 //     return 0;
 // }
 
-//         ii). count no. from 1 to n with exactly 5 divisors 
+//            ii). count no. from 1 to n with exactly 5 divisors 
 int  divisors(int n){
     int countdivisors = 0;
     for ( int i = 1; i <= n; i++){
@@ -52,7 +52,7 @@ int numbers(int n){
 int main(){
     int n = 1000;
     cout << numbers(n);
-}
+}    // T.C - O(n^2)
 
 
 //            ii).3 divisors using constant space O(3n/4)

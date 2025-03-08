@@ -1,0 +1,3 @@
+1). If an recursive algorithm repeteadly solves the same problem then it is overlapping subproblems
+2). optimal substructure solution of the given problem can be obtained using optimal solution of its sub problems.
+3). divide and conquer, the problem is divided into smaller non overlapping sub problems and an optimal solution for each subproblem

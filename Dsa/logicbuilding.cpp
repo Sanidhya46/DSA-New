@@ -1474,15 +1474,17 @@ using namespace std;
 //  }
 
 //           b). Digital root (sum of digits until single digit using formula)
-int digitalroot(int n){
-     if(n == 0)
-        return 0;
-     if( n % 9 == 0)
-          return 9;
+// int digitalroot(int n){
+//      if(n == 0)
+//         return 0;
+//      if( n % 9 == 0)
+//           return 9;
      
-     return(n % 9);
-}
-int main(){
-     int n = 54;
-     cout << digitalroot(n);
-}
+//      return(n % 9);
+// }
+// int main(){
+//      int n = 54;
+//      cout << digitalroot(n);
+// }       // T.C - O(1)   S.C - O(1)
+
+

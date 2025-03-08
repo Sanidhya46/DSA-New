@@ -1,4 +1,4 @@
-//    1). Skip Alternates elements of an array
+//      1). Skip Alternates elements of an array
 #include <iostream>
 #include<vector>
 #include<bits/stdc++.h>

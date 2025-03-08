@@ -1,1 +1,7 @@
 g++ logicbuilding.cpp -o logicbuilding; ./logicbuilding.exe      //direct run the file
+git push -u origin master
+
+git pull --rebase origin master  # Fetch and rebase remote changes
+git add .
+git commit -m "Updated entire codebase"
+git push origin master  # Push normally without erasing history

@@ -401,18 +401,149 @@ constraints
 1<= N <= 10^5
 */
 
-int main(){
+// int main(){
     
-    int n; 
-    cin >> n;
-    long long fact = 1;  // creates a constant space in memory of 8mb to store large integer values
-    int m = 1e9 + 7;  // taking given modulo integer as int
+//     int n; 
+//     cin >> n;
+//     long long fact = 1;  // creates a constant space in memory of 8mb to store large integer values
+//     int m = 1e9 + 7;  // taking given modulo integer as int
 
-    for(int i = 1; i<= n; i++){   //* for factorial loop never start from 0 
-        fact = (fact*i)%m;
-    }
-    cout << fact;
-}
+//     for(int i = 1; i<= n; i++){   //* for factorial loop never start from 0 
+//         fact = (fact*i)%m;
+//     }
+//     cout << fact << endl;
+// }  //*T.C - O(T*N)-- 10^10 iterations --- code does not runs in one second 
 //  what i learn - 1). fact grows exponentially causes overflow when deal with factorial so we using long long variable;
 //                 2). for factorial loop never start from 0
 //                 3). long long fact - creates an constant space of 8mb in memory to store large integer values
+
+//               **** why to compute *** 
+//    1). if we have to factorial of same numbers the loop run for many times -- so we can put already pre computed value rater than recalculation
+//    2). we can already store and compute the value of all factorial numbers
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+//     const int m = 1e9 + 7;
+//     const int N = 1e5 + 10;  // we are taking large array
+//     // long long fact[N]; // N is run time constant  // we already compute all the factorial
+//     #define N 100000
+//     // Note* - global arrays requires a size that is a true compile-time constant 
+//     long long fact[N];
+// int main(){
+   
+    
+//       fact[0] = fact[1] = 1;
+//       for(int i= 2; i< N; i++){   // after running loop we have already store factorial of all 1e5 numbers
+//         fact[i] = fact[i-1] * i;
+//       }
+//       int t;
+//       cin >> t;
+//       while(t--){
+//         int n;
+//         cin >> n;
+//         cout << fact[n] << endl;   // we are passing that number into function
+//       }
+// }
+
+// int n;
+// const int m = 1e9 + 7;    // const is run time constant 
+// #define N 100000
+// long long fact[N];   // we are taking large array for pre computations
+// int main(){
+// fact[0] = fact[1] = 1;  // we are associating value of 1 in 0 and 1 both index of factorial array
+// for(int i = 2; i<N; i++){
+//     fact[i] = fact[i-1]*i;
+// }
+// int t;
+// cin >> t;
+// while(t--){
+//     int n;
+//     cin >> n;
+//     cout << fact[n]<< endl;
+// }
+// }    // T.C - 10^10   OLD
+        // T.C - O(N) + O(T) = 10^5 + 10^5
+   
+/*Given array a of N integers. given Q queries and in each queery given a number X,
+ print count of that number in array.
+Constraints 
+1 <= N <=  10^5 
+1<= a[i] <= 10^7
+1<= Q <= 10^5
+*/
+
+//              Brute force 
+// int main(){
+//     int n;
+//     cin >> n;
+//     vector<int> a(n);
+//     for(int i =0; i<n; i++ ){
+//         cin >> a[i];
+//     }
+//     int q;
+//     cin >> q;
+//     while(q--){
+//         int x;
+//         cin >> x;
+//         int ct=0;
+//         for(int i=0; i<n; i++){
+//             if(a[i] == x){
+//                 ct++;
+//             }
+//         }
+//         cout << ct << endl;
+//     }
+// }  // T.c - O(n) + O(Q*N) - O(n^2)
+
+// * by hash array we can do pre computation
+//                 ***** Steps For Hashing  *****
+// 1). define constant replaced with large value before compilation , used for defining constant without extra memory
+// 2). declare an hash array
+// 3). place an storable counter for each value of array
+
+// #define N 10000000  
+// int hsh[N];
+
+// int main(){
+//     int n;
+//     cin >> n;
+//     vector<int> a(n);
+//     for(int i=0; i<n; i++){  // i must be less than n, because we are taking input for n number of integers
+//           cin >> a[i];
+//           hsh[a[i]]++;  // this is an storable counter placed for each value of array
+//     }
+//     int Q;
+//     cin >> Q;
+//     while(Q--){
+//         int x;
+//         cin >> x;
+     
+//         cout << hsh[x] << endl; //we are output the value of counter for particular value ,  we are avoiding loop for each operation so we are doing this in O(1) for hashing
+//     }
+// }
+
+//                   *practice
+// #define N 100000
+// vector<int> hsh(N);
+// int main(){
+//     int n;
+//     cin >> n;   // n is size of array
+//     int a[n];
+// for(int i = 0; i<n; i++){
+//     cin >> a[i];
+//     hsh[a[i]]++;  // place an storable counter for each value of array a
+// }
+// int q;
+// cin >> q;
+// while(q--){
+//     int x;
+//     cin >> x;
+//     cout << hsh[x] << endl;
+// }
+// }  //T.C - O(N) + O(q)  --  O(N) -- 2*10^5
+
+
+
+

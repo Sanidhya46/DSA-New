@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//      *Approach - 1   Sorting O(nlogn)
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        sort(s.begin(), s.end());
+        sort(t.begin(), t.end());
+
+        return s==t;   // it already return true if condition matched
+    }
+};  // T.C -O(nlogn)   S.C - O(1)
+
+
+
+//        *Approach - 2     hashmap O(n)
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+       vector<int> count(26,0);
+       int n = s.size();
+       for(int i =0; i<n; i++){
+            count[s[i]-'a']++; // incrementic value = 1 if same value found , a is an base character
+            count[t[i]-'a']--;
+
+       }
+       bool allZeroes = all_of(begin(count),end(count), [](int element){
+        return element == 0;  // if return element is 0 return true
+       });
+       return allZeroes;
+    }
+};  // T.C -O(n)   S.C - O(1)
+
+//      **** what i learn 
+// 1). we can create key vs value pair all alphabates -- using count[s[i]-'a']++ and also do by iteration for &ch
+// 2). if we put a true condition in returns then it returns true automatically
+// 3). In C++ it characters store into ascii value
