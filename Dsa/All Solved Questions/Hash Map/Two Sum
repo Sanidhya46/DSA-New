@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Solution {
+     public:
+         vector<int> twoSum(vector<int>& nums, int target) {
+           unordered_map<int, int> mp;
+           int n = nums.size();
+            for(int i=0; i< n; i++){
+                if(mp.count(target - nums[i]))
+                    return {mp[target - nums[i]], i}; // we are returning the index in which already exist element are present and , current index for second element
+                    mp[nums[i]] = i;   // making the key value pair , key - vlaue of nums[i], value - current index   
+            }
+            return  {};
+         }
+        };
+//   T.C - O(n)
+
+//*** what i learn ***
+// 1). mp[value] - gives value of map
+// 2). mp[nums[i]] =  i  storing key value , key - value of nums[i] , value - indes of current iteration
+// 3). mp.count can be used for checking element is exist or not

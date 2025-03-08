@@ -5,3 +5,7 @@
 5). Pass by value only sends copy of value , but for refrences it completely change the value in other function
 6). In c pointer is used for referene but in c++ we using & empersand.
 7). swap(a, b) returns void cout expects to displaying integer values.
+8). arrays never passed by pass by value always passed by pass by reference.
+9). declare array globally to away from passing in function.
+10). Declare array globally good for competitive programming but not for software developer
+11). you can prevent stack overflow by heap memory.

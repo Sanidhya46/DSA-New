@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//         Approach - 1 * Hashing ... O(n), O(n)
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+    unordered_map<int ,int> map;
+     int n = nums.size();
+     for(int i = 0; i< n; i++){
+        if(map.count(nums[i]))
+          return true;
+          map[nums[i]] = i;
+     }
+    }
+};  // T.C -  O(n)
+
+//        Approach - 2 * Sorting  ... O(nlogn)
+
+
+// *** what i learn .
+// 1. counts only return 1 or 0
+//  if(nums[i] == mp.count(nums[i]))  incorrect logic because it compares value with exist value or not
+

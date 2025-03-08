@@ -243,5 +243,5 @@ int main() {
     }else{
         temp = y/x;
     }
-    return temp;
+    cout << temp;
 }

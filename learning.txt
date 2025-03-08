@@ -1,8 +1,35 @@
-1).PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> g++ basics.cpp -o basics   # Compiles the code
-   PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> .\basics
-2).returning statement inside  the for loop imediately exits the main function
+1). PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> g++ basics.cpp -o basics   # Compiles the code
+    PS C:\Users\sanid\OneDrive\Desktop\C++ gfg> .\basics
+2). returning statement inside  the for loop imediately exits the main function
 3). returning statement with no value in int functioin returning error
 4). when you want to work on every iteration you have to make an variable  to storing the result on every iteration
 5). calling function is used for making compiler to jump on particular function
 6). by passing & then this variable can modify in calling function
-7). 
+7). in c++ don't use comma in returning function
+8). pass by value do not effect the out side function
+9). for using string type must requires #include <string> , #define does not use semicolon and does not initialised inside a function
+10). #include uses angle brackets <> or double quotes ""
+11). constexpr requires compile time constant expression , string is not compile time  constant because it involves dynamic memory allocation
+12). using empty string -- i).use of base strings for recursion,  loop and concatenation
+                           ii). function should result empty data instead of garbage data
+                           iii). for storing user input or modifying strings value safely
+13). for backtracking -- i). base case     ii). recursive case     iii). backtrack
+14). math library is present in <cmath>
+15). returing function parameter and function parameter is always same
+16). while working on  while loop  think about an loop_condition(When it turns false)
+17). sqrt function returns in double so function must  be in double
+18). recursive function must be return something
+19). for printing the result of each call just put cout before the returning statement
+20). return is used for stopping the condition of loop or function
+21). Functions like log() and exp() can introduce small precision errors.
+22). In while loop if you found a match or operation then decrease or increase the counterbecause it started giving the same output again and again. 
+23). Increament and decreament always inside the while loop.
+24). In which type of function all input variation lies.
+25). for handling edge cases of while loop like 0 we use for loop.
+26). total digit = (int)log10(num) + 1 , to_string(abs(n)).length();
+27). initialise variable inside loop is update on every iteration
+28). references never be null or uninitialised in code
+29). if you want to do each things put the things inside a loop
+*30). if you stores character as integer 
+31). Note* - global arrays requires a size that is a true compile-time constant (#define , constexpr)
+35). In C++, curly braces {} are a shorthand syntax for list initialization (also known as brace-enclosed initializer list) for containers like vector, array, etc.
