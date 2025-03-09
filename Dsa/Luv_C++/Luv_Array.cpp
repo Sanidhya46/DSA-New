@@ -544,6 +544,127 @@ Constraints
 // }
 // }  //T.C - O(N) + O(q)  --  O(N) -- 2*10^5
 
+//               Video no. 19    ||   how to store negative number in  hashing
+// 1). do by stl , map & unordred map 
+// 2). add positive value of largest negative number to all elements and when want output add negative of that no. to all no.
+
+//               Video no. 20    ||   
+/* array a to n integers. given q queries and in each query given l & R print sum of array elements from index L to R(L,R included)
+constraintss 
+1 <= 10^5
+1 <= a[i] <= 10^9
+1 <= Q <= 10^5
+1 <= L, R <= N
+*/
+// *Note - In prefix sum type question use 1 based array
+
+// #define N 100000
+// int a[N];
+// int main(){
+//         int n;
+//         cin >> n;
+//         for(int i= 1; i<=n; i++){  // we i starts from 1 because we are taking 1 index based array
+//                 cin >> a[i];   // we are taking value of each iteration in input
+//         }
+//         int q;
+//         cin >> q;
+//         while(q--){
+//                 int l, r;
+//                 cin >> l >> r;
+//                 int sum = 0;
+//                 for(int i=l; i<=r; i++ ){
+//                     sum = sum + a[i];  // in every  iteration add previous element to new element
+//                 }
+//                 cout << sum << endl;
+//         }
+//         // O(N) + O(Q*N) = 10^10
+
+// }
+
+//                   **** Prefix Sum array *****
+// 1). we can find prefix sum array by adding previous element with new element and storing into index.
+// 2). we can also find sum of element from particular index l to index r by subtracting sum of value of index l - 1 from value at index r
 
 
+// #define N 100000
+// int a[N];
+// int pf[N];
+// int main(){
+//         int n ;
+//         cin >> n;
+//         for(int i= 1; i<= n; i++){
+//                 cin >> a[i];
+//                 pf[i] = pf[i-1] + a[i];  //** it already handels pf[0] so we are preferiring 1 array based index  */
+//         }
+//         int q;
+//         cin >> q;
+//         while(q--){
+//                 int l, r;
+//                 cin >> l, r;
+//                 cout << pf[r] - pf[l-1] << endl;
+//         }
+//         // O(N) + O(Q) = 10^5  it runs in one second
+
+// }
+//               2). Prefix sum in 2d arrays
+
+//   Q).2  have 2d array of n*n integers . a , b,  c, d points printssum of square
+//         represented by (a,b) as top left point  and (c,d) as bottoom right point
+// constraints
+// 1 <= N <= 10^3
+// 1 < a[i][j] <= 10^9
+// 1 <= Q <= 10^5
+// 1 <= a,b,c,d <=  N
+
+// Brute force - run loop from point a to c and from point b to d and storing sum of i and j in every index
+// #define N 1000
+// int ar[N][N];
+// int pf[N];
+// int main(){
+//         int n;
+//         cin >> n;
+//         for(int i= 1; i<=n; i++){
+//           for(int j= 1; j<=n; j++){
+//                 cin >> ar[i][j];
+//           }
+//         }
+//         int q;
+//         cin >> q;
+//         while(q--){
+//         int a,b,c,d;
+//         cin >> a >> b >> c >> d;
+//         long long sum = 0;
+//         for(int i=a; i<=c; i++){
+//                 for(int j =b; j<= d; j++){
+//                         sum += ar[i][j];
+//                 }
+//         }
+//         cout << sum << endl;
+//     }
+//      // O(N^2) + O(Q*N^2) = 10^5 * 10^6 = 10 ^11  not run in one second
+// }
+
+#define N 1000
+int ar[N][N];
+int pf[N][N];
+int a[N][N];
+int main(){
+        int n;
+        cin >> n;
+        for(int i= 1; i<=n; i++){
+          for(int j= 1; j<=n; j++){
+                cin >> ar[i][j];
+                pf[i][j] = ar[i][j] + pf[i-1][j]+ pf[i][j-1] - pf[i-1][j-1];
+          }
+        }
+        int q;
+        cin >> q;
+        while(q--){
+        int a,b,c,d;
+        cin >> a >> b >> c >> d;
+        cout << pf[c][d] - pf[a-1][d] - pf[c][b-1] -pf[a-1][b-1];
+       
+    }
+     // O(N^2) + O(Q*N^2) = 10^5 * 10^6 = 10 ^11  not run in one second
+}
 

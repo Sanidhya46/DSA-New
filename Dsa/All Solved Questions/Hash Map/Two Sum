@@ -16,6 +16,6 @@ class Solution {
 //   T.C - O(n)
 
 //*** what i learn ***
-// 1). mp[value] - gives value of map
+// 1). mp[value] - gives index of value in map
 // 2). mp[nums[i]] =  i  storing key value , key - value of nums[i] , value - indes of current iteration
 // 3). mp.count can be used for checking element is exist or not

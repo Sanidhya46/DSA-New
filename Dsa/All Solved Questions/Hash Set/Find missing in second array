@@ -1,0 +1,46 @@
+//              Approach - 1   ||   Brute force   O(N^2)
+class Solution {
+
+    public:
+      vector<int> findMissing(vector<int>& a, vector<int>& b) {
+          vector<int> result;
+          int n = a.size();
+          for(int i = 0; i<n; i++){
+              bool found = false;  // on first making it false for marking when condition is true
+              for(int j= 0; j<b.size(); j++){
+                  if(a[i] == b[j]){   // while iteration any value is matched then returns true
+                  found = true;
+                  break; // stop searching in j and for restart searching in i
+              }
+              
+          }
+          if(!found){
+              result.push_back(a[i]);
+          }
+       
+          }
+          return result;
+          
+      }
+  };
+
+
+#include<bits/stdc++.h>
+using namespace std;
+//              Approach - 2  || Hash Set 
+class Solution {
+
+  public:
+    vector<int> findMissing(vector<int>& a, vector<int>& b) {
+        // Your code goes here
+        unordered_set<int> elements_in_b(b.begin(),b.end());
+        vector<int> result;
+        for(int num : a){
+            if(elements_in_b.find(num) == elements_in_b.end()){ // checking in set for n elements - O(n) // it search for num element in b set while iterating through a if no elements found return end 
+               result.push_back(num);
+            } 
+        }
+        return result;
+    }
+};  // T.C - O(N + M) inserting b elements + checking n elements   S.C - O(N + M)
+// iterator is an points like object that points element in a container 
