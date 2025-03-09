@@ -1,0 +1,27 @@
+// just observed we have to just print Yes when a character repeat for more than one times
+
+#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+	int t;
+	cin >>  t;
+	while(t--){
+	string s;
+	cin >> s;
+	vector<int> result(26,0);
+	bool found = false;   // first make found equal to false
+    for(char &ch: s){
+		result[ch - 'a']++; // place it on top for counting
+		if(result[ch - 'a'] > 1){  // in result ve
+			cout << "Yes" << endl;
+			found = true; // when it finds the element it becames true
+	        // it storing the character with frequencies in result vector,  increment the frequency after each iteration
+			break;
+		}
+	}
+	if(!found){
+		cout << "No" << endl;
+	}
+  }
+}
