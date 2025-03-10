@@ -644,27 +644,103 @@ constraintss
 //      // O(N^2) + O(Q*N^2) = 10^5 * 10^6 = 10 ^11  not run in one second
 // }
 
-#define N 1000
-int ar[N][N];
-int pf[N][N];
-int a[N][N];
-int main(){
-        int n;
-        cin >> n;
-        for(int i= 1; i<=n; i++){
-          for(int j= 1; j<=n; j++){
-                cin >> ar[i][j];
-                pf[i][j] = ar[i][j] + pf[i-1][j]+ pf[i][j-1] - pf[i-1][j-1];
-          }
-        }
-        int q;
-        cin >> q;
-        while(q--){
-        int a,b,c,d;
-        cin >> a >> b >> c >> d;
-        cout << pf[c][d] - pf[a-1][d] - pf[c][b-1] -pf[a-1][b-1];
+// #define N 1000
+// int ar[N][N];
+// int pf[N][N];
+// int a[N][N];
+// int main(){
+//         int n;
+//         cin >> n;
+//         for(int i= 1; i<=n; i++){
+//           for(int j= 1; j<=n; j++){
+//                 cin >> ar[i][j];
+//                 pf[i][j] = ar[i][j] + pf[i-1][j]+ pf[i][j-1] - pf[i-1][j-1];
+//           }
+//         }
+//         int q;
+//         cin >> q;
+//         while(q--){
+//         int a,b,c,d;
+//         cin >> a >> b >> c >> d;
+//         cout << pf[c][d] - pf[a-1][d] - pf[c][b-1] -pf[a-1][b-1];
        
-    }
-     // O(N^2) + O(Q*N^2) = 10^5 * 10^6 = 10 ^11  not run in one second
+//     }
+//      // O(N^2) + O(Q) = 10^6 + 10^5 = 10^6  run in one second
+// }
+
+
+//              *codechef - (GCDQ) (medium) Prefix computation  (find gcd after excluding value between l to r)
+//           * Approach - 1 (Brute Force)  (running two loop from 0 to l-1 and r+1 to n and storing gcd of previous element with current element)
+// #include<numeric>
+// int main(){
+//         int t;
+//         cin >> t;
+//         while(t--){
+//                 int n, q;
+//                 cin >> n >> q;
+//                 int a[n+10];
+//                 int forward[n+10];
+//                 int backward[n+10];
+//                 forward[0] = backward[n+1] = 0;   // gcd of 0 and last element is zero
+//                 for(int i = 1; i<=n; i++){   // for working on computation type question we are taking 1 array based index
+//                      cin >> a[i];   
+
+//                 }
+//                 for(int i = 1; i <= n; i++){
+//                         forward[i] = __gcd(forward[i - 1], a[i] ); 
+//                 }
+
+//                 while(q--){
+//                         int l,r;
+//                         cin >> l >> r;
+//                         int gc = 0;
+//                         for(int i = 1; i<= l-1; i++){
+//                                 gc = __gcd(gc, a[i]);  // modifying gc on each iteration
+//                         }
+//                         for(int j= r+ 1; j<=n; j++){
+//                                 gc = __gcd(gc, a[j]);   // store gcd of each element with comparing with current element
+//                         }
+//                         cout << gc << endl;
+
+//                          // their complexity is maximum of log(a,b)
+
+//                 }
+//                 //  T.C = O(T * (O(N + Q* (N*logn))) = O(T * N + T*Q*N) = N^3 = 100^3 = 1000000 = 10^6 which runs in one second
+//         }
+// }
+//   **Note - If sum of all test cases will be <= 10^6 .... then we can ignore time complexity of O(T) 
+
+//                * Approach - 2  ||  Precomputation    (making two array foward and backward wich already stores gcd from 0 to n and from n to i , and return value of l - 1 and r + 1 ) 
+#include<numeric>
+int main(){
+        int t;
+        cin >> t;
+        while(t--){
+                int n, q;
+                cin >> n >> q;
+                int a[n+10];
+                int forward[n+10];
+                int backward[n+10];
+                forward[0] = backward[n+1] = 0;   // gcd of 0 and last element is zero
+                for(int i = 1; i<=n; i++){   // for working on computation type question we are taking 1 array based index
+                     cin >> a[i];   
+
+                }
+                for(int i = 0; i <= n; i++){  // first we are prefix forward gcd array for all elements 
+                     forward[i] = __gcd(forward[i - 1] ,a[i]);
+
+                }
+                for(int i = n; i >= 1; i--){
+                     backward[i] = __gcd(backward[i+1],a[i]);
+                }
+                while(q--){
+                        int l,r;
+                        cin >> l >> r;
+                        int gc = 0;
+                        cout << __gcd(forward[l - 1], backward[r + 1]) << endl;
+                }
+                // T.C = O(T *(N + Q = N) = < 10^6
+        }
 }
+
 
