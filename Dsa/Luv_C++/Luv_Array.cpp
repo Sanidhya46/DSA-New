@@ -711,36 +711,133 @@ constraintss
 //   **Note - If sum of all test cases will be <= 10^6 .... then we can ignore time complexity of O(T) 
 
 //                * Approach - 2  ||  Precomputation    (making two array foward and backward wich already stores gcd from 0 to n and from n to i , and return value of l - 1 and r + 1 ) 
-#include<numeric>
+// #include<numeric>
+// int main(){
+//         int t;
+//         cin >> t;
+//         while(t--){
+//                 int n, q;
+//                 cin >> n >> q;
+//                 int a[n+10];
+//                 int forward[n+10];
+//                 int backward[n+10];
+//                 forward[0] = backward[n+1] = 0;   // gcd of 0 and last element is zero
+//                 for(int i = 1; i<=n; i++){   // for working on computation type question we are taking 1 array based index
+//                      cin >> a[i];   
+
+//                 }
+//                 for(int i = 0; i <= n; i++){  // first we are prefix forward gcd array for all elements 
+//                      forward[i] = __gcd(forward[i - 1] ,a[i]);
+
+//                 }
+//                 for(int i = n; i >= 1; i--){
+//                      backward[i] = __gcd(backward[i+1],a[i]);
+//                 }
+//                 while(q--){
+//                         int l,r;
+//                         cin >> l >> r;
+//                         int gc = 0;
+//                         cout << __gcd(forward[l - 1], backward[r + 1]) << endl;
+//                 }
+//                 // T.C = O(T *(N + Q = N) = < 10^6
+//         }
+// }
+
+
+
+// const int N = 1e7 + 10;  // you can not declare large values locally
+// long long int ar[N];  // *Note global arrays always initialise with 0;
+
+// int main(){
+//         int n, m;
+//         cin >> n >> m;
+//         while(m--){
+//                 int a, b, d;
+//                 cin >> a >> b >> d;
+//                 for(int i = a; i<= b; i++){
+//                         ar[i] = ar[i] + d;
+//                 }
+//         }
+//         long long mx = -1;  //** It ensuring for any valid non negative numbers
+//         for(int i= 1; i<= n; ++i){
+//                 if(mx < ar[i]){   // if any element is found greater than previou mx
+//                         mx = ar[i];   // update ar[i]
+//                 }
+//         }
+//         // for(int num : ar){
+//         //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+//         //       mx = num;
+//         //      }
+//         // }
+//         cout << mx << endl;
+// }
+
+//                ** Practice
+// const int N = 1e7 + 10;  // you can not declare large values locally
+// long long int ar[N];  // *Note global arrays always initialise with 0;
+
+// int main(){
+//         int n, m;
+//         cin >> n >> m;
+//         while(m--){
+//                 int a, b, d;
+//                 cin >> a >> b >> d;
+//                 for(int i=a; i<=b; i++){
+//                         ar[i] = ar[i] + d;   // on each iteration we are addding current element + d element 
+//                 }
+//         }
+//                 long long mx = -1;  // for make only valid for non negative integers
+//                 for(int i = 0; i<=n; i++){
+//                         if(mx < ar[i]){
+//                                 mx = ar[i];
+//                         }
+//                 }
+//         // for(int num : ar){
+//         //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+//         //       mx = num;
+//         //      }
+//         // }
+        
+
+        
+//         cout << mx << endl;
+//         // T.C = O(m*n + n) = 2*10^5 * 10^7
+// }
+//           **Approach - 2 Precomputation prefix sum()
+
+const int N = 1e7 + 10;  // you can not declare large values locally
+long long int ar[N];  // *Note global arrays always initialise with 0;
+
 int main(){
-        int t;
-        cin >> t;
-        while(t--){
-                int n, q;
-                cin >> n >> q;
-                int a[n+10];
-                int forward[n+10];
-                int backward[n+10];
-                forward[0] = backward[n+1] = 0;   // gcd of 0 and last element is zero
-                for(int i = 1; i<=n; i++){   // for working on computation type question we are taking 1 array based index
-                     cin >> a[i];   
-
+        int n, m;
+        cin >> n >> m;
+        while(m--){
+                int a, b, d;
+                cin >> a >> b >> d;
+                ar[a] += d;
+                ar[b + 1] -= d;
+                
+                for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
+                        ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
                 }
-                for(int i = 0; i <= n; i++){  // first we are prefix forward gcd array for all elements 
-                     forward[i] = __gcd(forward[i - 1] ,a[i]);
-
-                }
-                for(int i = n; i >= 1; i--){
-                     backward[i] = __gcd(backward[i+1],a[i]);
-                }
-                while(q--){
-                        int l,r;
-                        cin >> l >> r;
-                        int gc = 0;
-                        cout << __gcd(forward[l - 1], backward[r + 1]) << endl;
-                }
-                // T.C = O(T *(N + Q = N) = < 10^6
         }
+                long long mx = -1;  // for make valid for *(any) non negative integers
+                for(int i = 0; i<=n; i++){
+                        if(mx < ar[i]){
+                                mx = ar[i];
+                        }
+                }
+        // for(int num : ar){
+        //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+        //       mx = num;
+        //      }
+        // }
+        
+
+        
+        cout << mx << endl;
+        // T.C = O(m + n) = 2*10^5 + 10^7 ~ 10^7  *(So IT RUNS)
 }
+
 
 
