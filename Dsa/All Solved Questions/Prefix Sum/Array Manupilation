@@ -1,0 +1,66 @@
+//         ** Brute Force
+
+// const int N = 1e7 + 10;  // you can not declare large values locally
+// long long int ar[N];  // *Note global arrays always initialise with 0;
+
+int main(){
+        int n, m;
+        cin >> n >> m;
+        while(m--){
+                int a, b, d;
+                cin >> a >> b >> d;
+                for(int i = a; i<= b; i++){
+                        ar[i] = ar[i] + d;
+                }
+        }
+        long long mx = -1;  //** It ensuring for any valid non negative numbers
+        for(int i= 1; i<= n; ++i){
+                if(mx < ar[i]){   // if any element is found greater than previou mx
+                        mx = ar[i];   // update ar[i]
+                }
+        }
+        // for(int num : ar){
+        //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+        //       mx = num;
+        //      }
+        // }
+        cout << mx << endl;
+}
+
+
+//             ** Precomputation + hashing   O(n)
+
+const int N = 1e7 + 10;  // you can not declare large values locally
+long long int ar[N];  // *Note global arrays always initialise with 0;
+
+int main(){
+        int n, m;
+        cin >> n >> m;
+        while(m--){
+                int a, b, d;
+                cin >> a >> b >> d;
+                ar[a] += d;
+                ar[b + 1] -= d;  //using difference array technique range update*  
+                  
+        }
+        //*Note - Things about prefix sum are calculate about 1 times or each times -- if each times put under q-- for one time pur out of q--
+        for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
+                ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
+        }
+                long long mx = -1;  // for make valid for *(any) non negative integers
+                for(int i = 1; i<=n; i++){
+                        if(mx < ar[i]){
+                                mx = ar[i];
+                        }
+                }
+        // for(int num : ar){
+        //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+        //       mx = num;
+        //      }
+        // }
+        
+
+        
+        cout << mx << endl;
+        // T.C = O(m + n) = 2*10^5 + 10^7 ~ 10^7  *(So IT RUNS)
+}
