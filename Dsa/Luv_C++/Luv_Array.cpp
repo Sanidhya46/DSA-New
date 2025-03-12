@@ -815,14 +815,15 @@ int main(){
                 int a, b, d;
                 cin >> a >> b >> d;
                 ar[a] += d;
-                ar[b + 1] -= d;
-                
-                for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
-                        ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
-                }
+                ar[b + 1] -= d;  //using difference array technique range update*  
+
+        }
+        //*Note - Things about prefix sum are calculate about 1 times or each times -- if each times put under q-- for one time pur out of q--
+        for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
+                ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
         }
                 long long mx = -1;  // for make valid for *(any) non negative integers
-                for(int i = 0; i<=n; i++){
+                for(int i = 1; i<=n; i++){
                         if(mx < ar[i]){
                                 mx = ar[i];
                         }
@@ -839,5 +840,68 @@ int main(){
         // T.C = O(m + n) = 2*10^5 + 10^7 ~ 10^7  *(So IT RUNS)
 }
 
+//      Prefix sum + hashing palindrome in a range
+// int main(){
+//         int t;
+//         cin >> t;
+//         while(t--){
+//                 int n, q;
+//                 cin >> n >> q;
+//                 string s;
+//                 cin >> s;
+//                 int hsh[26];
+//                 while(q--){
+//                         int l,r;
+//                         cin >> l >> r;
+//                  for(int i =0; i< 26; i++){
+//                         hsh[i] = 0;
+//                  }
+//                  l--;r--;  // our l and r 1 based index so we aree decreasing 1 by 1 on both 
+//                  // we are hashing all character from l to r
+//                  for(int i =l; i<=r; i++){
+//                         hsh[s[i]-'a']++; //  increasing the count of index at which character is present
+//                  }
+//                  int oddct = 0;
+//                  for(int i =0; i<26; i++){
+//                         if(hsh[i]%2 != 0) oddct++;
+//                  }
+//                  if(oddct > 1)  cout << "No\n";
+//                  else cout << " Yes\n";
+//                 }
+//         }
+// }
+
+int main(){
+        int t;
+        cin >> t;
+        while(t--){
+                int n, q;
+                cin >> n >> q;
+                string s;
+                cin >> s;
+                int hsh[26];
+                while(q--){
+                        int l,r;
+                        cin >> l >> r;
+                        for(int i =0; i<= n; i++){
+                                hsh[i] = 0;
+                        }
+
+                        for (int i= l; i<= r; i++){
+                                hsh[s[i]-'a']++;   // it increases the index at which particular charater is present 
+                        }
+                        int oddct = 0;
+                        for(int i = 0; i< 26; i++){
+                              if(hsh[i]%2 != 0){
+                                oddct++;
+                              }
+                        }
+                        
+
+                 if(oddct > 1)  cout << "No\n";
+                 else cout << " Yes\n";
+                }
+        }
+}
 
 
