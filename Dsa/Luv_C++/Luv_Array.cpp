@@ -805,42 +805,72 @@ constraintss
 // }
 //           **Approach - 2 Precomputation prefix sum()
 
-const int N = 1e7 + 10;  // you can not declare large values locally
-long long int ar[N];  // *Note global arrays always initialise with 0;
+// const int N = 1e7 + 10;  // you can not declare large values locally
+// long long int ar[N];  // *Note global arrays always initialise with 0;
 
-int main(){
-        int n, m;
-        cin >> n >> m;
-        while(m--){
-                int a, b, d;
-                cin >> a >> b >> d;
-                ar[a] += d;
-                ar[b + 1] -= d;  //using difference array technique range update*  
+// int main(){
+//         int n, m;
+//         cin >> n >> m;
+//         while(m--){
+//                 int a, b, d;
+//                 cin >> a >> b >> d;
+//                 ar[a] += d;
+//                 ar[b + 1] -= d;  //using difference array technique range update*  
 
-        }
-        //*Note - Things about prefix sum are calculate about 1 times or each times -- if each times put under q-- for one time pur out of q--
-        for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
-                ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
-        }
-                long long mx = -1;  // for make valid for *(any) non negative integers
-                for(int i = 1; i<=n; i++){
-                        if(mx < ar[i]){
-                                mx = ar[i];
-                        }
-                }
-        // for(int num : ar){
-        //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
-        //       mx = num;
-        //      }
-        // }
+//         }
+//         //*Note - Things about prefix sum are calculate about 1 times or each times -- if each times put under q-- for one time pur out of q--
+//         for(int i=1; i<=n; i++){   //*Note for Prefix sum things about storing vaues of operations of all elements
+//                 ar[i] = ar[i - 1] + ar[i];   // on each iteration we are addding previous element with current element 
+//         }
+//                 long long mx = -1;  // for make valid for *(any) non negative integers
+//                 for(int i = 1; i<=n; i++){
+//                         if(mx < ar[i]){
+//                                 mx = ar[i];
+//                         }
+//                 }
+//         // for(int num : ar){
+//         //      if( num > mx){     //** It checks If any greaterr than previous number is found update the value*/
+//         //       mx = num;
+//         //      }
+//         // }
         
 
         
-        cout << mx << endl;
-        // T.C = O(m + n) = 2*10^5 + 10^7 ~ 10^7  *(So IT RUNS)
-}
+//         cout << mx << endl;
+//         // T.C = O(m + n) = 2*10^5 + 10^7 ~ 10^7  *(So IT RUNS)
+// }
 
-//      Prefix sum + hashing palindrome in a range
+// //      Prefix sum + hashing palindrome in a range
+// // int main(){
+// //         int t;
+// //         cin >> t;
+// //         while(t--){
+// //                 int n, q;
+// //                 cin >> n >> q;
+// //                 string s;
+// //                 cin >> s;
+// //                 int hsh[26];
+// //                 while(q--){
+// //                         int l,r;
+// //                         cin >> l >> r;
+// //                  for(int i =0; i< 26; i++){
+// //                         hsh[i] = 0;
+// //                  }
+// //                  l--;r--;  // our l and r 1 based index so we aree decreasing 1 by 1 on both 
+// //                  // we are hashing all character from l to r
+// //                  for(int i =l; i<=r; i++){
+// //                         hsh[s[i]-'a']++; //  increasing the count of index at which character is present
+// //                  }
+// //                  int oddct = 0;
+// //                  for(int i =0; i<26; i++){
+// //                         if(hsh[i]%2 != 0) oddct++;
+// //                  }
+// //                  if(oddct > 1)  cout << "No\n";
+// //                  else cout << " Yes\n";
+// //                 }
+// //         }
+// // }
+// //                       brute force 
 // int main(){
 //         int t;
 //         cin >> t;
@@ -853,55 +883,142 @@ int main(){
 //                 while(q--){
 //                         int l,r;
 //                         cin >> l >> r;
-//                  for(int i =0; i< 26; i++){
-//                         hsh[i] = 0;
-//                  }
-//                  l--;r--;  // our l and r 1 based index so we aree decreasing 1 by 1 on both 
-//                  // we are hashing all character from l to r
-//                  for(int i =l; i<=r; i++){
-//                         hsh[s[i]-'a']++; //  increasing the count of index at which character is present
-//                  }
-//                  int oddct = 0;
-//                  for(int i =0; i<26; i++){
-//                         if(hsh[i]%2 != 0) oddct++;
-//                  }
+//                         for(int i =0; i<= n; i++){
+//                                 hsh[i] = 0;
+//                         }
+
+//                         for (int i= l; i<= r; i++){
+//                                 hsh[s[i]-'a']++;   // it increases the index at which particular charater is present 
+//                         }
+//                         int oddct = 0;
+//                         for(int i = 0; i< 26; i++){
+//                               if(hsh[i]%2 != 0){
+//                                 oddct++;
+//                               }
+//                         }
+                        
+
 //                  if(oddct > 1)  cout << "No\n";
 //                  else cout << " Yes\n";
 //                 }
 //         }
 // }
 
-int main(){
-        int t;
-        cin >> t;
-        while(t--){
-                int n, q;
-                cin >> n >> q;
-                string s;
-                cin >> s;
-                int hsh[26];
-                while(q--){
-                        int l,r;
-                        cin >> l >> r;
-                        for(int i =0; i<= n; i++){
-                                hsh[i] = 0;
-                        }
-
-                        for (int i= l; i<= r; i++){
-                                hsh[s[i]-'a']++;   // it increases the index at which particular charater is present 
-                        }
-                        int oddct = 0;
-                        for(int i = 0; i< 26; i++){
-                              if(hsh[i]%2 != 0){
-                                oddct++;
-                              }
-                        }
+//       Optimised by making 26 arrays which takes count of 
+// const int N = 1e7;
+// int hsh[N][26];  // total memory = 4 * 26 * 10^7 = 1.04 gb
+// int main(){
+//         int t;
+//         cin >> t;
+//         while(t--){
+//                 int n, q;
+//                 cin >> n >> q;
+//                 string s;
+//                 cin >> s;
+//                 for(int i = 0; i<n; i++){
+//                         hsh[i+1][s[i]-'a']++;  // at s[i-'a'] th array , we are increasing count at index i + 1 
+//                 }
+//                 for(int i=0; i< 26; i++ ){
+//                         for(int j = 1; j<=n ; j++){
+//                                 hsh[j][i] += hsh[j-1][i];  //**At ith array we are adding jth value at j-1 index  */
+//                         }
+//                 }
+//                 while(q--){
+//                         int l,r;
+//                         cin >> l >> r;
+//                         for(int i= 0; i< n; i++ ){
+//                                 hsh[i+1][s[i]-'a']++;   // it increases value at s[i]-'a' vector at index i+1
+//                         }
+//                         for(int i=0; i<26; i++){  //**loop run for all characters */ // now we are iterating for all 26 characters 
+//                                 for(int j = 1; j<= n; j++){  // this loops runs for all size of vector
+//                                 hsh[j][i] += hsh[j-1][i];
+//                                 }
+//                         }
+//                         for(int i =0; i< 26; i++ ){   // the loop is run for counting the count of each character
+//                                int charCt= hsh[r][i] - hsh[l-1][i];
+//                                if(charCt % 2 != 0) charCt++;
+//                         }
+//                         int oddct = 0;
+//                         for(int i = 0; i< 26; i++){
+//                               if(hsh[i]%2 != 0){
+//                                 oddct++;
+//                               }
+//                         }
                         
 
-                 if(oddct > 1)  cout << "No\n";
-                 else cout << " Yes\n";
-                }
-        }
+//                  if(oddct > 1)  cout << "No\n";
+//                  else cout << " Yes\n";
+//                 }
+//         }
+// }
+
+//                   Video no. 25  || Recursion   
+//    **NOte - if first function calls second and second calls third and so on so in stack first address of first function are store then second then third
+//    **Note - Recursion are stored in stack
+//  1). Segementation fault --- memory full of stack 
+// function calls each function
+
+// void func(int n){
+//         if(n == 0) return;
+//       //  cout << n << endl;   // printing n first then recalling function
+//         func(n-1);
+//         //  when returning after function it prints into reverse..
+//         cout << n << endl;  // first print 1 after passing base condition .. func(1) prints 1.. then func(2) calls 7th line after func 1 .. then func 3 calls 8 line after func 2 
+// }
+// int main(){
+//         func(5);
+// }
+
+// int fact(int n){
+//         if(n==0)  return 1;   // if 0 then sends 1 otherwise do recursion
+//         return fact(n-1)*n;
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         cout << fact(n);
+// }
+// 1). Number of function calls -> n
+// 2). what is complexity of each function -> O(1)  total - O(n)
+//  note* - if for loops comes then their complexity O(n^2) 
+
+//       Video no- 26  ||  Digits Sum and Array Sum
+
+// Sum of array
+// sum(n,a) -> sum of elements in a uptil index
+// *sum(n,a) -> a[n] + sum(a,n-1)   sum(n,a) becames the current element + sum of n-1 elements 
+
+// int sum(int n, int a[]){
+//      if(n < 0) return 0;
+//      return sum(n-1,a) + a[n];
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//       ///  int a[n];   //*Note Vlas are not in standard in c++
+//       vector<int> a(n);
+//         for(int i = 0; i<n; i++){
+//                 cin >> a[i];
+//         }
+//         cout << sum(n-1, a.data());  // we are using .data method to pass vector as array // we want sum of n-1 index in array a
+//      //   cout << sum(2,a)     you can also get the some of the n-2 indexes 
+// }
+//   NUMbER of function calls -> number of digits in n
+//   what is complexity of each calls -> 1
+
+//  digit sum
+//  digit_sum(n) -> digit_sum(n/10) + last digit
+//  1234 - 4 + digitsum(123)
+
+int digit_sum(int n){
+       if(n==0) return 0;
+       return digit_sum(n/10) + (n%10);  // sum of digit n/10 + last digit
 }
-
-
+int main(){
+        int n;
+        cin >> n;
+        cout << digit_sum(n);
+}
+//  ** int only supports value to 10^9 after this shows int over flow
+// Number of function calls -> number of digits in n - log n
+// what is complexity of each function -> O(1)
