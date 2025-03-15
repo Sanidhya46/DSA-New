@@ -1010,15 +1010,45 @@ constraintss
 //  digit_sum(n) -> digit_sum(n/10) + last digit
 //  1234 - 4 + digitsum(123)
 
-int digit_sum(int n){
-       if(n==0) return 0;
-       return digit_sum(n/10) + (n%10);  // sum of digit n/10 + last digit
-}
-int main(){
-        int n;
-        cin >> n;
-        cout << digit_sum(n);
-}
+// int digit_sum(int n){
+//        if(n==0) return 0;
+//        return digit_sum(n/10) + (n%10);  // sum of digit n/10 + last digit
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         cout << digit_sum(n);
+// }
 //  ** int only supports value to 10^9 after this shows int over flow
 // Number of function calls -> number of digits in n - log n
 // what is complexity of each function -> O(1)
+
+//       Video no. - 27 ||  Selection sort
+//  1). Extracting first minimum element in unsorted array and put it into first element a[0] of the array
+//  2). Extracting minimum elements again and again and put into first index i= 0 of the array again and again , int mindex = i; // it stores the index of minimum element 
+//  3). placing j = i+1 and iterate to n if j element is less than the a[minIndex] (means it is less than the current minimum) then minIndex becomes j;
+//  4). then swapping current element with minIndex ,, means minimum element comes at ith position 
+
+int main(){
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for(int i=0; i<n; i++){
+                cin >> a[i];
+        }
+        for(int i=0; i<n; i++){
+                int minIndex =  i;  // we are mindex for storing minimum element 
+        
+        for(int j=i+1; j<n;j++ ){
+                if(a[j] < a[minIndex]){
+                        minIndex = j;    // minIndex becames j
+                }
+        }
+        swap(a[i],a[minIndex]);  // swap current with minimum element 
+        }
+        for(int i=0; i<n; i++){
+                
+                        cout << a[i] << "";
+                
+        }
+}
