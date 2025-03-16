@@ -1023,32 +1023,130 @@ constraintss
 // Number of function calls -> number of digits in n - log n
 // what is complexity of each function -> O(1)
 
-//       Video no. - 27 ||  Selection sort
+//       Video no. - 27 ||  Selection sort(sort the array in ascending order)
 //  1). Extracting first minimum element in unsorted array and put it into first element a[0] of the array
 //  2). Extracting minimum elements again and again and put into first index i= 0 of the array again and again , int mindex = i; // it stores the index of minimum element 
 //  3). placing j = i+1 and iterate to n if j element is less than the a[minIndex] (means it is less than the current minimum) then minIndex becomes j;
 //  4). then swapping current element with minIndex ,, means minimum element comes at ith position 
 
-int main(){
-        int n;
-        cin >> n;
-        vector<int> a(n);
-        for(int i=0; i<n; i++){
-                cin >> a[i];
-        }
-        for(int i=0; i<n; i++){
-                int minIndex =  i;  // we are mindex for storing minimum element 
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> a(n);
+//         for(int i=0; i<n; i++){
+//                 cin >> a[i];
+//         }
+//         for(int i=0; i<n; i++){
+//                 int minIndex =  i;  // we are mindex for storing minimum element 
         
-        for(int j=i+1; j<n;j++ ){
-                if(a[j] < a[minIndex]){
-                        minIndex = j;    // minIndex becames j
-                }
-        }
-        swap(a[i],a[minIndex]);  // swap current with minimum element 
-        }
-        for(int i=0; i<n; i++){
+//         for(int j=i+1; j<n;j++ ){
+//                 if(a[j] < a[minIndex]){
+//                         minIndex = j;    // minIndex becames j
+//                 }
+//         }
+//         swap(a[i],a[minIndex]);  // swap current with minimum element 
+//         }
+//         for(int i=0; i<n; i++){
                 
-                        cout << a[i] << "";
+//                         cout << a[i] << "";
                 
-        }
-}
+//         }
+// }        T.C = O(n^2)
+
+//       ***  Merge Sort 
+//   1). Merging - if there is two sorted array is given then how we can merge
+//        a). in two sorted as we start comparing from first index in both then the (minimum will placed first and start moving) and other is at is position and compare again  
+//        b). 
+//   2). Divide the array by half again and again until becames only one element 
+//        a). construct left array 
+//   3). Then again start merging sorted arrays
+
+// const int N = 1e5+10;   // we are implementing through recursion so we are globally declare
+// int a[N];
+
+// void merge(int l, int r, int mid){  //  we are taking one array from l to mid and one from mid+1 to r .. after merging we have to converted into one new array
+//         int l_sz = mid - l + 1;
+//         int L[l_sz + 1];
+//         int r_sz = r - (mid + 1) + 1;   // constructing right side array
+//         int R[r_sz + 1];  // we are declaring size of right side of array 
+//         for(int i =0; i<l_sz; i++){
+//                 L[i] = a[i+l];  // the first elements of a[l]
+//         }
+//         for(int i=0; i<r_sz; i++ ){
+//                 R[i] = a[i+mid+1];  // right array first element becomes i + mid + 1 this is get by putting i = 0;
+//         }
+//         L[l_sz] = R[r_sz] = INT_MAX;   //we are putting all other elements with max elements so we can put left elements of one array into it (left elements will always be minimum so it can put easily)
+//         // ** Now we have to sorted array from l to r 
+//         int l_i = 0; // this tells what is the first index of the first array (for keep tracking all indexes)
+//         int r_i = 0; // this tells what is the first index of the 
+//         for(int i =l; i<=r; i++){
+//               if(L[l_i] <= R[r_i]){  // if first element of left is shorter than first element of right
+//                 a[i] = L[l_i];   // it means the element is of left array
+//                 l_i++;
+//               }else{
+//                 a[i] = R[l_i];  // it means the element is of the right array 
+//               }
+//         }
+// }
+// void mergeSort(int l, int r){  // it says please sort l to r part of the array 
+//         if(l == r) return;  // because this is base wwe have to  not to do any thing
+//         int mid = (l+r) / 2;   // first we are find mid point 
+//         mergeSort(l,mid);  // then we are sorting the part from l to mid
+//         mergeSort(mid + 1, r);   // then we are sorting the part from mid + 1 to r
+//         merge(l,r,mid);
+// }
+// int main (){
+//         int n; 
+//         cin >> n;
+//         for(int i=0; i<n; i++){
+//                 cin >> a[i];
+//         }
+//         mergeSort(0, n-1); // we are calling mergeSort for 0 to n - 1;
+//         for(int i=0; i<n; i++){
+//                 cout << a[i] << ""; 
+//         }
+// }
+
+
+//           Video no. 28  || STL
+// 1). stl is an interrnal template library 
+// 2)   STL - 
+//           1). containers
+//           2). iterators
+//           3). Algorithms 
+//           4). functors
+//          1). Conatainers
+//                 sequential containers
+//                                a). Vectors 
+//                                b). stack
+//                                c). queue
+//                                d). pair (not a container)
+//                 ordered (maintain order)
+//                         a). maps
+//                         b). multimap
+//                         c). set 
+//                         d). multiset
+//                 unordered set
+//                         a). unordred map
+//                         b). unordered set
+//         2). Nested Containers
+
+//         3). Iterators
+//                   a). point to memory  address of containers 
+//                   b). begin(), end()
+//                   c). vector<int>::iterator it;  
+//                   d). continuity for containers 
+//         4). Algorithms 
+//                   a). upper bound  (for element just greater than or ) 
+//                   b). lower bound  ( used in binary search )  
+//                   c). sort(comparator *gives custom sorting behaviour) 
+//                   d). max_element 
+//                   e). min_element 
+//                   f). accumlate
+//                   g). reverse
+//                   h). count 
+//                   i). find   
+//                   j). next permutations 
+//                   k). press_permutations
+//         5). Functors
+//                   classes which can act as functions 
