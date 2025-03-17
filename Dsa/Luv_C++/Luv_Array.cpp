@@ -1150,3 +1150,63 @@ constraintss
 //                   k). press_permutations
 //         5). Functors
 //                   classes which can act as functions 
+
+//                Video no. 29  ||  Pairs and vectors
+//  1). Pair is used for storing two values 
+//  2). pair is used for maintaining relation between two things 
+// int main(){
+//       pair<int, string> p;   //declaration of pair
+//       p ={2, "sfsddfsd"};  // initialisation
+//       pair<int, string> &p1 =  p;  // if only  p1 = p then it creates copy but if reference is there then it just assign the value
+//       int a[] = {1,2,3};
+//       int b[] = {2,3,5};
+//       pair<int, int> p_array[3];
+//       p_array[0] = {1,2};
+//       p_array[1] ={2,3};
+//       p_array[2] = {3,4};
+//       swap(p_array[0],p_array[2]);  // pairs automatic maintain their relationn 
+//       for(int i=0; i<3; i++){
+//         cout << p_array[i].first << " " << p_array[i].second;
+//       }
+// }
+//                   Vectors 
+// 1). vectors is also have continuous memory location  , dynamic size nature 
+// 2). if vector declares locally - 10^5  and for globally - 10^7
+// 3). you can also create particular size of vector with any values filled and also their size updates with new operations
+// 4). you can copy a one vector into  another takes O(n) times
+// 5). & - same vector passing , v - copy of vector is passing
+
+void PrintVec(vector<int> &v){
+        cout << "size:" << v.size() << endl;
+        for(int i=0; i<v.size(); i++){
+            cout << v[i] << " " << endl;   // v.size() = O(1)
+        }
+        v.push_back(2);
+        cout << endl;
+}
+
+// int main(){
+//         int a[10]; // just the make the 10 block of array
+//         vector<int> v;  //now its zero it creates an dynamic size array
+//         int n;
+//         cin >> n;
+//         for(int i=0; i<n; i++){
+//                 int x;
+//                 cin >> x;
+//                 PrintVec(v);   // size increases simultaneously
+//                 v.push_back(x);  // T.C - O(1) just sends the value in the end of the array
+//         }
+       
+// }
+
+int main(){
+        vector<int> v(10);
+        v.push_back(7);
+        v.push_back(6);  //O(1)
+        PrintVec(v);
+        v.pop_back();  // O(1)
+        PrintVec(v);
+        vector<int> v2 = v;  // O(n) -- its copy every single element one by one
+        v2.push_back(9);
+        PrintVec(v2);
+}
