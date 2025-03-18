@@ -1176,14 +1176,14 @@ constraintss
 // 4). you can copy a one vector into  another takes O(n) times
 // 5). & - same vector passing , v - copy of vector is passing
 
-void PrintVec(vector<int> &v){
-        cout << "size:" << v.size() << endl;
-        for(int i=0; i<v.size(); i++){
-            cout << v[i] << " " << endl;   // v.size() = O(1)
-        }
-        v.push_back(2);
-        cout << endl;
-}
+// void PrintVec(vector<string> &v){
+//         cout << "size:" << v.size() << endl;
+//         for(int i=0; i<v.size(); i++){
+//             cout << v[i] << " " << endl;   // v.size() = O(1)
+//         }
+//      //   v.push_back(2);
+//         cout << endl;
+// }
 
 // int main(){
 //         int a[10]; // just the make the 10 block of array
@@ -1199,14 +1199,139 @@ void PrintVec(vector<int> &v){
        
 // }
 
+// int main(){
+//         vector<int> v(10);
+//         v.push_back(7);
+//         v.push_back(6);  //O(1)
+//         PrintVec(v);
+//         v.pop_back();  // O(1)
+//         PrintVec(v);
+//         vector<int> v2 = v;  // O(n) -- its copy every single element one by one
+//         v2.push_back(9);
+//         PrintVec(v2);
+// }
+
+// int main(){
+//         vector<string> v;
+//         int n;
+//         cin >> n;
+//         for(int i=0; i<n; i++){
+//                 string s;
+//                 cin >> s;
+//                 v.push_back(s);
+//         }
+//         PrintVec(v);
+// }
+
+//             Video no. 30  || nesting vector and pairs
+
+// void PrintVec(vector<pair<int,int>> &v){
+//         cout << "size:" << v.size() << endl;
+//         for(int i=0; i<v.size(); i++){
+//             cout << v[i].first << " " << v[i].second << endl;   // imagine like v[i] is an pair , if want element of first pair then v[i].first
+//         }
+//      //   v.push_back(2);
+//         cout << endl;
+// }
+
+// int main(){
+//         vector<pair<int , int >> v;   // each element of vector is pair 
+       
+//         int n;
+//         cin >> n;
+//         for(int i=0; i<n; i++){
+//                 int x, y;
+//                 cin >> x >> y;
+//                 v.push_back({x,y});   // */ v.push_back(make_pair(x,y))
+//             }
+//         PrintVec(v);
+// }
+//  *Note - If you swapping two variable then all pair will swap.
+
+//      2). Difference between array of vectors and vectors of vectors
+// 1). Array of vectors -only no. of rows are fixed 
+// void PrintVec(vector<int >v){
+//         cout << "size:" << v.size() << endl;
+//         for(int i=0; i<v.size(); i++){
+//             cout << v[i]<< endl;   // imagine like v[i] is an pair , if want element of first pair then v[i].first
+//         }
+//      //   v.push_back(2);
+//         cout << endl;
+// }
+
+// int main(){
+//         int N;
+//         cin >>  N;
+//         vector<int> v[N];   // v is vectors of array  // declaring an vector of array of N Vectors
+//         for(int i = 0; i<N; i++){
+//             int n;  // Now we have to taking every single vector in input so we are inputting size
+//             cin >> n;
+//             for(int j=0; j<n; j++){
+//                 // now we have to placing value in ith vector
+//                 int x;
+//                 cin >> x;
+//                 v[i].push_back(x);  // v[i] is an particular vector
+//             }
+//         }
+//         for(int i=0; i<N; i++){
+//                 PrintVec(v[i]);
+//         }
+//         cout << v[1][0];      // 1st vector 0th elements
+// }
+//  1).  Array of vectors is similar to 2d vectors 
+
+//  2). vectors of vectors -- we can also make rows of dynamic size
+
+void PrintVec(vector<int >v){
+        cout << "size:" << v.size() << endl;
+        for(int i=0; i<v.size(); i++){
+            cout << v[i]<< endl;   // imagine like v[i] is an pair , if want element of first pair then v[i].first
+        }
+     //   v.push_back(2);
+        cout << endl;
+}
+
+// int main(){
+//         int N;
+//         cin >>  N;
+//         vector<vector<int> > v;   // v is vectors of array  // declaring an vector of array of N Vectors
+//         for(int i = 0; i<N; i++){
+//             int n;  // Now we have to taking every single vector in input so we are inputting size of array
+//             cin >> n;
+//             vector<int> temp; // creating new vector for inputting values 
+//             for(int j=0; j<n; j++){
+//                 // now we have to placing value in ith vector
+//                 int x;
+//                 cin >> x;
+//                 temp.push_back(x);  // in this time one rows at a time comes as input 
+//             //    v[i].push_back(x);  // there is no ith vector so wee can do this this is empty now 
+//             // temp is an single vector of integers 
+//             }
+//             v.push_back(temp);   // v is an large vectors stores many temp
+//         }
+//         v[1].push_back(3);
+//         v.push_back(vector<int> (4));
+//         for(int i=0; i<v.size(); i++){
+//                 PrintVec(v[i]);
+//         }
+//                // 1st vector 0th elements
+// }
+
 int main(){
-        vector<int> v(10);
-        v.push_back(7);
-        v.push_back(6);  //O(1)
-        PrintVec(v);
-        v.pop_back();  // O(1)
-        PrintVec(v);
-        vector<int> v2 = v;  // O(n) -- its copy every single element one by one
-        v2.push_back(9);
-        PrintVec(v2);
+        int N;
+        cin >> N;
+        vector<vector<int>> v;
+        for(int i =0; i<N; i++){
+             int n;
+             cin >> n;
+           v.push_back(vector<int> ());   // now we are pushing empty vector for each ith vector 
+           for(int j =0; j<n; j++){
+                int x; 
+                cin  >> x;
+                v[i].push_back(x);  // we are pushing values in each ith vector 
+           }
+        }
+        for(int i =0; i< v.size(); ++i){
+                PrintVec(v[i]);  // we are calling function for each vector 
+        }
 }
