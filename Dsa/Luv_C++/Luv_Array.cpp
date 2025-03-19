@@ -1317,21 +1317,105 @@ void PrintVec(vector<int >v){
 //                // 1st vector 0th elements
 // }
 
+// int main(){
+//         int N;
+//         cin >> N;
+//         vector<vector<int>> v;
+//         for(int i =0; i<N; i++){
+//              int n;
+//              cin >> n;
+//            v.push_back(vector<int> ());   // now we are pushing empty vector for each ith vector 
+//            for(int j =0; j<n; j++){
+//                 int x; 
+//                 cin  >> x;
+//                 v[i].push_back(x);  // we are pushing values in each ith vector 
+//            }
+//         }
+//         for(int i =0; i< v.size(); ++i){
+//                 PrintVec(v[i]);  // we are calling function for each vector 
+//         }
+// }
+
+// Note - when we are writing v[i] = then u have to think what it can represent 
+
+//            Video no. 31     ||   Iterators
+//   1). Iterators is an pointer like structure 
+//   2). iterators point element of the container
+//   3). Iterators is also continuous so we can access next elements by doing it + 1
+//   4). iterators moves till v.end() means it reaches end
+//   5). by doing ++it it starts moving and pointing next element 
+//   6). it is point to an value of an containers 
+
+// int main(){
+//         vector<int> v = {2,3,5,6,7};
+//         for(int i =0; i<v.size(); ++i){
+//                 cout << v[i];  // we are printing element on each iteration
+//         }
+//         cout << endl;
+//         vector<int> ::iterator it = v.begin();     // we are making an iterator it which poits to begining 
+//         cout << (*(it+1)) << endl;  // it starts pointing next element 
+//         // we are moving till iterators comes at end 
+//         for(it = v.begin(); it != v.end(); ++it){
+//                 cout << (*it) << endl;
+//         }
+// }
+
+//  Note* - it++ points to the next iterator and
+//          it+1 points to next location
+
+//  Note - But in map (they are not contagious*)so it+1 not valid but it++ valid because it moves and points next iterator
+
+// int main(){
+//         vector<int> v = {2,3,5,6,7};
+//         for(int i =0; i<v.size(); ++i){
+//                 cout << v[i];  // we are printing element on each iteration
+//         }
+//         cout << endl;
+//         vector<pair<int , int>> v_p = {{1,3},{2,4},{3,5}};
+//         vector<pair<int , int>> :: iterator it; // we declares an iterator which used to traversee a vector
+//        for(it = v_p.begin(); it != v_p.end(); ++it){  // says from where i have to start where i have to end how i have to go 
+//                 cout << (*it).first << " " << (*it).second << endl;  // i says please gives my first value of pair and please give my second value
+//         }
+//         for(it = v_p.begin(); it != v_p.end(); ++it){
+//                 cout << (it-> first) << " " << (it -> second) << endl;  // i says please point my value of first pair then point my value of second pair 
+//         }
+        
+// }
+//  (*it).first <=> (it -> first)  are same 
+
+//  In c++ there were many things are launch auto keywords, range based loops 
+
+//              Video no. 32  ||   C++ Stl maps
+// 1). by using range based loops we can iterate on elements of containers 
+// 2). by using range based loops your values comes at that variables 
+// 3). Range based loops are works well in all containers 
+// 4). generally copies of variable are comes in range based loops so we have to use & reference to pass actual value 
+
+
+
 int main(){
-        int N;
-        cin >> N;
-        vector<vector<int>> v;
-        for(int i =0; i<N; i++){
-             int n;
-             cin >> n;
-           v.push_back(vector<int> ());   // now we are pushing empty vector for each ith vector 
-           for(int j =0; j<n; j++){
-                int x; 
-                cin  >> x;
-                v[i].push_back(x);  // we are pushing values in each ith vector 
+        vector<int> v = {2,3,5,6,7};
+        for(int i =0; i<v.size(); ++i){
+                cout << v[i];  // we are printing element on each iteration
+        }
+        vector<pair<int, int>> v_p = {{1,3},{2,3}};  // we are creating vector of pairs
+        // for(pair<int, int > &value : v_p){
+        //         cout << value.first << " " << value.second << endl;
+        // }
+           for(auto &value : v_p){
+                cout << value.first << " " << value.second << endl;
            }
-        }
-        for(int i =0; i< v.size(); ++i){
-                PrintVec(v[i]);  // we are calling function for each vector 
-        }
+        // cout << endl;
+        // for(int &value : v){  //you are passing copies so it not works.. it says i want to iterate on v and store in variable value
+        //     value++;   // cout << value << " " << endl;  // it says print value on each iteration 
+        // }
+        // for(int value : v ){
+        // cout << value << endl;
+        // }
+        
+     //   auto a = 1.0;
+        cout << endl;
 }
+
+// auto keyword - auto dynamically assumes data types 
+// by combining auto keyword and range loops the code looking good 
