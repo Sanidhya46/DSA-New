@@ -1344,7 +1344,7 @@ void PrintVec(vector<int >v){
 //   3). Iterators is also continuous so we can access next elements by doing it + 1
 //   4). iterators moves till v.end() means it reaches end
 //   5). by doing ++it it starts moving and pointing next element 
-//   6). it is point to an value of an containers 
+//   6). it point to an value of an containers 
 
 // int main(){
 //         vector<int> v = {2,3,5,6,7};
@@ -1393,29 +1393,281 @@ void PrintVec(vector<int >v){
 
 
 
-int main(){
-        vector<int> v = {2,3,5,6,7};
-        for(int i =0; i<v.size(); ++i){
-                cout << v[i];  // we are printing element on each iteration
-        }
-        vector<pair<int, int>> v_p = {{1,3},{2,3}};  // we are creating vector of pairs
-        // for(pair<int, int > &value : v_p){
-        //         cout << value.first << " " << value.second << endl;
-        // }
-           for(auto &value : v_p){
-                cout << value.first << " " << value.second << endl;
-           }
-        // cout << endl;
-        // for(int &value : v){  //you are passing copies so it not works.. it says i want to iterate on v and store in variable value
-        //     value++;   // cout << value << " " << endl;  // it says print value on each iteration 
-        // }
-        // for(int value : v ){
-        // cout << value << endl;
-        // }
+// int main(){
+//         vector<int> v = {2,3,5,6,7};
+//         for(int i =0; i<v.size(); ++i){
+//                 cout << v[i];  // we are printing element on each iteration
+//         }
+//         vector<pair<int, int>> v_p = {{1,3},{2,3}};  // we are creating vector of pairs
+//         // for(pair<int, int > &value : v_p){
+//         //         cout << value.first << " " << value.second << endl;
+//         // }
+//            for(auto &value : v_p){
+//                 cout << value.first << " " << value.second << endl;
+//            }
+//         // cout << endl;
+//         // for(int &value : v){  //you are passing copies so it not works.. it says i want to iterate on v and store in variable value
+//         //     value++;   // cout << value << " " << endl;  // it says print value on each iteration 
+//         // }
+//         // for(int value : v ){
+//         // cout << value << endl;
+//         // }
         
-     //   auto a = 1.0;
-        cout << endl;
-}
+//      //   auto a = 1.0;
+//         cout << endl;
+// }
 
 // auto keyword - auto dynamically assumes data types 
 // by combining auto keyword and range loops the code looking good 
+
+//                     Video no. 33  ||  Everything About C++ STL maps
+// 1). map is an data structure which stores key value pairs
+// 2). it creates mapping between each key and value 
+// 3). generally map stores key value in sorted order and unordered store any where but it make linkes so their t.c increases
+// 4). generally map which is in sorted order implemented by red black trees 
+// 5). every element of an map represent a pair in memory space which stores key and value.
+// 6). generally map is not contanious nature it could be anywhere but it links with each other
+// 7). key and value both can be anyting like complex container 
+// 8). map sorted the things based on key 
+// 9). map takes O(log n) times on insertion and access , for n elements n log n if you only insert key m[6] - O(log n)  (also takes) 
+// 10). In map each key is uniques means it just upgrade the previous key 
+// 11). each self balancing trees and red black trees takes O(log n) time complexity
+// 12). .find() -- returns an iterator to key-value pair
+// 13). .erase() - O(log n)  erase value at particular key
+// 14). when we do M["abcd"] = "abcd"  insertion is based on comparing of each string or numbers so takes O(log n ) times
+
+
+// void Print(map<int, string> &m){
+//         cout << m.size() << endl;
+//         for(auto &pr : m){
+//                 cout << pr.first << " " << pr.second << endl;
+//         }
+// }
+// int main(){
+//      map<int , string> m;
+//      m[1] = "abc"; // O(log n)  // we are inserting value abc for key 1
+//      m[2] = "cdc";
+//      m[5] = "fdsfdf";
+//      m.insert({3,"rebreb"}); // we are inserting pair
+//      m[8];  //O(log n)
+//      m[2] = "cdc";
+  
+// //      auto it = m.find(3); //O(log n)  // it returns iterator to key value pair 
+//      auto it = m.find(5);
+//      m.erase(it);
+//      Print(m);
+//      if(it == m.end()){
+//         cout << "No value " << endl;
+//      }else{
+//         cout << (*it).first << " " << (*it).second << endl;
+//      }
+  
+    
+//      for(auto &pr : m){    // *pr is an variable which comes from map 
+//         cout << pr.first << " " << pr.second << endl;
+//      }
+//      map<int, string> :: iterator it; 
+//      for(it = m.begin(); it != m.end(); it++){
+//         cout << (*it).first << " " << (*it).second << endl;
+//      }  
+// }
+
+/*Given N strings, Print unique strings 
+in lexiographical order with 
+their frequency*/
+// N <= 10^5
+// |S|<= 100
+// if |s|<= 10000  not work because in each times it search and compares for every element (string input O(10^5 + 1000000)) + insertion not valid 
+
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+//         map<string, int> mp;
+//         int n;
+//         cin >> n;
+//         for(int i =0; i <n; i++){
+//            string s;
+//            cin >> s;
+//            mp[s]++;   // it makes key and frequency for map 
+//         }
+//         for(auto pr : mp){
+//                 cout << pr.first << " " << pr.second << " " << endl;
+//         }
+// }
+
+//                Video no. 34  ||  part - 2  Unordered maps 
+// 1). Inbuilt implementation - unordered map uses hash tables and hash value each element
+// 2). Time Complexity 
+// 3). Valid keys data types - for unordered map you can not use complex datatypes
+//                           *- hash function of complex data types are not defined so this is not valid keys
+
+// unordered map - does not maintain order  saves time O(1) for small operations and O(n) for find 
+// 1). 
+
+// void Print(map<int, string> &m){
+//         cout << m.size() << endl;
+//         for(auto &pr : m){
+//                 cout << pr.first << " " << pr.second << endl;
+//         }
+// }
+// int main(){
+//      map<int , string> m;
+//      m[1] = "abc"; // O(1)  // we are inserting value abc for key 1
+//      m[2] = "cdc";
+//      m[5] = "fdsfdf";
+//      m.insert({3,"rebreb"}); // we are inserting pair
+//      m[8];  //O(1)
+//      m[2] = "cdc";
+  
+// //      auto it = m.find(3); //O(1)  // it returns iterator to key value pair 
+//      auto it = m.find(5);
+//      m.erase(it);
+//      Print(m);
+//      if(it == m.end()){
+//         cout << "No value " << endl;
+//      }else{
+//         cout << (*it).first << " " << (*it).second << endl;
+//      }
+  
+    
+//      for(auto &pr : m){    // *pr is an variable which comes from map 
+//         cout << pr.first << " " << pr.second << endl;
+//      }
+//      map<int, string> :: iterator it; 
+//      for(it = m.begin(); it != m.end(); it++){
+//         cout << (*it).first << " " << (*it).second << endl;
+//      }  
+// }
+
+//   Given N strings and Q queries. In each querey you are 
+//   given a string print frequency of that string 
+
+//   N <= 10^6
+//   |s| <= 100
+//    Q <= 10^6
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         unordered_map<string, int> mp;
+//      //   multimap<int, vector<string> >;   // if we have to store multiple values corresponnding to single integers
+//         // unordered_map<pair<int , int>, string > m;  // for this we have to defie custom hash function 
+//         int n;
+//         cin >> n;
+//         for(int i =0; i <n; i++){
+//            string s;
+//            cin >> s;
+//            mp[s]++;   // it makes key and frequency for map 
+//         }
+//         int q;
+//         cin >> q;
+//         while(q--){
+//               string s;
+//               cin >> s;
+//               cout << mp[s] << endl;  // q*s *O(1) // gives frequency 
+//         }
+// }
+
+// 1). In multimap in  hash key two values are made 
+// 2). In multimap you can also place duplicates 
+
+// #include<bits/stdc++.h>
+// using namespace std;
+// int main(){
+//        int n, count = 0;
+//        cin >> n; 
+   
+//        string s;
+//        cin >> s;
+//        unordered_map<char, int> map;
+//        for(int i =0; i<(2*n) -2 ; i++){
+//         map[s[i]]++;
+//         auto it  = map.find('a' + (s[i+1]) - 'A');   // searching for roomm with lowercase corresponding character
+//         if(it!= map.end()){  // if corresponding keys and rooms found
+//                 if(map['a' + (s[i+1] - 'A')] > 1){
+//                         map['a' + (s[i+1] - 'A')]--;
+//                 }else{
+//                         map.erase('a' + (s[i+1]) - 'A');
+//                 }
+//         }else{
+//                 count++;
+//         }
+//         cout << count << "\n"  << endl;
+//        }
+       
+// }
+// #include<bits/stdc++.h>
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+// unordered_map<string , int> map;
+// int n;
+// cin >> n;
+// while(n--){
+//         string s;
+//         cin >> s;
+//         if(map[s] != 0){
+//            cout << "OK";
+//            map[s] = 1;
+//         }else{
+//            int count = map[s];
+//            string new_name = s + to_string(count);
+//            while(map.find(s) != map.end()){
+//                 count++;
+//                 new_name = s + to_string(count);
+//            }
+//            map[s] = count + 1;
+//            map[s] = 1; // means newly generated in database
+//            cout << new_name << endl;
+//         }
+// }
+
+
+// }
+//     for avg case T.C - O(1)   worst case - O(n);
+
+//                       Jesse Lover
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <set>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+   int n;
+   cin >>n;
+   unordered_map<string , int> map;
+   while(n--){
+        int m;
+        cin >> m;
+        string x;
+        cin >> x;
+        
+       
+        
+       if(m == 1){
+        int y;
+        cin >> y;
+          map[x] += y;
+       }else if(m == 2){
+           if(map.find(x) != map.end()){
+                map.erase(x);
+           }else{
+                cout << 0 << endl;
+           }
+       }else if(m == 3){
+           cout << map[x] << endl;
+       }
+
+        
+   }
+   return 0;
+    
+}
