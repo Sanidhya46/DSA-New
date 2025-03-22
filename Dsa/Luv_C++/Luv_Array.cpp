@@ -1342,7 +1342,7 @@ void PrintVec(vector<int >v){
 //   1). Iterators is an pointer like structure 
 //   2). iterators point element of the container
 //   3). Iterators is also continuous so we can access next elements by doing it + 1
-//   4). iterators moves till v.end() means it reaches end
+//   4). iterators moves till v.end() means it points to  the next element after end 
 //   5). by doing ++it it starts moving and pointing next element 
 //   6). it point to an value of an containers 
 
@@ -1630,44 +1630,209 @@ their frequency*/
 //     for avg case T.C - O(1)   worst case - O(n);
 
 //                       Jesse Lover
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <set>
-#include <map>
-#include <algorithm>
-using namespace std;
+// #include <cmath>
+// #include <cstdio>
+// #include <vector>
+// #include <iostream>
+// #include <set>
+// #include <map>
+// #include <algorithm>
+// using namespace std;
 
 
-int main() {
-   int n;
-   cin >>n;
-   unordered_map<string , int> map;
-   while(n--){
-        int m;
-        cin >> m;
-        string x;
-        cin >> x;
+// int main() {
+//    int n;
+//    cin >>n;
+//    unordered_map<string , int> map;
+//    while(n--){
+//         int m;
+//         cin >> m;
+//         string x;
+//         cin >> x;
         
        
         
-       if(m == 1){
-        int y;
-        cin >> y;
-          map[x] += y;
-       }else if(m == 2){
-           if(map.find(x) != map.end()){
-                map.erase(x);
-           }else{
-                cout << 0 << endl;
-           }
-       }else if(m == 3){
-           cout << map[x] << endl;
-       }
+//        if(m == 1){
+//         int y;
+//         cin >> y;
+//           map[x] += y;
+//        }else if(m == 2){
+//            if(map.find(x) != map.end()){
+//                 map.erase(x);
+//            }else{
+//                 cout << 0 << endl;
+//            }
+//        }else if(m == 3){
+//            cout << map[x] << endl;
+//        }
 
         
-   }
-   return 0;
+//    }
+//    return 0;
     
-}
+// }
+
+//                     Video no. 35  ||   Set , unordered set and multiset
+// 1). Set represents collection of same elements , just remove the value part in map
+// 2). Set always keeping element in sorted order
+// 3). .find() point to an iterator of value
+// 4). it is pointing to an iterator
+// 5). dont try to use .end leads to segmentation fault
+// 6). set also stores unique elements
+// *7). .erase can takes directly value and iteratator pointing to value
+// 8). use unordered set when order not necessary and fast computations needed
+// 9). for set T.C operations - O(log n) , unordered set - O(1)
+// 10). You can not pass complex data type in set because their hash functionn is not defined in standard c++ library, if you want you have to define by ownself
+// 11). with boost library you can pass complex data type
+//                       MultiSet
+// 1). multi set allows to insert multiple values  
+// 2). their operations - O(log n) , allows duplicates values
+// 3). In sql there were things called priority queue which stores values in sorted order
+// 4). Priority_queue - stores element in sorted order
+// 5). Better to use multiset in place of piority_queue
+// 6). **If there is duplicates in muliset if you use .erase(it) = it erase the first value in multiset
+// 7). when you use .erase() - it erase all duplicates
+// 8). .erase() also pointing iterator to all values it keeps pointing until all iterating values ends
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// void print(set<string> &st){
+//      for(string value  : st){   // use this 
+//         cout << value << endl;
+//      }
+//      for(auto it = st.begin();  it != st.end(); it++){
+//         cout << (*it) << endl;
+//      }
+// }
+// int main(){
+//         set<string> st;
+//         int n;
+//         cin >> n;
+//         st.insert("sfsfsd");     // O(logn)
+//         st.insert("dfffsd");
+//         st.insert("sfsdf");
+//         auto it = st.find("sfsdf");
+//         if(it != st.end()){
+//                 st.erase(it);    // erase that which it points
+//         }
+        
+        
+//         print(st);
+        
+// }
+// Given N strings, print unique  strings in lexiographical orderr 
+// N <= 10^5
+// |S| <= 1000000
+//
+
+// #include<bits/stdc++.h>
+// // using namespace std;
+
+// void print(set<string> &st){
+//      for(string value : st){
+//         cout << value << endl;
+//      }
+// }
+// int main(){
+//       set<string> st;
+//       int N;
+//       cin >> N;
+//       while(N--){
+//         string s;
+//         cin  >> s;
+//         st.insert(s);
+//       }  
+//       print(st);
+        
+// }
+
+// Given N strings and Q queries , In each query you are given a string
+// print yes if string is present also print NO.
+// N <= 10^6
+// |S| <= 100
+// Q <= 10^6
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         int N;
+//         cin >> N;
+//         unordered_set<string> st;  //T.C - O(1)
+//         while(N--){
+//                 string s;
+//                 cin >> s;
+//                 st.insert(s);
+//         }
+//         int Q;
+//         cin >> Q;
+//         while(Q--){
+//                 string x;
+//                 cin >> x;
+//                 if(st.find(x)!= st.end()){   // O(1)
+//                         cout << "Yes" << endl;
+//                 }else{
+//                         cout << "NO" << endl;
+//                 }
+                
+                
+//         }
+
+// }
+
+//                                 MultiSet
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+        
+//         set<string> st;  //T.C - O(1)
+
+                
+//                 st.insert("aaaa");
+//                 st.insert("bbbb");
+//                 st.insert("cccd");
+//                 st.insert("cccd");
+                
+//                 for(auto it : st ){
+//                         cout << it << endl;
+//                 }
+        
+//         int Q;
+//         cin >> Q;
+//         while(Q--){
+//                 string x;
+//                 cin >> x;
+//                 if(st.find(x)!= st.end()){   // O(1)
+//                         cout << "Yes" << endl;
+//                 }else{
+//                         cout << "NO" << endl;
+//                 }
+                
+                
+//         }
+
+// }
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//        multiset<string> st;
+//        string s;
+//        st.insert("AAAA");   //o(log n)
+//        st.insert("bbbb");
+//        st.insert("bbbb");
+
+//        auto it = st.find("bbbb");
+//        if(it != st.end()){
+//            st.erase(it);
+//        }
+//        st.erase("bbbb");
+//        for(auto its : st){
+//            cout << its << endl;
+//        }
+
+// }
+
+
