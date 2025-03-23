@@ -1385,7 +1385,7 @@ void PrintVec(vector<int >v){
 
 //  In c++ there were many things are launch auto keywords, range based loops 
 
-//              Video no. 32  ||   C++ Stl maps
+//                     Video no. 32  ||   C++ Stl maps
 // 1). by using range based loops we can iterate on elements of containers 
 // 2). by using range based loops your values comes at that variables 
 // 3). Range based loops are works well in all containers 
@@ -1673,7 +1673,7 @@ their frequency*/
 // }
 
 //                     Video no. 35  ||   Set , unordered set and multiset
-// 1). Set represents collection of same elements , just remove the value part in map
+// 1). Set represents collection of same type of elements , just remove the value part in map
 // 2). Set always keeping element in sorted order
 // 3). .find() point to an iterator of value
 // 4). it is pointing to an iterator
@@ -1684,9 +1684,9 @@ their frequency*/
 // 9). for set T.C operations - O(log n) , unordered set - O(1)
 // 10). You can not pass complex data type in set because their hash functionn is not defined in standard c++ library, if you want you have to define by ownself
 // 11). with boost library you can pass complex data type
-//                       MultiSet
+//                         MultiSet
 // 1). multi set allows to insert multiple values  
-// 2). their operations - O(log n) , allows duplicates values
+// 2). their operations - O(log n) ,multiset allows duplicates values
 // 3). In sql there were things called priority queue which stores values in sorted order
 // 4). Priority_queue - stores element in sorted order
 // 5). Better to use multiset in place of piority_queue
@@ -1833,6 +1833,154 @@ their frequency*/
 //            cout << its << endl;
 //        }
 
+// }
+//                   Video no. - 36 ||  Mutliset Questions
+// 1) .erase- O(1) and when we are passing value it becames O(log n)
+// 2). if you take long long  then  you  have to also take long long integers for input
+
+// Find the maximum candies Monk can consume in K minutes from N bags,
+// 3)/ when you take set map or multiset long long then their input elements also in long long 
+// where each bag initially contains Aᵢ candies, and after eating, the bag refills to ⌊Aᵢ/2⌋ candies.
+
+// 1). for running k more times we have to form a new loop for eating.
+// 2). the duplicates is present in set so when can't  use it 
+// 2). the ordering required so we can not use 
+// 4). value for last candies can be get by new variable .
+// 5). keep overflow things in mind
+// 6). 
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         int t;
+//         cin >> t;
+//         while(t--){
+//                 int n , k;
+//                 cin  >> n >> k;
+//                 multiset<long long> bags;  // because input is very high
+//                 for(int i = 0; i<n; i++){
+//                    long long candy_ct;
+//                    cin >> candy_ct;
+//                    bags.insert(candy_ct);
+//                 }
+//                 long long total_candies = 0;   // for candies which we going to eat
+//                 for(int i = 0; i<k; i++){   // k(log n)
+//                         auto last = (--bags.end());  // first pre then assign (( also do  as --last))
+//                         long candy_ct = *last;
+//                         total_candies += candy_ct;
+//                         bags.erase(last);   //
+//                         bags.insert(candy_ct/2);  // multiset always in sorted order 
+
+
+//                 }
+//                 cout << total_candies << endl;
+
+//         }
+// }
+//      k(log n)(O(n))
+//                       Q-2). Insert , find and erase
+// 1). if multi set reinitiallised in every iteration compiler leads to print nothing 
+
+// #include <cmath>
+// #include <cstdio>
+// #include <vector>
+// #include <iostream>
+// #include <set>
+// #include <algorithm>
+// using namespace std;
+
+
+// int main() {
+//     int Q;
+//     cin >> Q;
+//     multiset<int> st;
+//     while(Q--){
+//        int y, x;
+//        cin >> y >> x;
+       
+//        if(y == 1){
+//            st.insert(x);
+//        }else if(y == 2){
+//           auto it = st.find(x);
+//           if(it != st.end()){
+//            st.erase(st.find(x));
+//           }
+          
+//        }else{
+//         if(st.find(x) != st.end()){    // O log n
+//               cout << x << endl;
+//         }
+//        }
+//     }
+    
+// }
+// 1). isertion of n elements into set took O(N log n) , quering for m elements took O(M log n)
+// 2). in set multiset type question taking unordered set optimise performance much
+//
+//                       Monk and his friends(Insertion , search and remove)
+// #include<iostream> 
+// using namespace std;
+
+// int main(){
+//         int T;
+//         cin >> T;
+//         while(T--){
+//         int N , M;
+//         cin >> N >> M;
+//         multiset<long long> st;   //S.C - O(n)
+//         while(N--){   // O(log n)
+//             long long n;
+//             cin >> n;
+//             st.insert(n);
+//         }
+//         for(int i =0; i<M; i++){   // quering m elements (M log n)
+//                 long long x;
+//                 cin >> x;
+//             if(st.find(x) != st.end()){  // O(log n)
+//                 cout << "YES" << endl;
+//             }else{
+//                 cout << "NO" << endl;
+//             }
+            
+//         }
+       
+// }
+//     T.C - O(T(N+M)logN)
+
+//                         Monks birthday party
+// 1). for set and hash set we using iterator to point value
+// 2). for unique elements taking unordered set optimise performance much
+// 3). when compiler prints nothing check about input of data types of declaration
+// 4). If compiler does not read second test case then check about where you initialise set , map before loop or after loop or it resets the value or not
+// 5). **if you input string in compiler then compiler only accepts string till then it just runs
+// 6). space complexity for set is O(n) for n numbers and O(log n) for insertion and lookup of redblack trees
+
+// #include<iostream>
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         int T;
+//         cin >> T; reading t test cases O(1) 
+        
+//         while(T--){  // O(T)
+        
+//         long long N;
+//         cin >> N;
+//         set<string> st;  //Space complexity  O(n log n)
+
+//         while(N--){   
+               
+//              string s;
+//              cin >> s;
+//              st.insert(s); // inserting n elements into set   //O(n log n)
+//         }
+//              for(auto it : st){   // O(st.size()) O(n)
+//                 cout << it << endl;  // prinint all unique elements   O(n)
+//            }
+       
+
+// }
 // }
 
 
