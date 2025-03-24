@@ -1169,7 +1169,7 @@ constraintss
 //         cout << p_array[i].first << " " << p_array[i].second;
 //       }
 // }
-//                   Vectors 
+//                            Vectors 
 // 1). vectors is also have continuous memory location  , dynamic size nature 
 // 2). if vector declares locally - 10^5  and for globally - 10^7
 // 3). you can also create particular size of vector with any values filled and also their size updates with new operations
@@ -1250,7 +1250,7 @@ constraintss
 
 //      2). Difference between array of vectors and vectors of vectors
 // 1). Array of vectors -only no. of rows are fixed 
-// void PrintVec(vector<int >v){
+// void PrintVec(vector<int> v){
 //         cout << "size:" << v.size() << endl;
 //         for(int i=0; i<v.size(); i++){
 //             cout << v[i]<< endl;   // imagine like v[i] is an pair , if want element of first pair then v[i].first
@@ -1285,7 +1285,7 @@ constraintss
 void PrintVec(vector<int >v){
         cout << "size:" << v.size() << endl;
         for(int i=0; i<v.size(); i++){
-            cout << v[i]<< endl;   // imagine like v[i] is an pair , if want element of first pair then v[i].first
+            cout << v[i]<< endl;   
         }
      //   v.push_back(2);
         cout << endl;
@@ -1294,7 +1294,7 @@ void PrintVec(vector<int >v){
 // int main(){
 //         int N;
 //         cin >>  N;
-//         vector<vector<int> > v;   // v is vectors of array  // declaring an vector of array of N Vectors
+//         vector<vector<int> > v;   // vector of vector array  // declaring an vector of array of N Vectors
 //         for(int i = 0; i<N; i++){
 //             int n;  // Now we have to taking every single vector in input so we are inputting size of array
 //             cin >> n;
@@ -1426,7 +1426,7 @@ void PrintVec(vector<int >v){
 // 3). generally map stores key value in sorted order and unordered store any where but it make linkes so their t.c increases
 // 4). generally map which is in sorted order implemented by red black trees 
 // 5). every element of an map represent a pair in memory space which stores key and value.
-// 6). generally map is not contanious nature it could be anywhere but it links with each other
+// 6). generally unordered map is not contanious nature it could be anywhere but it links with each other
 // 7). key and value both can be anyting like complex container 
 // 8). map sorted the things based on key 
 // 9). map takes O(log n) times on insertion and access , for n elements n log n if you only insert key m[6] - O(log n)  (also takes) 
@@ -1598,6 +1598,7 @@ their frequency*/
 //        }
        
 // }
+// 1). 
 // #include<bits/stdc++.h>
 // #include<iostream>
 // using namespace std;
@@ -1629,7 +1630,7 @@ their frequency*/
 // }
 //     for avg case T.C - O(1)   worst case - O(n);
 
-//                       Jesse Lover
+//                           Jesse Lover
 // #include <cmath>
 // #include <cstdio>
 // #include <vector>
@@ -1843,7 +1844,7 @@ their frequency*/
 // where each bag initially contains Aᵢ candies, and after eating, the bag refills to ⌊Aᵢ/2⌋ candies.
 
 // 1). for running k more times we have to form a new loop for eating.
-// 2). the duplicates is present in set so when can't  use it 
+// 2). the duplicates is present in question ... so we can't use set 
 // 2). the ordering required so we can not use 
 // 4). value for last candies can be get by new variable .
 // 5). keep overflow things in mind
@@ -1893,12 +1894,12 @@ their frequency*/
 // int main() {
 //     int Q;
 //     cin >> Q;
-//     multiset<int> st;
+//     multiset<int> st;  
 //     while(Q--){
 //        int y, x;
 //        cin >> y >> x;
        
-//        if(y == 1){
+//        if(y == 1){   
 //            st.insert(x);
 //        }else if(y == 2){
 //           auto it = st.find(x);
@@ -1982,5 +1983,127 @@ their frequency*/
 
 // }
 // }
+//                  Video no. 37  || Nesting in stl maps and sets with examples  
+// 1). maps , set pair are used in nesting together in very good way  
+// 2). Normal map are <int , int> we can also placeint to pair<int, int> now map of key becomes pair
+// 3). we can compare pair with another pair comparison based on the basis of key.
+// 4). If first velue is same in container then comparision based on next value ..
+// 5). In set and vector the comparision is also done in this way
+// 6). In map every key stored in sorted order so pair will also be stored in sorted in order
+// 7). if we declare nested container then we need to define with new variable
+// 8). map<set<int> , int> mp ; this is declration , definition and initialization - declare mp as map, set<int>, define memory - mp,
+// 9). declares - tells the compiler , initialise - initial state, define - memory alloccated
+// 10). If there is pair of string present in key , array of vectors present in value then takes first takes the input of pairs then run counter then push pair into map it becames vector then push_back other vector into map
+// 11). map[{key,value}] - it becames vector now we can ... push_back at begining or end of this vector
+// 13). for making vector of other container so we can do vector operation on it and can add other container value also
+// 14). if in map pair of <string, string> is present with (vector m) then map of pair of string represent vector and you can pushback vector(m) for taking input 
+// 15). in mp we need to add key which is pair m[{s1,s2}].push_back(x)
+// 16). now m[s1,s2] becames vector
+// 17). for(pr : map) - pr.1 is key of map so it denotes a new pair
+// 18). **for making pair avoid creating copies became pair<string,string> vector<int> for making copies of vector takes O(n)
+// 19). makaing copy of map<pair<string, string> is ok but for vector<int> it takes O(n).
+// 20). mp[{s1,s2}].pushback(m) then for iterator pr.first.first or pr.first[0] represents s1 and pr.first.secod or pr.second[1] represent s2 and we need to return the value
+// 21). mp[{s1,s2}].push_back(m) if pr is iterator then pr.second[0] is element of that vector
+// 22). for taking input in pair first takes input and then put into pair not put sudden
+// 23). for showing the output we have to iterate into map
+
+
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+//      map<pair<int , int> , int> mp;
+//      pair<int, int> p1, p2;
+//      p1 = {3,4};
+//      p2 = {4,5};
+//      cout << (p1>p2);  // 0
+//      cout << (p1<p2);
+
+// }
+     ///                 With set 
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+//      map<set<int> , int> mp;   // In second int you can put anything it just a normal value
+//    // declaring set 
+     
+//      set<int> s1 = {1,2,3};
+//      set<int> s2 = {2,3,4};
+
+
+
+//      cout << (s1 < s2 ) << endl;
+
+
+// }
+// Takes input of 
+// 3
+// a b 4
+// 1 2 3 4
+// c d 2
+// 1 2
+// d f 3
+// 2 3 4
+
+// 1). Map of pair generally used in data sturctures, generally set and vectors are rarelu used 
+// 2). vector set normally used in values 
+// 3). you can place set in place of map because their also ordering based on sorted order
+
+// #include<iostream> 
+// using namespace std;
+
+// int main(){
+//    map<pair<string, string> , vector<int>> mp;   
+//    int T;
+//    cin >> T;
+//    while(T--){
+//       string s1 , s2;
+//       cin >> s1 >> s2;
+//       int ct;
+//       cin >> ct;
+//       while(ct--){
+//          int x;
+//          cin  >> x;
+//         mp[{s1,s2}].push_back(x);
+//       }
+//       for(auto &it : mp){
+//          cout << it.first.first << " " << it.first.second << " ";
+//          auto &list = it.second;
+//          for( auto & element : list){
+//              cout << element << " " << endl; 
+//          }
+
+//       }
+//    }
+// }
+              // 
+#include<iostream> 
+using namespace std;
+
+int main(){
+   map<pair<string, string> , vector<int>> mp;   
+   int T;
+   cin >> T;
+   while(T--){
+      string s1 , s2;
+      cin >> s1 >> s2;
+      int ct;
+      cin >> ct;
+      while(ct--){
+         int x;
+         cin  >> x;
+        mp[{s1,s2}].push_back(x);
+      }
+      for(auto &it : mp){
+         cout << it.first.first << " " << it.first.second << " ";
+         auto &list = it.second;
+         for( auto & element : list){
+             cout << element << " " << endl; 
+         }
+
+      }
+   }
+}
 
 
