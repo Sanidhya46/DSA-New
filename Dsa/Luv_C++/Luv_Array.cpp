@@ -1387,7 +1387,7 @@ void PrintVec(vector<int >v){
 
 //                     Video no. 32  ||   C++ Stl maps
 // 1). by using range based loops we can iterate on elements of containers 
-// 2). by using range based loops your values comes at that variables 
+// 2). by using range based loops our values comes at that variables 
 // 3). Range based loops are works well in all containers 
 // 4). generally copies of variable are comes in range based loops so we have to use & reference to pass actual value 
 
@@ -1510,7 +1510,7 @@ their frequency*/
 //         for(auto &pr : m){
 //                 cout << pr.first << " " << pr.second << endl;
 //         }
-// }
+// } 
 // int main(){
 //      map<int , string> m;
 //      m[1] = "abc"; // O(1)  // we are inserting value abc for key 1
@@ -1520,7 +1520,7 @@ their frequency*/
 //      m[8];  //O(1)
 //      m[2] = "cdc";
   
-// //      auto it = m.find(3); //O(1)  // it returns iterator to key value pair 
+// //   auto it = m.find(3); //O(1)  // it returns iterator to key value pair 
 //      auto it = m.find(5);
 //      m.erase(it);
 //      Print(m);
@@ -1864,7 +1864,7 @@ their frequency*/
 //                    cin >> candy_ct;
 //                    bags.insert(candy_ct);
 //                 }
-//                 long long total_candies = 0;   // for candies which we going to eat
+//                 long long total_candies = 0;   // for candies which we going to eat 
 //                 for(int i = 0; i<k; i++){   // k(log n)
 //                         auto last = (--bags.end());  // first pre then assign (( also do  as --last))
 //                         long candy_ct = *last;
@@ -1990,7 +1990,7 @@ their frequency*/
 // 4). If first velue is same in container then comparision based on next value ..
 // 5). In set and vector the comparision is also done in this way
 // 6). In map every key stored in sorted order so pair will also be stored in sorted in order
-// 7). if we declare nested container then we need to define with new variable
+// 7). if we declare nested container then we can define with new variable
 // 8). map<set<int> , int> mp ; this is declration , definition and initialization - declare mp as map, set<int>, define memory - mp,
 // 9). declares - tells the compiler , initialise - initial state, define - memory alloccated
 // 10). If there is pair of string present in key , array of vectors present in value then takes first takes the input of pairs then run counter then push pair into map it becames vector then push_back other vector into map
@@ -2077,33 +2077,155 @@ their frequency*/
 //       }
 //    }
 // }
-              // 
-#include<iostream> 
+//      
+// #include<iostream> 
+// using namespace std;
+
+// int main(){
+//    map<pair<string, string> , vector<int>> mp;   
+//    int T;
+//    cin >> T;
+//    while(T--){
+//       string s1 , s2;
+//       cin >> s1 >> s2;
+//       int ct;
+//       cin >> ct;
+//       while(ct--){
+//          int x;
+//          cin  >> x;
+//         mp[{s1,s2}].push_back(x);
+//       }
+//       for(auto &it : mp){
+//          cout << it.first.first << " " << it.first.second << " ";
+//          auto &list = it.second;
+//          for( auto & element : list){
+//              cout << element << " " << endl; 
+//          }
+
+//       }
+//    }
+// }
+// 
+// 3 
+// Eve 78      Bob 99
+// Bob 99      Alice 78
+// Alice 78    Eve 78
+// arrange list sorted in decreasing order and 
+// 1). If two values are same it arranged in lexicographical order it means print in dictionary order
+// 2). actually sorting based on keys so we just makes marks as key and value as vector for same multiple value allowed
+// 3). we also need to sort the vector in sorted order so we can replace using set it directly make in sorted orderr 
+// 4). for inserting into map think about key m[marks] now it bacame set we can perform any  operation  in it 
+// 5). map[key] is set and map[key].insert(value) it inserts name for every coressponding marks 
+// 6). we need to print marks in reverse order 
+// 7). so we need to start from last element and go to the begining 
+// 8). now we make infinite loop
+// 9). now processing current iterator it is the current maximum in  the set
+// 10).for processing we need to make set of it
+
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+//      map<int , set<string>> marks_map;
+//       int n;
+//       cin >> n;
+//       for(int i =0; i<n; i++){
+//         int marks;
+//         string names;
+//         cin >> names >> marks;
+//         marks_map[marks].insert(names);
+//         auto curr_it = --marks_map[marks].end();   // start from this iterator to begin
+        
+//         while(true){   // now we make infinite loop
+//           //now processing current iterator it is the current maximum in  the set
+//           // for processing we need to make set of it 
+//           auto &students =(*curr_it).second;  // students
+//           int marks = (*curr_it).first;   // marks 
+//           // now we need to print marks corresponding to student
+//           // now for outputting into set 
+//           for(auto student : students) 
+//                cout << student << " " << marks << " " << endl;
+//         }
+//         if(curr_it == marks_map.begin()) break;   // after coming to begining must break the flow
+//         curr_it--;
+//       }
+     
+
+// }
+
+#include<iostream>
 using namespace std;
 
-int main(){
-   map<pair<string, string> , vector<int>> mp;   
-   int T;
-   cin >> T;
-   while(T--){
-      string s1 , s2;
-      cin >> s1 >> s2;
-      int ct;
-      cin >> ct;
-      while(ct--){
-         int x;
-         cin  >> x;
-        mp[{s1,s2}].push_back(x);
-      }
-      for(auto &it : mp){
-         cout << it.first.first << " " << it.first.second << " ";
-         auto &list = it.second;
-         for( auto & element : list){
-             cout << element << " " << endl; 
-         }
+// 4
+// Eve 78       bob 99
+// Bob 99       Alice 78
+// Alice 78     Eve 78
+// Alice 78
 
-      }
-   }
+// 1). first take input think about what data type it is 
+// 2). for printing value iterate in set or map
+// 3). Now when we break the loop when current iterator points to begin
+// int main(){
+//   map<int, set<string> > marks_map;
+//   int n;
+//   cin >> n;
+//   for (int i = 0; i<n; i++){
+//     int marks;
+//     string names;
+//     cin >> marks >> names;
+//     marks_map[marks].insert(names);
+    
+//   }
+//   auto curr = --marks_map.end();  // we take iterator of last element and simply reverse
+//     while(true){    // we have to iterate through begin
+//       auto &students = (*curr).second;
+//       int marks = (*curr).first;
+//       for(auto &student : students){
+//           cout << student <<  " " << marks << endl;
+//       }
+    
+//     if(curr == marks_map.begin())  break;
+//     curr--;  
+//     }
+    
+  
+// }
+// if a key in map comes two times and value is in lexicographical order put value after puuting into set 
+// Eve 78       bob 99
+// Bob 99       Alice 78
+// Alice 78     Eve 78
+// Alice 78
+
+//                       **Practice 
+// 1). first we take input of total no. of students and marks pair
+// 2). taking input of marks and students 
+// 3). inserting set into map 
+// 4). for printing marks and names iterate into set 
+int main(){
+  map<int , multiset<string>> mp;
+  int n;
+  cin >> n;
+  for(int i=0; i<n;i++){
+    int marks;
+    string students;
+    cin >> marks >> students;
+    mp[marks].insert(students);
+  }
+  auto curr = --mp.end();
+    while(true){
+      auto &names = (*curr).second;
+      int marks = (*curr).first;
+   
+      for(auto it : mp)
+      cout << marks << names << endl;
+      if(curr == mp.begin()) break;
+      curr--;
+      
+    }
+  
 }
+
+
+
 
 
