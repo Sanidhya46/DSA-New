@@ -1986,7 +1986,7 @@ their frequency*/
 //                  Video no. 37  || Nesting in stl maps and sets with examples  
 // 1). maps , set pair are used in nesting together in very good way  
 // 2). Normal map are <int , int> we can also placeint to pair<int, int> now map of key becomes pair
-// 3). we can compare pair with another pair comparison based on the basis of key.
+// 3). generally we can compare all container with another container based on the basis of key.
 // 4). If first velue is same in container then comparision based on next value ..
 // 5). In set and vector the comparision is also done in this way
 // 6). In map every key stored in sorted order so pair will also be stored in sorted in order
@@ -2046,7 +2046,7 @@ their frequency*/
 // d f 3
 // 2 3 4
 
-// 1). Map of pair generally used in data sturctures, generally set and vectors are rarelu used 
+// 1). Map of pair generally used in key of data structures, generally set and vectors are rarelu used 
 // 2). vector set normally used in values 
 // 3). you can place set in place of map because their also ordering based on sorted order
 
@@ -2119,7 +2119,7 @@ their frequency*/
 // 6). we need to print marks in reverse order 
 // 7). so we need to start from last element and go to the begining 
 // 8). now we make infinite loop
-// 9). now processing current iterator it is the current maximum in  the set
+// 9). now processing current iterator it is the current maximum in the set
 // 10).for processing we need to make set of it
 
 // #include<iostream>
@@ -2201,31 +2201,200 @@ using namespace std;
 // 2). taking input of marks and students 
 // 3). inserting set into map 
 // 4). for printing marks and names iterate into set 
-int main(){
-  map<int , multiset<string>> mp;
-  int n;
-  cin >> n;
-  for(int i=0; i<n;i++){
-    int marks;
-    string students;
-    cin >> marks >> students;
-    mp[marks].insert(students);
-  }
-  auto curr = --mp.end();
-    while(true){
-      auto &names = (*curr).second;
-      int marks = (*curr).first;
+// int main(){
+//   map<int , multiset<string>> mp;
+//   int n;
+//   cin >> n;
+//   for(int i=0; i<n;i++){
+//     int marks;
+//     string students;
+//     cin >> marks >> students;
+//     mp[marks].insert(students);
+//   }
+//   auto curr = --mp.end();
+//     while(true){
+//       auto &names = (*curr).second;
+//       int marks = (*curr).first;
    
-      for(auto it : mp)
-      cout << marks << names << endl;
-      if(curr == mp.begin()) break;
-      curr--;
+//       for(auto &student : names )
+//       cout << marks << student << endl;
+//       if(curr == mp.begin()) break;
+//       curr--;
       
-    }
+//     }
   
+// }
+// 5). for reversing key of map we can make all elements negative so the more negative elements come first and while printing we can just multiply with negative again 
+
+// int main(){
+//   map<int , multiset<string>> mp;
+//   int n;
+//   cin >> n;
+//   for(int i=0; i<n;i++){
+//     int marks;
+//     string name;
+//     cin >> marks >> name;
+//     mp[-1*marks].insert(name);
+//   }
+//   for(auto &marks_students_pr : mp){
+//       auto &students = marks_students_pr.second;
+//       int marks = marks_students_pr.first;
+    
+   
+//       for(auto &student : students )
+//       cout << marks << student << endl;
+   
+      
+//     }
+  
+// }
+
+//                Video no. 38  ||  Stack and Queue
+// 1). Recursion implemented internally using stack
+// 2). like (({}))[{}] - greatest parenthesis  and NGE (next greater element) stack are used 
+// 3). Queue are used in graph
+
+//                         Stack
+// 1). Stack follows a Lifo approach 
+// 2). the last enters element pop out first and first enter element pop out last
+// 3). three operations we can perform on stack -
+//                        i). push - push on to top   ii). pop - pop top element  iii). top - see the top element  
+// 4). you  can also check the stack is empty or not by the opperation
+
+//                         Queue
+// 1). Queue perform first in first out , the first enters will pop out first
+// 2). for stl queue have three operations - 
+//                         i). push - in queue the element always push at the end
+//                        ii). pop - front elements will pop out the which is first
+//                        iii). front - we can see the front elements means first element
+
+// *3). when we use while if we not pop out then it prints top element infinitely
+//  4). 
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main (){
+//       stack<int> st;
+//       st.push(3);
+//       st.push(4);
+//       st.push(45);
+//       st.push(70);
+//       while(!st.empty()){
+//         cout << st.top() << endl;
+//         st.pop();
+//       }
+
+// }
+
+// 5). endl specifies to print into new line
+// 6). queue are generally used in depth first search graph
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//    queue<string> qu;
+//    qu.push("sand");
+//    qu.push("saanndd");
+//    qu.push("sanidhya");
+//    qu.push("ragghav");
+//    while(!qu.empty()){
+//        cout << qu.front() << endl;
+//        qu.pop();
+//        qu.pop();
+//        qu.pop();
+//    }
+// }
+
+//  Q).                          Balanced Parenthesis
+// 1). if there were string given at the point where for every open bracket proper closing bracket is prresent then we called it balance bracket 
+//   ((()))()((
+// 2). we just put braces into stacck one by one if there for every particular closing braces there must be last opening braces present if it present then pop out after every pop out 
+//     if elements left into stack then it must not be balanced parenthesis
+
+
+// 3). Notice stack is given we need to put character so we take stack type character
+// 4). generally on coding site it uses if statement if opening bracket of this type ( or { or [ or then it code becames lengthy
+// 5). so we take unordered map which just mark opening bracket as negative and closing bracket as positive so through this it becames equal if after overall result is zero then it must be balanced string
+// 6). For finding unmatched bracket - if in  map value is negative then closing bracket is not present .. if in map value is positive then opening is not present 
+//     For valid closing and opening pair - after adding value of both maps is zero then valid pair exists.
+// *7). after pushing negative first we need to check stack must not be empty
+// 8). so we need to extract the top element and pop it one by one
+// 9). if sum of negative elements of map and positive elements are not equal then they must not be valid pair
+// 10). if stack is empty then their must be valid pair
+// 11). for Map associative container - list of pairs start with curly braces 
+// 12). no instances for constructor it means you initialise pair in wrong way you use multi comma " " in  place of single comma
+// 13). after making stack we need to iterate into string
+// 14). 
+//     
+// string isBalanced(string s){
+//        stack<char> st;
+//           for(char brackets : s){
+//                if(symbols[brackets] < 0){
+//                   st.push(brackets);
+//                }else{
+//                   while(!st.empty()) return "NO";
+//                   char top = st.top();
+//                   st.pop();
+//                   if(symbols[top] + symbols[brackets] != 0){
+//                       return "NO";
+//                   }
+//                }
+
+//           }
+//           if(st.empty()) return "YES";
+//           return "NO";
+// }
+// int main(){
+//     int t;
+//     cin >> t;
+//     while(t--){
+//       string s;
+//       cin >> s;
+//       cout << isBalanced(s) << endl;
+//     }
+// }
+
+
+//              practice -- Balanced brackets 
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+unordered_map<char, int> symbols = {{'(', -1} , {'{' , -2}, {'[' , -3}};
+
+
+string isbalanced(string s){
+    stack<int> st;
+    for(auto brackets : s){
+      if(symbols[brackets] < 0){
+          st.push(brackets);
+      }else{
+          while(!st.empty()) return "NO";
+          char top = st.top();
+          st.pop();
+          if(symbols[top] + symbols[brackets] != 0){
+              cout << "NO" << endl;
+          }
+      }
+    }
+    while(st.empty()) return "YES";
+    return "NO";
+
+}
+   
+   
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--){
+      string s;
+      cin >> s;
+      isbalanced(s);
+    }
 }
 
-
-
+ 
 
 
