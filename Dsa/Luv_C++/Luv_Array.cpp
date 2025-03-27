@@ -2262,7 +2262,7 @@ using namespace std;
 // 4). you  can also check the stack is empty or not by the opperation
 
 //                         Queue
-// 1). Queue perform first in first out , the first enters will pop out first
+// 1).  Queue perform first in first out ,the first enters will pop out first
 // 2). for stl queue have three operations - 
 //                         i). push - in queue the element always push at the end
 //                        ii). pop - front elements will pop out the which is first
@@ -2357,44 +2357,196 @@ using namespace std;
 
 
 //              practice -- Balanced brackets 
-#include<iostream>
-#include<bits/stdc++.h>
-using namespace std;
+// #include<iostream>
+// #include<bits/stdc++.h>
+// using namespace std;
 
-unordered_map<char, int> symbols = {{'(', -1} , {'{' , -2}, {'[' , -3}};
+// unordered_map<char, int> symbols = {{'(', -1} , {'{' , -2}, {'[' , -3}};
 
 
-string isbalanced(string s){
-    stack<int> st;
-    for(auto brackets : s){
-      if(symbols[brackets] < 0){
-          st.push(brackets);
-      }else{
-          while(!st.empty()) return "NO";
-          char top = st.top();
-          st.pop();
-          if(symbols[top] + symbols[brackets] != 0){
-              cout << "NO" << endl;
-          }
-      }
-    }
-    while(st.empty()) return "YES";
-    return "NO";
+// string isbalanced(string s){
+//     stack<int> st;
+//     for(auto brackets : s){
+//       if(symbols[brackets] < 0){
+//           st.push(brackets);
+//       }else{
+//           while(!st.empty()) return "NO";
+//           char top = st.top();
+//           st.pop();
+//           if(symbols[top] + symbols[brackets] != 0){
+//               cout << "NO" << endl;
+//           }
+//       }
+//     }
+//     while(st.empty()) return "YES";
+//     return "NO";
 
-}
+// }
    
    
 
+// int main(){
+//     int t;
+//     cin >> t;
+//     while(t--){
+//       string s;
+//       cin >> s;
+//       isbalanced(s);
+//     }
+// }
+
+//                Video no . 40   || Next greater element
+// 1). the next first greater element for all element 
+// 2). 4, 5 , 2, 25 , 7 , 8  <-->  5 , 25 , 25 , -1 ,8 , -1
+// 3). we can be do into by picking one element and making loop for other element to check next element
+// 4). we just put elements into stack and check how many elements the next greater element are present in stack then  pop out the element and replace with next greater element
+// 5). if current element are not greater of any existed one then push into stack , if current is greater for existed element then pop the  existed and replace with current , after this the existed element are -1.
+
+// 6). when we insert greater element then it only check with existed element means their past element , if not greater then again insert
+// 7). we are constructing an vector which takes input aas vector and return also vector
+// 8). vector<int> nge = NGE(V)  means nge calls the function NGE(v) which stores vector of integers stored in nge
+// 9). we are putting indexes in  place of value , at ith we can put the index of just next greater element
+// 10).s.top is index so we can put v[s].top as value
+
+// 11). now we need to go through each element using vector v
+// 12). at ith element we assign next greater element til then stack is not empty and current element does not short then st.top
+
+// 13). for using one vector into another you must need to return first
+
+// 14).  if you not pop after using top then it runs infinitelly
+
+// vector<int> NGE(vector<int> v){
+//        vector<int> nge(v.size());
+//        stack<int> st;
+//        for(int i =0; i< v.size(); i++){
+//          while(!st.empty() && v[i] > v[st.top()]){
+//             nge[st.top()] = i;
+//             st.pop();
+//          } 
+//          st.push(i);   
+//        }
+//        while(!st.empty()){
+//          nge[st.top()] = -1;
+//          st.pop();
+//        }
+//        return nge;
+// }
+
+// int main (){
+//   int n ;
+//   cin >> n;
+//   vector<int> v(n);
+//   for(int i = 0; i<n;  i++){
+//     cin >> v[i];
+//   }
+//   vector <int> nge = NGE(v);
+//   // if we need to print array of next greater element then 
+//   for(int i =0 ; i<n; i++){
+//         cout << v[i] << " " << (nge[i] == -1 ? -1 : v[nge[i]]) << endl;
+//   }
+// }
+
+// for ternary operator in cout line use () curly braces and put value
+
+//        //   //    practice - next greater element 
+// 1 2 3 4 --> 2 , 3 4 -1
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// vector<int> NGE(vector<int> v){
+//   vector<int> nge(v.size());
+//   stack<int> st;
+//   for(int i =0; i< v.size(); i++){
+//   if(!st.empty() && v[i] > v[st.top()]){
+//         nge[st.top()] = i;
+//         st.pop();
+//   }
+//   st.push(i);
+//   st.pop();
+
+//   while(!st.empty()){
+//     nge[st.top()] = -1;
+//     st.pop();
+//   }
+// }
+
+// }
+// int main(){
+//    int n;
+//    cin >> n;
+//    vector<int> v(n);
+//    for(int i =0; i<n; i++){
+//     cin >> v[i];
+//    }
+//    vector<int> nge = NGE(v);
+//    //  if we need to print in result vector into array then 
+//    for(int i =0; i<n; i++){
+//    cout << v[i] << " " << (nge[i] == -1 ? -1 : v[nge[i]]) << endl;
+//    }
+// }
+
+
+//              Video no. 41  || C++
+// 1). C++ inbuilt sorting function is one of the great function
+// 2). sort takes pointer means address from where you need to sorting to the next address of element where you want sorting
+// 3). sort(a, a+n)  (n-1) points last element so a+ n points to the address of nextt element where you want sorting
+// 4). sort(a,b) -- a represent starting index and b represent next address till where you want sorting
+// 5). the inbuilt algorithm is used intro sort which is three sorting expression
+// 6). start from quick sort depth increases then heap sort if no. of element less then uses heap sort
+
+// #include<iostream>
+// using namespace std;
+
+// int main(){
+//   int n;
+//   cin >> n;
+//    vector<int> a(n);
+//    for(int i =0; i<n; i++){
+//       cin >> a[i];
+//    }
+//    sort(a.begin() + 2, a.end() - 1);     // 2 4 9 8 6 10 11
+//    for(int i = 0; i<n; i++){
+//     cout << a[i] << " " << endl;
+//    }
+//    cout << endl;
+// }
+
+
+//            Video no. 42  ||    Comprator function in depth logic
+// 
 int main(){
-    int t;
-    cin >> t;
-    while(t--){
-      string s;
-      cin >> s;
-      isbalanced(s);
+  int n;
+  cin >> n;
+  vector<int> a(n);
+  bool should_i_swap(int a, int b){
+    if(a > b) return true;
+    return false;
+  }
+  for(int i =0; i<n; i++){
+    cin >> a[i];
+  }
+  for(int i = 0; i<n; i++){
+    for(int j = i+1; j<n; j++){
+        // a[i] < a[j]   this is original condition
+         if(should_i_swap(a[i] , a[j])){  // comparator function
+          swap(a[i] , a[j]);
+         }
     }
+  }
+
+
 }
+
+
+
+
+
+
+
+
 
  
+
+
 
 
