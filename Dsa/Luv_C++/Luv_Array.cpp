@@ -1385,7 +1385,7 @@ void PrintVec(vector<int >v){
 
 //  In c++ there were many things are launch auto keywords, range based loops 
 
-//                     Video no. 32  ||   C++ Stl maps
+//                       Video no. 32  ||   C++ Stl maps
 // 1). by using range based loops we can iterate on elements of containers 
 // 2). by using range based loops our values comes at that variables 
 // 3). Range based loops are works well in all containers 
@@ -1844,7 +1844,7 @@ their frequency*/
 // where each bag initially contains Aᵢ candies, and after eating, the bag refills to ⌊Aᵢ/2⌋ candies.
 
 // 1). for running k more times we have to form a new loop for eating.
-// 2). the duplicates is present in question ... so we can't use set 
+// 2). the duplicates is present in question ... so we can't use set  
 // 2). the ordering required so we can not use 
 // 4). value for last candies can be get by new variable .
 // 5). keep overflow things in mind
@@ -1964,7 +1964,7 @@ their frequency*/
 //         int T;
 //         cin >> T; reading t test cases O(1) 
         
-//         while(T--){  // O(T)
+//         while(T--){     // O(T)
         
 //         long long N;
 //         cin >> N;
@@ -1988,7 +1988,7 @@ their frequency*/
 // 2). Normal map are <int , int> we can also placeint to pair<int, int> now map of key becomes pair
 // 3). generally we can compare all container with another container based on the basis of key.
 // 4). If first velue is same in container then comparision based on next value ..
-// 5). In set and vector the comparision is also done in this way
+// 5). In set and vector the comparision is also done in this way 
 // 6). In map every key stored in sorted order so pair will also be stored in sorted in order
 // 7). if we declare nested container then we can define with new variable
 // 8). map<set<int> , int> mp ; this is declration , definition and initialization - declare mp as map, set<int>, define memory - mp,
@@ -2137,7 +2137,7 @@ their frequency*/
 //         auto curr_it = --marks_map[marks].end();   // start from this iterator to begin
         
 //         while(true){   // now we make infinite loop
-//           //now processing current iterator it is the current maximum in  the set
+//           //now processing current iterator it is the current maximum in  the set  
 //           // for processing we need to make set of it 
 //           auto &students =(*curr_it).second;  // students
 //           int marks = (*curr_it).first;   // marks 
@@ -2160,7 +2160,7 @@ using namespace std;
 // Eve 78       bob 99
 // Bob 99       Alice 78
 // Alice 78     Eve 78
-// Alice 78
+// Alice 78 
 
 // 1). first take input think about what data type it is 
 // 2). for printing value iterate in set or map
@@ -2259,7 +2259,7 @@ using namespace std;
 // 2). the last enters element pop out first and first enter element pop out last
 // 3). three operations we can perform on stack -
 //                        i). push - push on to top   ii). pop - pop top element  iii). top - see the top element  
-// 4). you  can also check the stack is empty or not by the opperation
+// 4). you can also check the stack is empty or not by the opperation
 
 //                         Queue
 // 1).  Queue perform first in first out ,the first enters will pop out first
@@ -2513,29 +2513,222 @@ using namespace std;
 
 
 //            Video no. 42  ||    Comprator function in depth logic
-// 
-int main(){
-  int n;
-  cin >> n;
-  vector<int> a(n);
-  bool should_i_swap(int a, int b){
-    if(a > b) return true;
-    return false;
+
+// comparative function behave 
+// 1). (a > b) means when it found a > b then it simply swap that element which first element is greater
+// 2). FOR DEALing with vectors after making operation in it you need to iterate
+// 3). we shall also be define comparator function for pair 
+
+// bool should_i_swap(int a, int b){
+//   if(a < b) return true;
+//   return false;
+// }
+
+// int main(){
+//   int n;
+//   cin >> n;
+//   vector<int> a(n);
+  
+//   for(int i =0; i<n; i++){
+//     cin >> a[i];
+//   }
+//   for(int i = 0; i<n; i++){
+//     for(int j = i+1; j<n; j++){
+//         // a[i] < a[j]   this is original condition
+//          if(should_i_swap(a[i] , a[j])){  // comparator function
+          
+//             swap(a[i] , a[j]);
+          
+//          }
+//     }
+//   }
+//   for(int x : a){
+//     cout << x << " " << endl;
+//  }
+  
+
+
+// }
+
+// 1). comparator function for pair 
+// 2). for taking multiple pairs put into vector
+// 3). for only making sorting on the keys 
+// 4). through by only creating logic we can swap particular pair in order and also particular key or for only value order.
+// 5). swap built in function says if you want swap then return false other wise return true , if don't want then return true
+// 6). so there is best method to memorize swap built in function "jo chaiye usi order me return kr do" just return in which you want the order like a.first > a.second for ascending
+
+// bool should_i_swap(pair<int , int> a, pair<int, int> b){
+//   if(a.first != b.first ){
+//     if(a.first > b.second) return true;  // decreasing order
+//     return false;
+//   }else{
+//      if(a.second < b.second) return true; // if i want the greater value of pair comes first so we type 
+//    // if(a.second > b.second) return true;  // if lesser want first then do a.second > b.second then true else false
+//      return false;
+//   }   
+    
+//   }
+
+// int main(){
+//   int n;
+//   cin >> n; 
+//   vector<pair<int, int>> pr(n);
+  
+//   for(int i =0; i<n; i++){
+//     cin >> pr[i].first >> pr[i].second;
+//   }
+//   for(int i = 0; i<n; i++){
+//     for(int j = i+1; j<n; j++){
+//         // a[i] < a[j]   this is original condition
+//          if(should_i_swap(pr[i], pr[j])){  // comparator function
+          
+//             swap(pr[i], pr[j]);
+          
+//          }
+//     }
+//   }
+//   for(auto it : pr){
+//     cout << it.first << " " << it.second << endl;
+//  }
+  
+
+
+// }
+// 6    
+// 4 5    2
+// 8 9    
+// 3 8
+// 2 9
+
+// with this a.first means in first pair and a.second means first element of second value of pair
+// for comparative function when the conditioin is false return false and when condition is true return true
+// for writing comparator function of integers then bool cmp 
+// 5). there were inbuilt function is also available for comparator like greater int
+// 6). you can also put comprator function on the string , integer pair
+
+// bool cmp(pair<int , int> a, pair<int, int> b){
+//   if(a.first != b.first ){
+//     return (a.first < b.first); // decreasing order
+   
+//   }else{
+//      if(a.second < b.second) return false;// if pair is same then increasing order 
+//      else true;
+//   }   
+        
+//   }
+// bool cmp(int a , int b){
+//    return a > b; // for sorting we can use comparator function
+// }
+  
+
+// int main(){
+//   int n;
+//   cin >> n; 
+//   vector<pair<int, int>> pr(n);
+  
+//   for(int i =0; i<n; i++){
+//     cin >> pr[i].first >> pr[i].second;
+//   }
+
+  
+//   for(int i = 0; i<n; i++){
+//     cout << pr[i].first << " " << pr[i].second << endl;
+//  }
+  
+
+
+// }
+
+// *** Practice *** if we need to write this as 
+// first pair - increasing 
+// second pair - decreasing
+
+// bool cmp(pair<int , int> a, pair<int, int> b){
+//   if(a.first != b.first ){
+//     return (a.first < b.first); // decreasing order
+    
+//   } 
+//   return (a.second > b.second);
+        
+//   }
+
+  
+
+// int main(){
+//   int n;
+//   cin >> n; 
+//   vector<pair<int, int>> pr(n);
+  
+//   for(int i =0; i<n; i++){
+//     cin >> pr[i].first >> pr[i].second;
+//   }
+
+//   sort(pr.begin(), pr.end(), cmp);
+//   for(int i = 0; i<n; i++){
+//     cout << pr[i].first << " " << pr[i].second << endl;
+//  }
+  
+
+
+// }
+
+//  
+
+
+//      ***   Sherlock and his Ammo Quest 
+// N - 10^6 S-10^2
+//
+
+//                 // comparator functions???    
+// bool cmp(pair<string , int> a, pair<string , int> b){
+//   if(a.second != b.second){
+//     return (a.second > b.second);   // decreasing 
+//   }else{
+//     return (a.first <  b.first);
+//   }
+// }
+
+// int main(){
+//   int n ;
+//   cin >> n;
+
+//     vector<pair<string ,int >> pr(n);
+//   for(int  i =0; i<n; i++){
+//      cin >> pr[i].first >> pr[i].second; 
+     
+//   }
+//   sort(pr.begin() , pr.end(), cmp);
+//   for(int i =0; i <n; i++){
+//     cout << pr[i].first << " " << pr[i].second << endl;
+//   }
+// }
+
+
+//                   ***  Letter Count  ***
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main (){
+
+  string s;
+  cin >> s;
+  vector<int> freq(256,0);  
+  for(char c: s){
+      freq[(int)c]++;
   }
-  for(int i =0; i<n; i++){
-    cin >> a[i];
-  }
-  for(int i = 0; i<n; i++){
-    for(int j = i+1; j<n; j++){
-        // a[i] < a[j]   this is original condition
-         if(should_i_swap(a[i] , a[j])){  // comparator function
-          swap(a[i] , a[j]);
-         }
+  int maxfreq = 0;
+  int charfreq = 0;
+  for(int i =0; i< 256; i++){
+    if(freq[i] > maxfreq){
+      maxfreq = freq[i];
+      charfreq = i;  // convert asci value into character
     }
   }
+  cout << (char)charfreq << endl;
 
-
-}
+  }
+  
 
 
 
