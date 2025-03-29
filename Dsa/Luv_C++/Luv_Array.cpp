@@ -1847,7 +1847,7 @@ their frequency*/
 // 2). the duplicates is present in question ... so we can't use set  
 // 2). the ordering required so we can not use 
 // 4). value for last candies can be get by new variable .
-// 5). keep overflow things in mind
+// 5). keep overflow things in mind 
 // 6). 
 // #include<bits/stdc++.h>
 // using namespace std;
@@ -2705,29 +2705,159 @@ using namespace std;
 
 
 //                   ***  Letter Count  ***
-#include<iostream>
-#include<bits/stdc++.h>
-using namespace std;
+// #include<iostream>
+// #include<bits/stdc++.h>
+// using namespace std;
 
-int main (){
+// int main (){
 
-  string s;
-  cin >> s;
-  vector<int> freq(256,0);  
-  for(char c: s){
-      freq[(int)c]++;
-  }
-  int maxfreq = 0;
-  int charfreq = 0;
-  for(int i =0; i< 256; i++){
-    if(freq[i] > maxfreq){
-      maxfreq = freq[i];
-      charfreq = i;  // convert asci value into character
-    }
-  }
-  cout << (char)charfreq << endl;
+//   string s;
+//   cin >> s;
+//   vector<int> freq(256,0);  
+//   for(char c: s){
+//       freq[(int)c]++;
+//   }
+//   int maxfreq = 0;
+//   int charfreq = 0;
+//   for(int i =0; i< 256; i++){
+//     if(freq[i] > maxfreq){
+//       maxfreq = freq[i];
+//       charfreq = i;  // convert asci value into character
+//     }
+//   }
+//   cout << (char)charfreq << endl;
 
-  }
+//   }
+
+//                Video no. 43    ||   Upper Bound and Lower Bound
+// 1). for upper bound and lower bound array must be in sorted order
+// 2). If you want to find an element then lower bound gives (that element , if that element not present then just greater element) 
+//     but for upper found it always points to the next next greater element
+//     if you attempt to find an next greater element which not exist then it returns garbage value
+// 3). lower bound and upper bound returns the location of the element for array --> points pointer and for vector --> reurns iterator
+// 4). lower bound (starting address , last address +1 , element)
+// 5). both upper found and lower bound t.c - O(log n)
+// 6). if you use upper bound and lower bound then try prefer vector dynamic array
+// 7). Dont use iterator and .begin() and .end() to find lower bound and upper bound in set and map because it start consumes O(n) times and leads to tle errors
+// 8). 
+
+
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//      int n;
+//      cin >> n;
+//      int a[n];
+//      for(int i =0; i<n; i++){
+//       cin >> a[i];
+
+//      }
+//      sort(a, a+n);
+//      for(int i =0; i<n; i++){
+//         cout << a[i] << " ";
+//      }
+//      cout << endl;
+//      int *ptr = upper_bound(a+4, a+n, 77);       // 4 5 6 6 9 8 33 77  
+//     //  if(ptr == (a+n)){
+//     //   cout << "NOT FOUND" << endl;
+//     //   return 0;
+//     //  }
+//      cout << (*ptr) << endl;
+// }
+
+//             upper bound and lower bound in dynamic arrays
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//      int n;
+//      cin >> n;
+//      vector<int> a(n);
+//      for(int i =0; i<n; i++){
+//       cin >> a[i];
+
+//      }
+//      sort(a.begin(), a.end());
+//      for(int i =0; i<n; i++){
+//         cout << a[i] << " ";
+//      }
+//      cout << endl;
+//      auto it = upper_bound(a.begin()+ 5, a.end(), 8);       // 4 5 6 6 9 (8 33) 77  
+//      if(it == a.end()){
+//       cout << "NOT FOUND" << endl;
+//       return 0;
+//      }
+//      cout << (*it) << endl;
+// }
+
+// 1). we can take a random number using rand()
+// 2). for In map upper bound and lower bound in map always return iterator to key 
+// 3). for upper bound and lower bound internal implementation done by binary search and in set and map their implemention done using trees , trees traversal
+//                        Lower bound and upper bound in set 
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//      int n;
+//      cin >> n;
+//      set<int> s;
+//      map<int , int> mp;
+//      for(int i =0; i<(int)(1e6); i++){
+//       // int x;
+//       // cin >> x;
+//       s.insert(rand());    // 
+
+//      }
+//      for(int i = 0; i< (int)1e5; i++){
+//          auto it = s.lower_bound(rand());      // t.c- O(log n)
+//      }
+//     // cout << (*it) << endl;
+// }
+
+
+//                          Rebel Reach
+// 1). acccumlate provide for what range of sum you want , and also give initial value of sum
+// 2). for in case of array v.begin convert into v and .end() convert into v+n (v+n means the next address where we want to find out)
+// 3). in case of array iterator is pointing to pointer
+//          Video no. 44    ||  Inbuilt Algorithms & lambda function in arrays and vectors 
+// 
+//          inbuilt algorithms in vector 
+// #include<bits./stdc++.h>
+// using namespace std;
+
+// int main(){
+//     int n;
+//     cin >> n;
+//     vector<int> v(n);
+//     for(int i =0; i<n; i++){
+//          cin >> v[i];  // 4 5 6 7 8   // 8
+//     }
+//     int max = *max_element(v.begin() + 1, v.end()-1);    // O(n)   
+//     cout << max << endl;
+//     int min = *min_element(v.begin(), v.end()-1);
+//     cout << min << endl;
+//     int sum = accumulate(v.begin() + 1, v.end()-1 , 0);  // 18
+//     cout << sum << endl;
+
+//     int ct = count(v.begin() + 3, v.end() - 1, 7);     // 5 6 6 7 7 7 2      4 to 7
+//     cout << ct << endl;
+//     int fd= *find(v.begin(), v.end(), 9);  // 5 6 6 7 7 7 2  
+//     cout << fd << endl;
+//  // int it = find(v, v+n);   // in case
+//  // if(it != v+n){
+//        cout << (*it) <<endl;
+//      }else{
+//        cout << " NOt found" << endl;}
+// }
+
+//  inbuilt algorithms for array just conver .begin() to v and .end to v+n
+
+
+
+
   
 
 
