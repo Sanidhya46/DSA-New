@@ -1,3 +1,7 @@
 1). variable is not declared in the scope   ---sol ---     first declares variables
 2). error: expected unqualified-id before '=' token     ---sol---  error when u r using keyword as identifier
 3). logicbuilding.cpp:218:9: error: declaration of 'int b' shadows a parameter 
+4). error: 'difference' was not declared in this scope   ---  variable are not declare or declare in if statement or somewhere else
+5). Line 23: Char 5: error: non-void function does not return a value in all control paths [-Werror,-Wreturn-type]   -- without void function must return something in every case
+6). 2d array must be initialise in {...} curly braces
+7). expression must have pointer to object type must have int  --- declare only one array not 2d array

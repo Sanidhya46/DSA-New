@@ -1,1 +1,17 @@
 1). When you think about loop also think about updating the things which can be reused in loop
+2). pow() - O(log n) 
+3). iterative approach is better than recursion
+4). log10(n) - for count digits   ---   log2(n) - for no. of bits needed
+5). O(min(a,b)) is equal or always better then O(b)
+6). Never push back anything into array or string in if else statement it only executes for particular condition
+7). For an unsigned int the loop for 32 times
+8). n with k bits runs O(log2n) times
+9). memoization is an optimization technique used prmiarly in recursive algorithms to store the result and reuse the resutlt when same inputs occur again 
+10). After writing brute force think about how you can reduce step or search for what is repeating in each times.
+11). prefix sum array can be converted into sum[i] += sum[i+1]
+12). no. of iteration in while loop is depends on the number of digits of n not the actual value of n
+13). 5 steps Dsa poblem - i). understand the problem  ii). Look for patterns  iii). Decide an approach  iv). test edge case - 0,normal,large  v).Optimise How you can avoid unecessary computaions
+14). memoization is process of storing and recalling information from memory.
+15). When there is {Options --> Recursion(Tree Diagram)}
+16). *The maximum number of operations generally allowed before hitting a timeout is about 10 to 20 million
+17). for for loop ,, ask to ownself where it starts , when it ends, how it goes
