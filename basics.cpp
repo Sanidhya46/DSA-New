@@ -9,7 +9,7 @@ using namespace std;  //it is used for using the standard namespace which contai
 // int main(){      // int main() is the main function of the program
 //     cout << "helllo world" << endl;
 //     cout << 55 << endl;    // cout is used for displaying the output in the console
-//     cout << "***" << endl;          
+//     cout << "***" << endl;
 
 //     return 0;  //it is used for returns the value from functioni and 0 is used for successful execution
 // }
@@ -143,7 +143,7 @@ There were 6 type of tokens --
    6).operators - operators are used to perform operation on operands such as variables , constants  and operands
         i).unary operators -  single operands
         ii). binary operators -two operands
-        iii). ternary operators - takes  three operands             
+        iii). ternary operators - takes  three operands
         
         alignas	alignof	and	and_eq	asm
 auto	bitand	bitor	bool	break
@@ -164,4 +164,135 @@ this	thread_local	throw	true	try
 typedef	typeid	typename	union	unsigned
 using	virtual	void	volatile	wchar_t
 while	xor	xor_eq */
+
+                                                   //     variables
+//  used for memory location , it is most basic unitof storage
+//  four types data type -- int, float, char , bool , string 
+//  type name
+
+// #include <iostream>
+// using namespace  std;
+
+// void _var(int &a, int &b, string &c, float &d, char &e, bool &f){
+//        a = 4;
+//        b =7;
+//        c = "hello";
+//        d = 9.0;
+//        e = 'g';
+//        f = true;
+
+//        cout << a << b << c << d << e << f << endl;
+// };
+
+// int main(){
+//    int a;
+//    int b;
+//    string c;
+//    float d;
+//    char e;
+//    bool f;
+//   _var(a,b,c,d,e,f);
+// }
+
+                                               // Constants
+//  Constants are a variables which have fixed values throughout the program
+//  three way to make constants i). const key word  --- syntax  const datatype variable_name = value -- initialised at run time and compile time
+//                              ii). contexpr keyword --- syntax  constexpr data type variable_name = value  -- initialised at compile time 
+//                              iii). # define processor --- syntax  #define macro name replacement value   -- (preprocessor phase) #define processor  called macro constants
+// using constants makes code more readable and self explanatory , prevent unwanted modification
+
+// Feature	const	constexpr	#define
+// Modifiable?	❌ No	❌ No	❌ No
+// Type-Safe?	✅ Yes	✅ Yes	❌ No
+// Evaluated at?	Runtime (mostly)	Compile-time	Preprocessor phase
+// Scope	Respects scoping rules	Respects scoping rules	Global (Text replacement)
+// Better for?	Constants that do not change	Compile-time constants	Simple values, but not recommended
+
+
+// #include <iostream>
+// using namespace std;
+
+// #define c 5         
+// void _constants(){      // parameterless function
+//    const int a = 5;      // now this valuue is stored for throught the program
+//    constexpr int b = 7;  // their value can be initialised at compile time 
+//    cout << a << b << c;
+// }
+// int main(){
+//    _constants();    // calling function
+// }
+
+// #include<iostream>
+// #include <string>    // string library for string operation
+// using namespace std;       // standard namspace for all stl functions
+
+// #define PI 3.147      
+// #define COUNTRY "INDIA"
+// #define LIQUID  "Water"               // preprocessor  phase 
+
+// const int gravity = 9.187;   // const is used for when you do not change the value
+// const int humidity = 7.0;
+// const int birds = 1234;
+
+// constexpr int object = 80;
+//       // constexpr requires compiles time constant expression
+// constexpr double gravity_ = 9.81;
+// constexpr int square(int x){
+//    return x*x;
+// };
+
+
+
+// void _constant(){
+//     cout << PI << COUNTRY << LIQUID << gravity << humidity << birds << object << gravity_ << square(4);
+// }
+// int main(){
+//    _constant();  // calling the void function
+// }
+
+                                                                   // Scope
+//  Scope is an region of program where a variable can be accesed and work 
+//  2 types  of variable scopes  i).Global scope -- region outside a function -- when variable define outside the function and can be accesed any where
+//                               ii). Local scope -- region inside a function -- when variable define inside the function and can be accesed  only in function 
+// In C++ three type of variations -- i). Instance scope -- region inside a class but outside a member function of class -- variable accesed in whole class
+//                                    ii). Static member scope -- static scope applied to the variable with static key words within the class and can be accessed using  the class name.-- syntax (static data_type variable_name) class_name::variable name
+//                                    iii). namespace scope -- namespace in c++ is a container that allows user to create a separate scope where given variables are defined -- syntax (namespace namespace_name) for access(namespace_name::variable_name)
+
+                              // Bank Management System
+#include<iostream>
+#include<string>
+using namespace std;
+
+int bank_PR = 5.0;
+namespace BankDept{
+   string bankingdepartments[] = {"Loans","Customer"," Service","Credit Cards"};    // Array initialisation in c++
+
+};
+void Customer_details(){
+   int customer_AB = 500;
+   int withdrawal_ammount = 600;
+
+   cout << "customer account balance is " << customer_AB << "withdrawal ammount is " << withdrawal_ammount;
+
+   static int transaction_counter;
+}
+class Customer{
+    string customer_names;
+    string account_balance;
+
+    static int Total_customer;     // static class scope
+};
+
+void transaction(){
+   static int transaction_count = 0;
+   transaction_count++
+}
+
+
+
+
+
+
+
+
 

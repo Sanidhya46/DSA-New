@@ -1,0 +1,52 @@
+
+// class Solution {
+// public:
+//     int minimumRecolors(string blocks, int k) {
+//         int n = blocks.size();
+//         int minflips = k;
+
+//         for(int i =0; i <= n -k; i++){
+//             int flips = 0;
+//             for(int j=i; j < i +k; j++){
+//                 if(blocks[j] == 'W'){
+//                     flips++;
+//                 }
+//             } 
+//             minflips = min(minflips , flips);  // min flips stored no. of flips encountered and update if flips smallere than the current or encountered.
+//         }
+//         return minflips;
+//     }
+// };
+
+// T.C - O(n^2)
+
+//             *Approach - 2  Sliding Window Approach
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int n = blocks.size(); // Get the size of the input string `blocks`
+        int i = 0;  // Left pointer of the sliding window
+        int j = 0;  // Right pointer of the sliding window
+
+        int ops = k;  // Initialize `ops` with `k` (maximum possible recolors)
+        int W = 0;  // Count of 'W' (white blocks) in the current window
+
+        while(j < n) {  // Iterate through the string using `j` as the right pointer
+            if(blocks[j] == 'W') {  // If the current block is white
+                W++;  // Increment the count of 'W'
+            }
+
+            if(j - i + 1 == k) {  // If the window size reaches `k`
+                ops = min(ops, W);  // Update `ops` with the minimum count of 'W' found so far
+
+                if(blocks[i] == 'W') {  // If the leftmost block of the window is 'W'
+                    W--;  // Decrease the 'W' count as we slide the window
+                }
+                i++;  // Move the left pointer to shrink the window
+            }
+            j++;  // Move the right pointer to expand the window
+        }
+
+        return ops;  // Return the minimum number of recolors needed
+    }
+};

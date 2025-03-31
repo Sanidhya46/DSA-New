@@ -2760,7 +2760,7 @@ using namespace std;
 //      }
 //      cout << endl;
 //      int *ptr = upper_bound(a+4, a+n, 77);       // 4 5 6 6 9 8 33 77  
-//     //  if(ptr == (a+n)){
+//     //  if(ptr == (a+n)){    // if the last pointer start pointing to the end it means no element or there so it gives not found
 //     //   cout << "NOT FOUND" << endl;
 //     //   return 0;
 //     //  }
@@ -2822,9 +2822,10 @@ using namespace std;
 // 1). acccumlate provide for what range of sum you want , and also give initial value of sum
 // 2). for in case of array v.begin convert into v and .end() convert into v+n (v+n means the next address where we want to find out)
 // 3). in case of array iterator is pointing to pointer
-//          Video no. 44    ||  Inbuilt Algorithms & lambda function in arrays and vectors 
-// 
-//          inbuilt algorithms in vector 
+
+//          Video no. 44    ||  Inbuilt Algorithms Part 1 Arrays and vectors
+//   
+//              inbuilt algorithms in vector 
 // #include<bits./stdc++.h>
 // using namespace std;
 
@@ -2853,10 +2854,159 @@ using namespace std;
 //        cout << " NOt found" << endl;}
 // }
 
-//  inbuilt algorithms for array just conver .begin() to v and .end to v+n
+//     inbuilt algorithms for array just conver .begin() to v and .end to v+n
+
+//                    Video no. 45  || Inbuilt STL Algorithms and lambda queries
+//  lambda queries is used for put a particular conditions to all elements for particular range 
+//  the syntax is [](){condition statement for lambda queries}
+// lambda queries are generally pass in third parameters
+// all of means all_off , generally we pass lambda function as third parameters
+// all_of , none_of and any_of returns true and false
+// all_of - all of conditions true then true , none_off - if none of the condition true return true, and any_off - if any of the element in particular range is true then it returns true 
+// none of = it only returns true if none of the elements return true 
+// vector<int> v = {3,4,5 ,6 };
+// int main(){
+//        cout << [](int x){return x + 2;}(2) << endl; // 4
+//        cout << [](int x){return x + 4;}(2) <<  endl; // 6
+//        auto sum = [](int x, int y){return x + y;}(4 , 5);  // 9
+//        cout << sum << endl;
+// }
+
+// bool even(int x){
+//        return (x%2 == 0);
+// }
+// vector<int> v=  {4, 5 ,4 ,9};
+// int main(){
+//        cout << [](int x){return x > 2;};
+//        cout << [](int x , int y){return x + y;}( 5 , 6);
+//        cout << all_of(v.begin(),v.end(),[](int x){return x > 0;});
+//        cout << none_of(v.begin(), v.end(),[](int x){return x > 2;});
+//        cout << any_of(v.begin(), v.end(), even );
+// }
 
 
+//                   Video no. 45  ||  Inbuilt STL ALGORITHMS and lambda queries
+// int main(){
+//        cout << [](int x){return x + 2;}(4) << endl;
+//        int sum = [](int x , int y){return x + y;}(4 , 5);
+//        cout << sum << endl;
+// }
+// vector<int> v = {2,4,6,8,8};
+// bool even(int x){
+//         return (x%2 == 0);
+// }
+// int main(){
+//         cout << all_of(v.begin(), v.end(),[](int x){return x<0;});
+//         cout <<  none_of(v.begin(), v.end(), [](int x){return x > 2;}) << endl; // 0
+//         cout << any_of(v.begin() + 2, v.end(), [](int x){return x > 6;}) << endl;  ///
+//         cout << any_of(v.begin(), v.end(), even) << endl;  // 1
+// }
+// O(n) time complexties 
 
+//              Video no. 46   ||  Offline querie and online queries
+// 1). Offline queries - only caluculate somthing for a range example when you have to find out the sum of all element from range l to r 
+// 2). online queries - when you also need to update[i] for each element in given range just like to r
+
+//              Video no. 47  || Advanced Recursion
+//
+// 1). a pair only be valid when opening bracket pair is more than the closing bracket 
+// 2). for opening bracket there were only one condition if n is left for opening bracket then we can put opening bracket
+// 3). for adding closing bracket there were two condition closing brackets must be availiable and count of opening bracket must be greater than closing bracket
+// *4). for making recursion you need to make function definintion 
+// 5). when we put opening bracket then string says you ccan put more brackets so string s will also be passes
+
+// 6). function definition says there is an  s string in which open bracket can be put of thier count , and in  close closing bracket it can put closing bracket of their count 
+// vector<string> valid;
+// void generate(string &s,int open, int close){
+//         if(open == 0 && close == 0){     // Now if opening count and closing count 0 then we can find valid string
+//             valid.push_back(s);
+//             return;
+//         }
+//         if(open > 0){    // if opening is present 
+//              s.push_back('(');
+//              generate(s, open - 1, close);   // after consume 1 we are going to generate for open - 1, so this function is calls for opening and closing
+//              s.pop_back();    // backtracting
+//         }
+//         if(close > 0){   // we need to check 
+//              if(open < close){     // this string tells count of opening is greatter than close .... if 2 bracket is use then we need to make for 3 bracket
+//                 s.push_back(')');
+//                 generate(s, open , close -1);   // we call the generate function
+//                 s.pop_back();
+
+
+//              }
+//         }
+// }       
+
+// int main(){
+//     int n;
+//     cin >> n;
+//     string s;
+//     generate(s,n, n);
+//     for(auto ele : valid){
+//        cout << ele << endl;
+//     }
+// }
+
+//           Subset generation using recursion
+// vector<string> valid;
+// void generate(string &s, int open , int close){
+//           if(open == 0 && close == 0){
+//                 valid.push_back(s);
+//                 return;
+//           }
+//           if(open > 0){
+//                 s.push_back('(');
+//                 generate(s, open - 1, close);
+//                 cout << open << endl;
+//                 s.pop_back();
+//           }
+//           if(open < close){
+//                 s.push_back(')');
+//                 generate(s, open , close -1 );
+//                 s.pop_back();
+
+//           }
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         string s;
+//         generate(s, n, n);
+//         for(auto ele : valid){
+//                 cout << ele << endl;
+//         }
+// }
+
+//                practice 
+vector<string> valid;
+void substring(string &s, int open , int close){
+        if(open == 0 && close == 0){
+                valid.push_back(s);
+                return;
+        }
+        if(open > 0){
+                s.push_back('(');
+                substring(s, open-1, close);
+                s.pop_back();
+
+        }
+        if(open < close){    // it means more opening bracket present  when 
+                s.push_back(')');
+                substring(s, open , close -1);
+                s.pop_back();
+        }
+
+}
+int main(){
+        int n ;
+        cin >> n;
+        string s;
+        substring(s , n, n);
+        for( auto it :  valid){
+                cout << it << endl;
+        }
+}
 
   
 
