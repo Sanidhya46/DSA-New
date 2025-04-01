@@ -2907,7 +2907,7 @@ using namespace std;
 // 1). Offline queries - only caluculate somthing for a range example when you have to find out the sum of all element from range l to r 
 // 2). online queries - when you also need to update[i] for each element in given range just like to r
 
-//              Video no. 47  || Advanced Recursion
+//               Video no. 47  || Advanced Recursion
 //
 // 1). a pair only be valid when opening bracket pair is more than the closing bracket 
 // 2). for opening bracket there were only one condition if n is left for opening bracket then we can put opening bracket
@@ -2978,37 +2978,94 @@ using namespace std;
 //         }
 // }
 
-//                practice 
-vector<string> valid;
-void substring(string &s, int open , int close){
-        if(open == 0 && close == 0){
-                valid.push_back(s);
-                return;
-        }
-        if(open > 0){
-                s.push_back('(');
-                substring(s, open-1, close);
-                s.pop_back();
+//                           practice 
+// vector<string> valid;
+// void substring(string &s, int open , int close){
+//         if(open == 0 && close == 0){
+//                 valid.push_back(s);
+//                 return;
+//         }
+//         if(open > 0){
+//                 s.push_back('(');
+//                 substring(s, open-1, close);
+//                 s.pop_back();
 
+//         }
+//         if(open < close){    // it means more opening bracket present  when 
+//                 s.push_back(')');
+//                 substring(s, open , close -1);
+//                 s.pop_back();
+//         }
+
+// }
+// int main(){
+//         int n ;
+//         cin >> n;
+//         string s;
+//         substring(s , n, n);
+//         for( auto it :  valid){
+//                 cout << it << endl;
+//         }
+
+
+// }
+
+//             Subset Generation using recursion n ba
+
+// 1). for subset generation satart considering takes to or not takes to for all elements, if i pick first 
+// 2). making subset is very simple come of first element and include the first element if not include then goes on to the sencond element and again include it or not to include  .. like this go to the n elements
+// *3). if n elements is in array then their 2^n subsets are made
+
+// 4). For reursion define must clear your definition first what you are going to do 
+// steps - 1). lets suppose a vector is given now we need to make subset so generate function so we goona pass generate function
+//         2). in each time we goona check for that we are commited to take or not to take so we pass a vector array ... generate(vector<int> &subset) .. and pass by reference because we not want to make copies
+//         3). when we are approaching to depth of the tree then we have to options take or not take so we need to pass what elements are pass for check which is current element  i
+//         4). for finding in a element we pass nums nums array in function as a reference so its copy or not made
+//         5). generate function have two optinon it tells have to include ith position in subset or not
+//         6). if at ith position we choose not to include so we check for ith + 1
+//             7). ith element not in subset -- generate(subset, i+1, nums)
+//             8). if ith element in subset -- subset.push_back(nums[i])  then we put ith element
+//                                             generate(subset, i+1, nums) ith element is processed so we search for ith + 1 element and pass nums together
+//                                             subset.pop_back(); also need to undo.... if not undo it.. then any element come into subset seems as same as previous call element .... as we going into depth changes increase and when we comes back again then we want revert of our result to put for new elements then we need to undo it 
+//             9). whats our base condition? when all elements are consumed then iterator must points to end of the array
+//             10).each results were represents subsets , When the result were stored in subset we need to push into vector of array
+// 
+// 
+//  overload function - one version of the function 
+//                    - no multilple definitions of the function
+//                    - the function may have been incorectly defined or not implemented with multiple versions
+vector<vector<int>> subsets;  // this will stores all the vector of vector of all subsets
+void generate(vector<int> &subset, int i , vector<int> &nums){
+
+        if(i == nums.size()){
+             subsets.push_back(subset);
+             return;
         }
-        if(open < close){    // it means more opening bracket present  when 
-                s.push_back(')');
-                substring(s, open , close -1);
-                s.pop_back();
-        }
+        generate(subset , i+1, nums);
+        
+        subset.push_back(nums[i]);
+        generate(subset , i+1, nums);
+        subset.pop_back();
 
 }
 int main(){
-        int n ;
+        int n;
         cin >> n;
-        string s;
-        substring(s , n, n);
-        for( auto it :  valid){
-                cout << it << endl;
+        vector<int> nums(n);
+        for(int i =0; i<n; i++){
+                cin >> nums[i];
         }
+        vector<int> empty;    // first we consider empty vector 
+        generate(empty, 0 , nums);   // at starting their element will zero 
+        for(auto subset : subsets){
+                for(auto ele : subset){
+                        cout << ele << " ";
+                }
+        }
+
 }
 
-  
+
 
 
 
