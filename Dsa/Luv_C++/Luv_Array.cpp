@@ -2519,6 +2519,7 @@ using namespace std;
 // 2). FOR DEALing with vectors after making operation in it you need to iterate
 // 3). we shall also be define comparator function for pair 
 
+// 4). comparator function works when need to change or arrange the order of elements for particular range 
 // bool should_i_swap(int a, int b){
 //   if(a < b) return true;
 //   return false;
@@ -2987,13 +2988,13 @@ using namespace std;
 //         }
 //         if(open > 0){
 //                 s.push_back('(');
-//                 substring(s, open-1, close);
+//                 substring(s, open-1, close);   // when i select one opening it becames open - 1
 //                 s.pop_back();
 
 //         }
 //         if(open < close){    // it means more opening bracket present  when 
 //                 s.push_back(')');
-//                 substring(s, open , close -1);
+//                 substring(s, open , close -1);  // when i select close it becames close - 1
 //                 s.pop_back();
 //         }
 
@@ -3034,43 +3035,167 @@ using namespace std;
 //  overload function - one version of the function 
 //                    - no multilple definitions of the function
 //                    - the function may have been incorectly defined or not implemented with multiple versions
-vector<vector<int>> subsets;  // this will stores all the vector of vector of all subsets
-void generate(vector<int> &subset, int i , vector<int> &nums){
+// vector<vector<int>> subsets;  // this will stores all the vector of vector of all subsets
+// void generate(vector<int> &subset, int i , vector<int> &nums){
 
-        if(i == nums.size()){
-             subsets.push_back(subset);
-             return;
-        }
-        generate(subset , i+1, nums);
+//         if(i == nums.size()){
+//              subsets.push_back(subset);    //  base condition if all subsets were generated
+//              return;
+//         }
+//         generate(subset , i+1, nums);   // at the time of  not take it search for next element for subset
         
-        subset.push_back(nums[i]);
-        generate(subset , i+1, nums);
-        subset.pop_back();
+        
+//         subset.push_back(nums[i]);   // when take it push back that element into subset  and search for next element
+//         generate(subset , i+1, nums);
+//         subset.pop_back();
 
-}
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> nums(n);
+//         for(int i =0; i<n; i++){
+//                 cin >> nums[i];
+//         }
+//         vector<int> empty;    // first we consider empty vector 
+//         generate(empty, 0 , nums);   // at starting their element will zero 
+//         for(auto subset : subsets){
+//                 for(auto ele : subset){
+//                         cout << ele << " ";
+//                 }
+//         }
+
+// }
+
+
+
+
+
+
+//                                       Generate Subsets
+
+
+// vector<vector<int>> subsets;
+// void generate(vector<int> &subset , int i, vector<int>& nums){
+//         if(i == nums.size()){
+//                 subsets.push_back(subset);
+//                 return;
+//         }4
+//         // when we not takes
+//         generate(subset, i + 1, nums);
+//         // when take 
+//         subset.push_back(nums[i]);
+//         generate(subset , i + 1, nums);
+//         subset.pop_back();
+
+
+// }
+
+
+//              Video no . 50 ||  Binary Search
+
+// 1). In book it commonly mention that binary search are used in sorted array 
+// 
+// 2). Binary Search is a search algorithm which based on motonic functions
+// 3). monotonic function is a function which maintain a given order , or follow a order
+// 4). non monotnic function which does not follow order
+// *5). we can use binary searh in  all monotonic things like --- i). if x^2  increases along with y^2 -- ii). 1 2 3 4 5
+// 6). A predicate function its a type of function which always return true or false 
+//                         ex -- F F F F F F T T T T T - monotonic function -- we can also put binary search on it 
+// 7). Binary Search is likes Dicitionary means where i mean to see the meaning word first i see somehwere on mid then on right or left half
+
+//   if a monotonic array is --  2 3  5 6 7 
+//         search space - 0 to 5 ( a search space)
+//        mid = 2    mid = 0 + search space / 2 = 2.0
+//       means, mid value = 4  if we have to search for 5 we use to search in right side
+//
+//     now we can discard the search space from 0 to 2  --- so now search space becames 3 - 5
+//      mid = 2  --> search space 3 - 5 --
+//      now mid = 4  value = 6 we search for 5 --> so search space = 3 - 3 
+//      mid = 3 --> 5
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> v(n);
+//         for(int i =0; i<n; i++){
+//                 cin >> v[i];
+//         }
+//         int to_find;
+//         cin >> to_find;
+//         // for to apply binary search we need to define search space 
+//         int lo = 0, hi = n - 1; // (at starting whole array)
+//         int mid;
+//         //  we need to check for high > low
+//         while(hi - lo > 1){
+//                int mid =  (hi - lo) / 2;
+//                if(v[mid] < to_find){
+//                    // it must be lies on right so mid becames lo + 1
+//                    // for low and high condition we are search for we can find that element in  search space or not 
+//                    lo = mid + 1;
+//                    // for binary search we are searching as is mid be able to present in search space
+//                }else{
+//                    hi = mid;
+//                }
+//         }
+//         //  high and low maxm difference can be 0 or 1 
+//         if(v[lo] == to_find){
+//                 cout << lo << endl;   // present at low index
+//         }else if(v[hi] == to_find){
+//                 cout << hi << endl;
+//         }else{
+//                 cout << "NOT FOUND" << endl;
+//         }
+
+// }
+// time complexity O2(n)
+
+// 1). If we talk about time time complexity on each time the search space becoming half and half again so it goes for O(log2(N)) times
+// Coming quetion - how to find square root using binary search 
+//                 quick problem 
+
+
+
+
+
+//                   Binary Search 
+
 int main(){
         int n;
         cin >> n;
-        vector<int> nums(n);
-        for(int i =0; i<n; i++){
-                cin >> nums[i];
+        vector<int> v(n);
+        for(int i =0; i< n; i++){
+                cin >> v[i];
         }
-        vector<int> empty;    // first we consider empty vector 
-        generate(empty, 0 , nums);   // at starting their element will zero 
-        for(auto subset : subsets){
-                for(auto ele : subset){
-                        cout << ele << " ";
+        int to_find;
+        cin >> to_find;
+        int lo = 0;
+        int hi = n -1;
+        int mid;
+
+        while(hi - lo > 1){
+               
+                mid = (hi - lo) / 2;
+                
+                if(v[mid] < to_find ){
+                        lo = mid + 1;
+                }else{
+                        hi = mid; 
                 }
+                
         }
-
+        // t.c - O2(n)
+        if(v[lo] == to_find ){
+            cout << lo;
+        }else if(v[hi] == to_find){
+                cout << hi;
+        }else{
+                cout<< " NOT FOUND";
+        }
 }
-
-
-
-
-
-
-
 
 
 
