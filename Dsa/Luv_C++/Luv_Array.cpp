@@ -2519,6 +2519,7 @@ using namespace std;
 // 2). FOR DEALing with vectors after making operation in it you need to iterate
 // 3). we shall also be define comparator function for pair 
 
+// 4). comparator function works when need to change or arrange the order of elements for particular range 
 // bool should_i_swap(int a, int b){
 //   if(a < b) return true;
 //   return false;
@@ -2907,7 +2908,7 @@ using namespace std;
 // 1). Offline queries - only caluculate somthing for a range example when you have to find out the sum of all element from range l to r 
 // 2). online queries - when you also need to update[i] for each element in given range just like to r
 
-//              Video no. 47  || Advanced Recursion
+//               Video no. 47  || Advanced Recursion
 //
 // 1). a pair only be valid when opening bracket pair is more than the closing bracket 
 // 2). for opening bracket there were only one condition if n is left for opening bracket then we can put opening bracket
@@ -2978,42 +2979,223 @@ using namespace std;
 //         }
 // }
 
-//                practice 
-vector<string> valid;
-void substring(string &s, int open , int close){
-        if(open == 0 && close == 0){
-                valid.push_back(s);
-                return;
-        }
-        if(open > 0){
-                s.push_back('(');
-                substring(s, open-1, close);
-                s.pop_back();
+//                           practice 
+// vector<string> valid;
+// void substring(string &s, int open , int close){
+//         if(open == 0 && close == 0){
+//                 valid.push_back(s);
+//                 return;
+//         }
+//         if(open > 0){
+//                 s.push_back('(');
+//                 substring(s, open-1, close);   // when i select one opening it becames open - 1
+//                 s.pop_back();
 
-        }
-        if(open < close){    // it means more opening bracket present  when 
-                s.push_back(')');
-                substring(s, open , close -1);
-                s.pop_back();
-        }
+//         }
+//         if(open < close){    // it means more opening bracket present  when 
+//                 s.push_back(')');
+//                 substring(s, open , close -1);  // when i select close it becames close - 1
+//                 s.pop_back();
+//         }
 
-}
+// }
+// int main(){
+//         int n ;
+//         cin >> n;
+//         string s;
+//         substring(s , n, n);
+//         for( auto it :  valid){
+//                 cout << it << endl;
+//         }
+
+
+// }
+
+//             Subset Generation using recursion n ba
+
+// 1). for subset generation satart considering takes to or not takes to for all elements, if i pick first 
+// 2). making subset is very simple come of first element and include the first element if not include then goes on to the sencond element and again include it or not to include  .. like this go to the n elements
+// *3). if n elements is in array then their 2^n subsets are made
+
+// 4). For reursion define must clear your definition first what you are going to do 
+// steps - 1). lets suppose a vector is given now we need to make subset so generate function so we goona pass generate function
+//         2). in each time we goona check for that we are commited to take or not to take so we pass a vector array ... generate(vector<int> &subset) .. and pass by reference because we not want to make copies
+//         3). when we are approaching to depth of the tree then we have to options take or not take so we need to pass what elements are pass for check which is current element  i
+//         4). for finding in a element we pass nums nums array in function as a reference so its copy or not made
+//         5). generate function have two optinon it tells have to include ith position in subset or not
+//         6). if at ith position we choose not to include so we check for ith + 1
+//             7). ith element not in subset -- generate(subset, i+1, nums)
+//             8). if ith element in subset -- subset.push_back(nums[i])  then we put ith element
+//                                             generate(subset, i+1, nums) ith element is processed so we search for ith + 1 element and pass nums together
+//                                             subset.pop_back(); also need to undo.... if not undo it.. then any element come into subset seems as same as previous call element .... as we going into depth changes increase and when we comes back again then we want revert of our result to put for new elements then we need to undo it 
+//             9). whats our base condition? when all elements are consumed then iterator must points to end of the array
+//             10).each results were represents subsets , When the result were stored in subset we need to push into vector of array
+// 
+// 
+//  overload function - one version of the function 
+//                    - no multilple definitions of the function
+//                    - the function may have been incorectly defined or not implemented with multiple versions
+// vector<vector<int>> subsets;  // this will stores all the vector of vector of all subsets
+// void generate(vector<int> &subset, int i , vector<int> &nums){
+
+//         if(i == nums.size()){
+//              subsets.push_back(subset);    //  base condition if all subsets were generated
+//              return;
+//         }
+//         generate(subset , i+1, nums);   // at the time of  not take it search for next element for subset
+        
+        
+//         subset.push_back(nums[i]);   // when take it push back that element into subset  and search for next element
+//         generate(subset , i+1, nums);
+//         subset.pop_back();
+
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> nums(n);
+//         for(int i =0; i<n; i++){
+//                 cin >> nums[i];
+//         }
+//         vector<int> empty;    // first we consider empty vector 
+//         generate(empty, 0 , nums);   // at starting their element will zero 
+//         for(auto subset : subsets){
+//                 for(auto ele : subset){
+//                         cout << ele << " ";
+//                 }
+//         }
+
+// }
+
+
+
+
+
+
+//                                       Generate Subsets
+
+
+// vector<vector<int>> subsets;
+// void generate(vector<int> &subset , int i, vector<int>& nums){
+//         if(i == nums.size()){
+//                 subsets.push_back(subset);
+//                 return;
+//         }4
+//         // when we not takes
+//         generate(subset, i + 1, nums);
+//         // when take 
+//         subset.push_back(nums[i]);
+//         generate(subset , i + 1, nums);
+//         subset.pop_back();
+
+
+// }
+
+
+//              Video no . 50 ||  Binary Search
+
+// 1). In book it commonly mention that binary search are used in sorted array 
+// 
+// 2). Binary Search is a search algorithm which based on motonic functions
+// 3). monotonic function is a function which maintain a given order , or follow a order
+// 4). non monotnic function which does not follow order
+// *5). we can use binary searh in  all monotonic things like --- i). if x^2  increases along with y^2 -- ii). 1 2 3 4 5
+// 6). A predicate function its a type of function which always return true or false 
+//                         ex -- F F F F F F T T T T T - monotonic function -- we can also put binary search on it 
+// 7). Binary Search is likes Dicitionary means where i mean to see the meaning word first i see somehwere on mid then on right or left half
+
+//   if a monotonic array is --  2 3  5 6 7 
+//         search space - 0 to 5 ( a search space)
+//        mid = 2    mid = 0 + search space / 2 = 2.0
+//       means, mid value = 4  if we have to search for 5 we use to search in right side
+//
+//     now we can discard the search space from 0 to 2  --- so now search space becames 3 - 5
+//      mid = 2  --> search space 3 - 5 --
+//      now mid = 4  value = 6 we search for 5 --> so search space = 3 - 3 
+//      mid = 3 --> 5
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> v(n);
+//         for(int i =0; i<n; i++){
+//                 cin >> v[i];
+//         }
+//         int to_find;
+//         cin >> to_find;
+//         // for to apply binary search we need to define search space 
+//         int lo = 0, hi = n - 1; // (at starting whole array)
+//         int mid;
+//         //  we need to check for high > low
+//         while(hi - lo > 1){
+//                int mid =  (hi - lo) / 2;
+//                if(v[mid] < to_find){
+//                    // it must be lies on right so mid becames lo + 1
+//                    // for low and high condition we are search for we can find that element in  search space or not 
+//                    lo = mid + 1;
+//                    // for binary search we are searching as is mid be able to present in search space
+//                }else{
+//                    hi = mid;
+//                }
+//         }
+//         //  high and low maxm difference can be 0 or 1 
+//         if(v[lo] == to_find){
+//                 cout << lo << endl;   // present at low index
+//         }else if(v[hi] == to_find){
+//                 cout << hi << endl;
+//         }else{
+//                 cout << "NOT FOUND" << endl;
+//         }
+
+// }
+// time complexity O2(n)
+
+// 1). If we talk about time time complexity on each time the search space becoming half and half again so it goes for O(log2(N)) times
+// Coming quetion - how to find square root using binary search 
+//                 quick problem 
+
+
+
+
+
+//                   Binary Search 
+
 int main(){
-        int n ;
+        int n;
         cin >> n;
-        string s;
-        substring(s , n, n);
-        for( auto it :  valid){
-                cout << it << endl;
+        vector<int> v(n);
+        for(int i =0; i< n; i++){
+                cin >> v[i];
+        }
+        int to_find;
+        cin >> to_find;
+        int lo = 0;
+        int hi = n -1;
+        int mid;
+
+        while(hi - lo > 1){
+               
+                mid = (hi - lo) / 2;
+                
+                if(v[mid] < to_find ){
+                        lo = mid + 1;
+                }else{
+                        hi = mid; 
+                }
+                
+        }
+        // t.c - O2(n)
+        if(v[lo] == to_find ){
+            cout << lo;
+        }else if(v[hi] == to_find){
+                cout << hi;
+        }else{
+                cout<< " NOT FOUND";
         }
 }
-
-  
-
-
-
-
-
 
 
 
