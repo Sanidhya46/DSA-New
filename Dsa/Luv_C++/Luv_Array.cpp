@@ -2819,7 +2819,7 @@ using namespace std;
 // }
 
 
-//                          Rebel Reach
+//                           Rebel Reach
 // 1). acccumlate provide for what range of sum you want , and also give initial value of sum
 // 2). for in case of array v.begin convert into v and .end() convert into v+n (v+n means the next address where we want to find out)
 // 3). in case of array iterator is pointing to pointer
@@ -2858,7 +2858,7 @@ using namespace std;
 //     inbuilt algorithms for array just conver .begin() to v and .end to v+n
 
 //                    Video no. 45  || Inbuilt STL Algorithms and lambda queries
-//  lambda queries is used for put a particular conditions to all elements for particular range 
+//  lambda queries is used for put a particular conditions to all elements for particular range of containers
 //  the syntax is [](){condition statement for lambda queries}
 // lambda queries are generally pass in third parameters
 // all of means all_off , generally we pass lambda function as third parameters
@@ -3098,7 +3098,7 @@ using namespace std;
 // 
 // 2). Binary Search is a search algorithm which based on motonic functions
 // 3). monotonic function is a function which maintain a given order , or follow a order
-// 4). non monotnic function which does not follow order
+// 4). non monotnic function which does not follow order 
 // *5). we can use binary searh in  all monotonic things like --- i). if x^2  increases along with y^2 -- ii). 1 2 3 4 5
 // 6). A predicate function its a type of function which always return true or false 
 //                         ex -- F F F F F F T T T T T - monotonic function -- we can also put binary search on it 
@@ -3161,42 +3161,209 @@ using namespace std;
 
 
 
-//                   Binary Search 
+//            Practice        Binary Search 
 
-int main(){
-        int n;
-        cin >> n;
-        vector<int> v(n);
-        for(int i =0; i< n; i++){
-                cin >> v[i];
-        }
-        int to_find;
-        cin >> to_find;
-        int lo = 0;
-        int hi = n -1;
-        int mid;
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> v(n);
+//         for(int i =0; i< n; i++){
+//                 cin >> v[i];
+//         }
+//         int to_find;
+//         cin >> to_find;
+//         int lo = 0;
+//         int hi = n -1;
+//         int mid;
 
-        while(hi - lo > 1){
+//         while(hi - lo > 1){
                
-                mid = (hi - lo) / 2;
+//                 mid = (hi - lo) / 2;
                 
-                if(v[mid] < to_find ){
-                        lo = mid + 1;
-                }else{
-                        hi = mid; 
-                }
+//                 if(v[mid] < to_find ){
+//                         lo = mid + 1;
+//                 }else{
+//                         hi = mid; 
+//                 }
                 
-        }
-        // t.c - O2(n)
-        if(v[lo] == to_find ){
-            cout << lo;
-        }else if(v[hi] == to_find){
-                cout << hi;
-        }else{
-                cout<< " NOT FOUND";
-        }
-}
+//         }
+//         // t.c - O2(n)
+//         if(v[lo] == to_find ){
+//             cout << lo;
+//         }else if(v[hi] == to_find){
+//                 cout << hi;
+//         }else{
+//                 cout<< " NOT FOUND";
+//         }
+// }
 
+//                sieve of erasthosees
+// const int LIMIT = 10000000;
+// vector<bool> is_prime(LIMIT + 1, true);
+// unordered_set<long long > t_primes;
+// void t_primes(){
+//     is_prime[0] = is_prime[1] = false;
+//     for(long long i = 2; i<= LIMIT; i++){
+//         if(is_prime[i]){
+//                 t_primes.insert(i*i)
+//         }
+//     }
+// }
+// int main(){
+//      ios::sync_with_stdio(false);    // it disables synchronisation between cin , cout and scanf and print f 
+//      cin.tie(0);     //  this unlinks cin from cout to improve performance
+//                      // removes automatic flush making input faster
+//                      int n;
+//                      cin >> n;
+                      
+// }
+
+
+//                          Video no.  
+// 1). Inbuilt algorithms of lower bound and upper bound are based on the binary search algorithm
+// 
+// 2). we are putting vector for finding lower bound 
+// *3). If input vector are not sorted sort it first 
+
+//                   Lower_Bound using binary search
+
+// int lower_bound(vector<int> &v, int element){
+//   // if the element is present in vector then just return the element or just greater than element   
+//   int lo = 0; int hi = v.size();
+//   // if difference between high and low is greater then we forwarding to caluclate middle element
+//   sort(v.begin(), v.end());
+//   while(hi - lo > 1){
+//         int mid = (hi + lo) / 2;
+//         if(v[mid] < element){
+//             lo = mid + 1;
+//         }else{
+//             // if lies in  left part then high is shift to mid
+//             hi = mid; 
+//             // we are not proceed to remove mid in our binary search 
+//         }
+//   }
+//   // so first of all we goona check that lower element is mid or not 
+//   // as on searching if current element is greater than lower or hi both then first we -- check for lower element and fast check for hi 
+//   if(v[lo] >= element){
+//     return lo;
+//   }
+//   if(v[hi] >= element){
+//     return hi;
+//   }
+//   // not found
+//   return -1;
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> v(n);
+//         for(int i =0; i< n; i++){
+//                 cin >> v[i];
+//         }
+
+//       int element;  // for element in which we set to find a lower bound and upper bound
+//       cin >> element;
+//       int lb = lower_bound(v, element);
+//       cout << lb << " " << v[lb] << endl;
+//     }
+
+//                  upper_bound using binary search
+
+// 1). so for upper_bound we get to go for strictly greater element
+// 2). so what changes we procceding to find the strictly just greater than element 
+// 3). we want index of just greater element 
+// 4). Note for handline segmenetation fault condition we just mark if(lb != -1 : then only proceed)
+// 5). *never wrote sort function inside the function
+// 6). you also make as for stl that provide starting iterator and ending iterator so you can also find by adding and then dividing both iterators value
+
+// int upper_bound(vector<int> &v, int element){
+
+//   int lo = 0; int hi = v.size();
+
+//   // sort(v.begin(), v.end());
+//   while(hi - lo > 1){
+//         int mid = (hi + lo) / 2;
+//         // *** if search element is current element then we need to search for greater element part ,, so start marking low = mid + 1
+//         if(v[mid] < element){
+//             lo = mid + 1;  //** we evict the mid element
+//         }else{
+//             // if lies in  left part then high is shift to mid
+//             hi = mid; 
+//             // we are not proceed to remove mid in our binary search 
+//         }
+//   }
+//   // so first of all we goona check that lower element is mid or not 
+//   // as on searching if current element is greater than lower or hi both then first we -- check for lower element and fast check for hi 
+//   if(v[lo] > element){  // *** we also check for next greater element
+//     return lo;
+//   }
+//   if(v[hi] > element){  // *** we are check for nex greater element so it checks for next greater element
+//     return hi;
+//   }
+//   // not found
+//   return -1;
+// }
+// int main(){
+//         int n;
+//         cin >> n;
+//         vector<int> v(n);
+//         for(int i =0; i< n; i++){
+//                 cin >> v[i];
+//         }
+
+//       int element;  // for element in which we set to find a lower bound and upper bound
+//       cin >> element;
+//     //  int lb = lower_bound(v, element);
+//     //  cout << lb << " " << (lb != -1 ? v[lb]: -1 )<< endl;
+//       sort(v.begin(), v.end());
+//       int ub = upper_bound(v, element);
+//       // *if upper_bound store garbage value then print -1
+//       cout << ub << " " << (ub != -1 ? v[ub] : -1 ) << endl;
+//     }
+
+// Note - put the searching element of the reading the array
+
+
+
+
+                    //     Lower Bound and upper bound function implementation using binary search algorithm
+
+int upper_bound(vector<int> &v, int element)  {    //  1 2 3 4 5 
+   
+   int hi = v.size();
+   int lo = 0;
+   while(hi - lo > 1){
+        int mid = (lo + hi)/ 2;
+        if(v[mid] <= element){
+          lo = mid + 1;   
+        }
+        else{
+            hi = mid;
+        }
+   }
+   if(v[lo] > element ){
+    return lo;
+   }
+   if(v[hi] > element){
+    return hi;
+   }
+   return -1;
+}     
+int main(){
+    int n;
+    cin >> n;
+    
+    vector<int> v(n);
+    
+    for(int i =0; i<n; i++){
+        cin >> v[i];
+    }
+    int element;
+    cin >> element;
+    sort(v.begin(), v.end());
+   int lb = upper_bound(v , element);
+   cout << lb << " " << v[lb];
+}   
 
 
 
