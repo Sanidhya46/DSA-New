@@ -2495,7 +2495,7 @@ using namespace std;
 // 6). start from quick sort depth increases then heap sort if no. of element less then uses heap sort
 
 // #include<iostream>
-// using namespace std;
+// using namespace std; 
 
 // int main(){
 //   int n;
@@ -2512,7 +2512,7 @@ using namespace std;
 // }
 
 
-//            Video no. 42  ||    Comprator function in depth logic
+//              Video no. 42  ||    Comprator function in depth logic
 
 // comparative function behave 
 // 1). (a > b) means when it found a > b then it simply swap that element which first element is greater
@@ -2624,7 +2624,7 @@ using namespace std;
 
 // int main(){
 //   int n;
-//   cin >> n; 
+//   cin >> n;
 //   vector<pair<int, int>> pr(n);
   
 //   for(int i =0; i<n; i++){
@@ -2642,11 +2642,11 @@ using namespace std;
 
 // *** Practice *** if we need to write this as 
 // first pair - increasing 
-// second pair - decreasing
+// second pair - decreasing 
 
 // bool cmp(pair<int , int> a, pair<int, int> b){
 //   if(a.first != b.first ){
-//     return (a.first < b.first); // decreasing order
+//     return (a.first < b.first); // increasing order
     
 //   } 
 //   return (a.second > b.second);
@@ -2676,7 +2676,7 @@ using namespace std;
 //  
 
 
-//      ***   Sherlock and his Ammo Quest 
+//         ***   Sherlock and his Ammo Quest 
 // N - 10^6 S-10^2
 //
 
@@ -3328,42 +3328,152 @@ using namespace std;
 
                     //     Lower Bound and upper bound function implementation using binary search algorithm
 
-int upper_bound(vector<int> &v, int element)  {    //  1 2 3 4 5 
+// int upper_bound(vector<int> &v, int element)  {    //  1 2 3 4 5 
    
-   int hi = v.size();
-   int lo = 0;
-   while(hi - lo > 1){
-        int mid = (lo + hi)/ 2;
-        if(v[mid] <= element){
-          lo = mid + 1;   
-        }
-        else{
+//    int hi = v.size();
+//    int lo = 0;
+//    while(hi - lo > 1){
+//         int mid = (lo + hi)/ 2;
+//         if(v[mid] <= element){
+//           lo = mid + 1;   
+//         }
+//         else{
+//             hi = mid;
+//         }
+//    }
+//    if(v[lo] > element ){
+//     return lo;
+//    }
+//    if(v[hi] > element){
+//     return hi;
+//    }
+//    return -1;
+// }     
+// int main(){
+//     int n;
+//     cin >> n;
+    
+//     vector<int> v(n);
+    
+//     for(int i =0; i<n; i++){
+//         cin >> v[i];
+//     }
+//     int element;
+//     cin >> element;
+//     sort(v.begin(), v.end());
+//    int lb = upper_bound(v , element);
+//    cout << lb << " " << v[lb];
+// }   
+
+//           Nth root of a number using binary search algorithm    
+
+// 1). How to implement square root using binary search
+// 2). search space must lie in their 1 to n search space 
+// 3). for search space from 1 to 16 is first we found out the middle element whicch is four and square it check if it give result then we search in left or right search space
+// 4). if i want accuracy for decimal places for root 2 
+// 5). as i search space for square root for one digit place is - 1.1 1.3 , 1.3 , ... 1.9 2.0
+// 6). as we increase accuracy the search space also increaes simultaneously 
+// 7). for finding the square root of 2 first we do 2 + 1 / 2 = 1.5  so our search space becames 1 to 1.5 and we check square of 1.5 is equals to 3 or not if it is not then our search space becames 1 to (1.5 + 1)/2
+// 8). 
+
+// #include<bits/stdc++.h> 
+// using namespace std;
+// // 9). if you want decimal places for x place you required to put eps for 1e-(x+1) places
+// double eps = 1e-6;   // shows accuracy for five decimal places --> 0.000001
+
+
+// int main(){
+//     double x;
+//     cin >> x;
+//     double lo = 1, hi = x, mid;
+//    // if we need to find for how many places the decimal will be accurate    like 1.44 - 1.40 then 0.04
+//     while(hi - lo > eps){
+//         mid = (hi + lo) / 2;
+//         if(mid * mid < x){
+//             lo = mid;
+//         }else{
+//             hi = mid;
+//         }
+//     }
+//     // you can put anything lo or high 
+//     cout << setprecision(10) << lo << "\n" << endl;
+// }
+
+// nth root of x number
+
+
+// 1). size of search space comes so the time complexity will be -> NLog(10^d)
+// 2). as you want accuracies for d decimal for n numbers it will be N*(10^d) numbers
+// 3). search space is constantly increasing 
+
+// double multiply(double mid, int n){
+//     double ans = 1;
+//     for(int i = 0; i<n; i++){
+//         ans *= mid;
+//     }
+//     return ans;
+// }
+
+// int main(){
+//         double x;
+//         int n;
+//         cin >> x >> n;
+//         double lo = 1, hi = x, mid;
+//         double eps = 1e-6;
+//        // if we need to find for how many places the decimal will be accurate    like 1.44 - 1.40 then 0.04
+//         while(hi - lo > eps){
+//             mid = (hi + lo) / 2;
+//             if(multiply(mid, n) < x){
+//                 lo = mid; 
+//             }else{
+//                 // we search on left part shifts high to mid 
+//                 hi = mid;
+//             }
+//         }
+    
+//         // Log(10^D)
+//         // you can put anything lo or high 
+//         cout << setprecision(10) << lo << "\n" << endl;
+//         cout << pow(x , 1.0/2);
+//     }
+
+
+
+
+
+                 //  Nth root of a number using binary search
+
+double multiply(double mid, int n){
+    double ans = 1;
+    for(int i = 0; i<n; i++){
+        ans *= mid;
+    }
+    return ans;
+}
+int main(){
+    double x;
+    int n;
+    cin >> x >> n;
+    double lo = 1;
+    double hi = x, mid;
+    double eps = 1e-6;
+    while(hi - lo > eps){
+        mid = (lo + hi)/2;
+        if(multiply(mid, n) < x){
+            lo = mid;
+        }else{
             hi = mid;
         }
-   }
-   if(v[lo] > element ){
-    return lo;
-   }
-   if(v[hi] > element){
-    return hi;
-   }
-   return -1;
-}     
-int main(){
-    int n;
-    cin >> n;
-    
-    vector<int> v(n);
-    
-    for(int i =0; i<n; i++){
-        cin >> v[i];
     }
-    int element;
-    cin >> element;
-    sort(v.begin(), v.end());
-   int lb = upper_bound(v , element);
-   cout << lb << " " << v[lb];
-}   
+
+    cout << setprecision(5) <<  lo << endl;
+}
+
+
+
+
+
+
 
 
 
