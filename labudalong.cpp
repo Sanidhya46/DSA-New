@@ -18,22 +18,46 @@ using namespace std;
 //          Basic Data Structure - 3   ||   Labudalong 
 
 
+// class Linked{
+//     public:  // access specifies 
+//     int val;  // data member 
+//     //Pointer to the next node in the linked list 
+//     Linked* next;
+//     // x is the value to store and next is next to the null for each object 
+
+//  // 1). After semicolon part is constructor which initialises class members directly before the constructor body executed
+//     Linked(int x) : val(x), next(NULL) {}
+// };
+
+// int main(){
+// // Its create an object of the linked class with value ()
+// Linked node(6);
+
+// cout << node.val << endl;
+
+// return 0;
+// }
+
+// 2). NO storage class and type specifier means declare and definition of variable function is needed 
+
+
+
+
+
 class Linked{
-    public:
-    int val;
-    //Pointer to the next node in the linked list 
-    Linked* next;
-    // x is the value to store and next is next to the null for each object 
-    Linked(int x) : val(x), next(NULL) {}
+   public:
+   int val;
+    
+   Linked* next;
+   Linked(int x) : val(x) , next(NULL)  {}
+
 };
-
 int main(){
-// Its create an object of the linked class with value ()
-Linked node(5);
+    Linked node(6);
 
-cout << node.val << endl;
+    cout << node.val << endl;
 
-return 0;
+    return  0;
 }
 
 
