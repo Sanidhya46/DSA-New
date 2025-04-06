@@ -2949,7 +2949,7 @@ using namespace std;
 //     }
 // }
 
-//           Subset generation using recursion
+//              Subset generation using recursion
 // vector<string> valid;
 // void generate(string &s, int open , int close){
 //           if(open == 0 && close == 0){
@@ -2979,7 +2979,7 @@ using namespace std;
 //         }
 // }
 
-//                           practice 
+//                            practice 
 // vector<string> valid;
 // void substring(string &s, int open , int close){
 //         if(open == 0 && close == 0){
@@ -3014,8 +3014,8 @@ using namespace std;
 //             Subset Generation using recursion n ba
 
 // 1). for subset generation satart considering takes to or not takes to for all elements, if i pick first 
-// 2). making subset is very simple come of first element and include the first element if not include then goes on to the sencond element and again include it or not to include  .. like this go to the n elements
-// *3). if n elements is in array then their 2^n subsets are made
+// 2) making subset is very simple come of first element and include the first element if not include then goes on to the sencond element and again include it or not to include  .. like this go to the n elements
+// *3). if n eleme.nts is in array then their 2^n subsets are made
 
 // 4). For reursion define must clear your definition first what you are going to do 
 // steps - 1). lets suppose a vector is given now we need to make subset so generate function so we goona pass generate function
@@ -3080,7 +3080,7 @@ using namespace std;
 //         if(i == nums.size()){
 //                 subsets.push_back(subset);
 //                 return;
-//         }4
+//         }
 //         // when we not takes
 //         generate(subset, i + 1, nums);
 //         // when take 
@@ -3104,7 +3104,7 @@ using namespace std;
 //                         ex -- F F F F F F T T T T T - monotonic function -- we can also put binary search on it 
 // 7). Binary Search is likes Dicitionary means where i mean to see the meaning word first i see somehwere on mid then on right or left half
 
-//   if a monotonic array is --  2 3  5 6 7 
+//   if a monotonic array is --  2 3 5 6 7 
 //         search space - 0 to 5 ( a search space)
 //        mid = 2    mid = 0 + search space / 2 = 2.0
 //       means, mid value = 4  if we have to search for 5 we use to search in right side
@@ -3284,7 +3284,7 @@ using namespace std;
 //   while(hi - lo > 1){
 //         int mid = (hi + lo) / 2;
 //         // *** if search element is current element then we need to search for greater element part ,, so start marking low = mid + 1
-//         if(v[mid] < element){
+//         if(v[mid] <= element){
 //             lo = mid + 1;  //** we evict the mid element
 //         }else{
 //             // if lies in  left part then high is shift to mid
@@ -3406,6 +3406,8 @@ using namespace std;
 // 2). as you want accuracies for d decimal for n numbers it will be N*(10^d) numbers
 // 3). search space is constantly increasing 
 
+// 4). we need to find n times square of a number
+
 // double multiply(double mid, int n){
 //     double ans = 1;
 //     for(int i = 0; i<n; i++){
@@ -3419,10 +3421,11 @@ using namespace std;
 //         int n;
 //         cin >> x >> n;
 //         double lo = 1, hi = x, mid;
-//         double eps = 1e-6;
+//         double eps = 1e-6;   // 6 decimal places
 //        // if we need to find for how many places the decimal will be accurate    like 1.44 - 1.40 then 0.04
 //         while(hi - lo > eps){
 //             mid = (hi + lo) / 2;
+//       // if the searching element lies on right part square of the nth number 
 //             if(multiply(mid, n) < x){
 //                 lo = mid; 
 //             }else{
@@ -3430,8 +3433,10 @@ using namespace std;
 //                 hi = mid;
 //             }
 //         }
-    
-//         // Log(10^D)
+
+//   // 1). For time complexity -- we are performing a binary search from lo = 1 to hi = x and on each iteration our search space reduces to half and it reducess till the our difference reaches to especialan so our total iterations will be log2((hi - lo)/eps) times and a function O(n) times also call for each times so our time complexity is O(N.log2(hi - lo)/eps)
+//   // 2). For space complexity -- we are using constant spaces for lo, hi , mid which is O(1).
+
 //         // you can put anything lo or high 
 //         cout << setprecision(10) << lo << "\n" << endl;
 //         cout << pow(x , 1.0/2);
@@ -3439,35 +3444,145 @@ using namespace std;
 
 
 
+         //   Video no . 55        ||       //  Nth root of a number using binary search
+
+// double multiply(double mid, int n){
+//     double ans = 1;
+//     for(int i = 0; i<n; i++){
+//         ans *= mid;
+//     }
+//     return ans;
+// }
+// int main(){
+//     double x;
+//     int n;
+//     cin >> x >> n;
+//     double lo = 1;
+//     double hi = x, mid;
+//     double eps = 1e-6;
+//     while(hi - lo > eps){
+//         mid = (lo + hi)/2;
+       // middle element and multiple of n numbers lies on to the right part 
+//         if(multiply(mid, n) < x){
+//             lo = mid;
+//         }else{
+//             hi = mid;
+//         }
+//     }
+
+//     cout << setprecision(5) <<  lo << endl;
+// }         
+
+//                    Video no. 56    ||   Binary Search Using Predicate function
+// 1). High Binary Search Problem be solved easily by predicate function concept 
 
 
-                 //  Nth root of a number using binary search
+//                        Eko Eko
+// 1). monotonic predicate function after somepoint always return true or false 
+// 2). we have need of to devise an predicate function where only count of true will be 1 and false count will be zero or true is counted and false will as it is 
+// 3). if we find an point wether true and false transitioned then we form our result 
+// 4). we search the middle element and try to find whether it lies on left part or right part 
+// 5). for T T T F F F F If i search for true and it lises on the middle then the current element are true or it lises into left part
+// 6). we can easily found out where last true and last false lies 
+// 
 
-double multiply(double mid, int n){
-    double ans = 1;
-    for(int i = 0; i<n; i++){
-        ans *= mid;
-    }
-    return ans;
-}
-int main(){
-    double x;
-    int n;
-    cin >> x >> n;
-    double lo = 1;
-    double hi = x, mid;
-    double eps = 1e-6;
-    while(hi - lo > eps){
-        mid = (lo + hi)/2;
-        if(multiply(mid, n) < x){
-            lo = mid;
-        }else{
-            hi = mid;
-        }
-    }
+// 7). always declare globally array with greater than size of 10^6 to segmentation fault error
 
-    cout << setprecision(5) <<  lo << endl;
-}
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// const int N  = 1e6 + 1;
+// int n;  // n is no. of trees
+// long long m;    // maximum height
+// long long trees[N];
+
+// bool isWoodSufficient(int h){
+//         // question mentions we requite to count at which height of tree
+//      long long wood = 0;
+//      for(int i =0; i<n; i++){
+//         if(trees[i] >= h){
+//                 wood += (trees[i] - h);
+//         }
+//      }
+//      // when wood is greater than maximum wood
+//      return wood >= m;
+// //      if(wood >= m) return true;
+// //      else false
+// }
+// int main(){
+//    cin >> n >> m;
+//    for(int i =0; i<n; i++){
+//         cin >> trees[i];
+//    }
+//    long long lo = 0, hi = 1e9, mid;
+//    // T T T T T F F F F F
+//    //     T --> then our search space lies onn right part
+//    while(hi - lo > 1){
+//         mid = (hi + lo) / 2;
+//         if(isWoodSufficient(mid)){
+//              lo = mid;
+//         }else{  // it is situation where is points to right part and false 
+//              hi = mid - 1;
+//         }
+//    }
+//    //  we need to found out the maximum height 
+//    if(isWoodSufficient(hi)){
+//         cout << hi << endl;
+//    }else{
+//         cout << lo << endl;
+//    }
+//    // we can also design code for low and else but in question it not mentioned 
+// }
+
+
+// T.C = O(nlog(h))
+// 1). For as these type try to found out predicate function 
+
+
+
+
+
+
+
+//                   EKO EKO  
+
+// const int N = 1e6 + 1;
+// int n;
+// long long m;
+// long long trees[N];
+
+// bool maxmwood(int h){
+//         long long wood = 0;
+//         for(int i = 0; i<n; i++){
+//            if(trees[i] >= h){
+//              wood += (trees[i] - h);
+//         }
+//         return wood >= h;
+// }
+// }
+// int main(){
+//         cin >> n >> m;
+//         for(int i =0; i<n; i++){
+//                 cin >>  trees[i];
+//         }
+//         int lo = 0 ,  hi = 1e6, mid;
+//         while(hi - lo > 1){
+//                 mid = (hi  + lo)/2;
+//                 if(maxmwood(mid)){
+//                       lo = mid;
+//                 }else{
+//                      hi = mid - 1;
+//                 }
+//         }
+//         if(maxmwood(hi)){
+//             cout << hi << endl;
+//         }else{
+//            cout << lo << endl;
+//         }
+// }
+
+// T.C - O(nlogn)
+
 
 
 
