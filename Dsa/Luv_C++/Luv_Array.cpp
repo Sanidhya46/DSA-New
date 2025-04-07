@@ -3776,6 +3776,9 @@ const int N = 1e5+10;
 int main(){
       cout << INT_MAX << endl;
 //       int a = ()  
+// as you shift a bit with long numbers it also makes long number so dont be forget to make it long 
+      int a = (1LL << 31) - 1;
+      cout << a;
 }
 
 
