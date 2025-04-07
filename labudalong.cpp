@@ -42,22 +42,190 @@ using namespace std;
 
 
 
+//                   Practice 
+
+// class Linked{
+//    public:
+//    int val;
+
+//    Linked* next;
+//    Linked(int x) : val(x) , next(NULL)  {}
+
+// 
+// int main(){
+//     Linked node(6);
+
+//     cout << node.val << endl;
+
+//     return  0;
+//  }
+// };
 
 
-class Linked{
-   public:
-   int val;
+// 1). 
+// class Linked{
+// private:
+
+
+// template <typename E>
+// class Node{
+//     public:
+   
+//     // member to store actual data/value of the node 
+//     E val;
+
+//     // pointer to the next node 
+//     Node* next; 
+//     Node* prev;
+
+//     Node(Node* prev, E element , Node* next){
+//         this -> val = element
+//         this -> next = next;  
+//         this -> prev = prev;
+//     }
+//   }
+// }
+
+
+
+//            Basic Operations of a Doubly Linked List 
+
+// Definition of a node in a doubly linked list
+// class DoublyListNode {
+//     public:
+//         int val; // Holds the value of the node
+//         DoublyListNode *next, *prev; // Pointers to the next and previous nodes in the list
     
-   Linked* next;
-   Linked(int x) : val(x) , next(NULL)  {}
+//         // Constructor to initialize a node with a given value, and set next and prev to NULL
+//         DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
+//     };
+    
+//     // Function to create a doubly linked list from a vector of integers
+//     DoublyListNode* createDoublyLinkedList(vector<int>& arr) {
+//         // If the input array is empty, return NULL since there's no node to create
+//         if (arr.empty()) {
+//             return NULL;
+//         }
+    
+//         // Create the head node using the first element of the array
+//         DoublyListNode* head = new DoublyListNode(arr[0]);
+    
+//         // 'cur' keeps track of the last node added to the list
+//         DoublyListNode* cur = head;
+    
+//         // Iterate through the rest of the array starting from index 1
+//         for (int i = 1; i < arr.size(); i++) {
+//             // Create a new node with the current array element
+//             DoublyListNode* newNode = new DoublyListNode(arr[i]);
+    
+//             // Set the next pointer of the current node to the new node
+//             cur->next = newNode;
+    
+//             // Set the previous pointer of the new node to the current node
+//             newNode->prev = cur;
+    
+//             // curr now is set to the next pointer of current  // Move the current pointer forward to the new node
+//             cur = cur->next;
+//         }
+    
+//         // Return the head node of the constructed doubly linked list
+//         return head;
+//     }
+    
+//     int main() {
+//         // Step 1: Sample input
+//         vector<int> arr = {10, 20, 30, 40, 50};
+    
+//         // Step 2: Create the list
+//         DoublyListNode* head = createDoublyLinkedList(arr);
+    
+//         // Step 3: Print list forward
+//         cout << "Forward traversal: ";
+//         DoublyListNode* temp = head;
+//         // Run the loop as long the temp is not pointing to null, keep moving till temp is pointing to valid node 
+//         while (temp != NULL) {
+//             // Print the value of the temp node 
+//             cout << temp->val << " ";
+//            // If the next pointer of temp is NULL, then we've reached the last node, so we break out of the loop. Otherwise, move the temp pointer to the next node.
+//             if (temp->next == NULL) break; // Save the tail node
+//             temp = temp->next;  // it its not move to the next node
+//         }
+//         cout << endl;
+    
+//         // Step 4: Print list backward (from tail)
+//         cout << "Backward traversal: ";
+       
+//         while (temp != NULL) {
+//             cout << temp->val << " ";
+//             temp = temp->prev;
+//         }
+//         cout << endl;
+    
+//         return 0;
+//     }
 
-};
+
+
+
+// **** while speak on code with natural more dragramatic 
+
+// 1).  with static method we can define function inside the class 
+// 2). expression must have class type but it have int usually appear when someone trying to access member or method on a variable that is not a object 
+// Definition of a node in a doubly linked list
+class DoublyListNode {
+    public:
+        int val; // Holds the value of the node
+        DoublyListNode *next, *prev; // Pointers to the next and previous nodes in the list
+    
+        // Constructor to initialize a node with a given value, and set next and prev to NULL
+        DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
+    };
+    
+    // Function to create a doubly linked list from a vector of integers
+    DoublyListNode* createDoublyLinkedList(vector<int>& arr) {
+        // If the input array is empty, return NULL since there's no node to create
+        if (arr.empty()) {
+            return NULL;
+        }
+
+        DoublyListNode* head = new DoublyListNode(arr[0]);
+        DoublyListNode* cur = head;
+        for(int i =0; i<arr.size(); i++){
+            DoublyListNode* newnode = new DoublyListNode(arr[i]);
+            cur->next = newnode;
+            newnode->prev = cur;
+            cur = cur -> next;
+
+        }
+        return head;
+
+    }
+
+
+
 int main(){
-    Linked node(6);
+    vector<int> arr{10, 20, 20 , 40 , 50};
+// create doubly linked list as a function is called with arrinpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
+    DoublyListNode* head = createDoublyLinkedList(arr);
 
-    cout << node.val << endl;
-
-    return  0;
+    DoublyListNode* temp = head;
+    while(temp != NULL){
+       cout <<  temp->val;
+       if(temp->next == NULL) break;
+        temp = temp-> next;
+        
+    }
+    cout << endl;
+    while(temp != NULL){
+        cout << temp->val;
+        temp = temp->prev;
+    }
+    cout << endl;
+    return 0;
+    
 }
+
+
+
 
 

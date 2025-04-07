@@ -2886,7 +2886,7 @@ using namespace std;
 // }
 
 
-//                   Video no. 45  ||  Inbuilt STL ALGORITHMS and lambda queries
+//                       Video no. 45  ||  Inbuilt STL ALGORITHMS and lambda queries
 // int main(){
 //        cout << [](int x){return x + 2;}(4) << endl;
 //        int sum = [](int x , int y){return x + y;}(4 , 5);
@@ -2949,7 +2949,7 @@ using namespace std;
 //     }
 // }
 
-//              Subset generation using recursion
+//                          Subset generation using recursion
 // vector<string> valid;
 // void generate(string &s, int open , int close){
 //           if(open == 0 && close == 0){
@@ -3011,7 +3011,7 @@ using namespace std;
 
 // }
 
-//             Subset Generation using recursion n ba
+//                         Subset Generation using recursion n ba
 
 // 1). for subset generation satart considering takes to or not takes to for all elements, if i pick first 
 // 2) making subset is very simple come of first element and include the first element if not include then goes on to the sencond element and again include it or not to include  .. like this go to the n elements
@@ -3143,8 +3143,8 @@ using namespace std;
 //         }
 //         //  high and low maxm difference can be 0 or 1 
 //         if(v[lo] == to_find){
-//                 cout << lo << endl;   // present at low index
-//         }else if(v[hi] == to_find){
+//                 cout << ldl;   // present at low index
+//         }else if(v[hi] == to_fino << end){
 //                 cout << hi << endl;
 //         }else{
 //                 cout << "NOT FOUND" << endl;
@@ -3213,7 +3213,7 @@ using namespace std;
 //      ios::sync_with_stdio(false);    // it disables synchronisation between cin , cout and scanf and print f 
 //      cin.tie(0);     //  this unlinks cin from cout to improve performance
 //                      // removes automatic flush making input faster
-//                      int n;
+//                      int n; 
 //                      cin >> n;
                       
 // }
@@ -3267,7 +3267,7 @@ using namespace std;
 //       cout << lb << " " << v[lb] << endl;
 //     }
 
-//                  upper_bound using binary search
+//                          upper_bound using binary search
 
 // 1). so for upper_bound we get to go for strictly greater element
 // 2). so what changes we procceding to find the strictly just greater than element 
@@ -3365,7 +3365,7 @@ using namespace std;
 //    cout << lb << " " << v[lb];
 // }   
 
-//           Nth root of a number using binary search algorithm    
+//                 Nth root of a number using binary search algorithm    
 
 // 1). How to implement square root using binary search
 // 2). search space must lie in their 1 to n search space 
@@ -3585,6 +3585,201 @@ using namespace std;
 
 
 
+//                       Stl contest Luv_C++
+
+//1). for in the case of (a[i] + x)% m  then we can change it to  (a[i] % m + x % m) % m  where y is a[i] % m .. and we need to maximise a[i] % m + x % m
+//2). for maximum in (a[i] + x) % m will be maximum for m-1 
+//3). two conditions are possible for maximum of just before the m means m-1 (a[i] + x)% m  and (a[i] + x) that points out maximum of the modulo m
+//4). 
+
+
+// 5). for just maximum we can do using upper_bound (a, a+n) and m - x - 1 if x is added then it will point to the m - 1 which is maximum
+// 6). if(m - x - 1) is not points to the end so we point our pointer to begning 
+// 7). 
+
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main() {
+//     int n;
+//     cin >> n;
+
+//     long long m;
+//     cin >> m;
+
+//     // Use long long to store large values up to 10^15
+//     vector<long long> arr(n);
+//     for (int i = 0; i < n; i++) {
+//         cin >> arr[i];
+//         arr[i] %= m; // Reduce each element modulo m (optional optimization)
+//     }
+
+//     // Sort the array so that we can use binary search (upper_bound)
+//     sort(arr.begin(), arr.end());
+
+//     int q;
+//     cin >> q;
+
+//     while (q--) {
+//         long long x;
+//         cin >> x;
+
+//         // Reduce x modulo m (doesn't change the result because we're using % m at the end)
+//         x %= m;
+
+//         // We want to find the largest (a[i] + x) % m
+//         // Let's find the largest a[i] such that (a[i] + x) < m
+//         // So we search for upper_bound of (m - x - 1)
+//         auto ptr = upper_bound(arr.begin(), arr.end(), m - x - 1);
+
+//         long long maxValue = 0;
+
+//         // Case 1: Using the largest element in the array
+//         maxValue = max(maxValue, (arr.back() + x) % m);
+
+//         // Case 2: If upper_bound doesn't point to beginning, move one step back
+//         if (ptr != arr.begin()) {
+//             ptr--;
+//             maxValue = max(maxValue, (*ptr + x) % m);
+//         }
+
+//         // Output the result for this query
+//         cout << maxValue << endl;
+//     }
+
+//     return 0;
+// }
+
+
+// ***1). very important any time when procedding to solve any problem see for a brute force solution .... 
+//          i). ask yourself or i would be solve this problem using loops or i can take points input into loop 
+//         ii). thinks about after applying brute force is problem really getting solve in particular range of constraints.
+//        iii). if i somehow get digonal of rectange then i being cabale of getting points of next rectangle it must be lies on to the parallel of their points. (y1 only parallels with y2)(x1 parallels with x2)
+//         iv). now we can determine the the area rectangle by finding multiplication of difference of points base * height 
+//         
+//   
+
+//  ***1). if you check for presence of value then set is a good option 
+//     2). hash function are not predefined so we can not use unordered set primitive data types
+
+// when p2 lies upper side i just reverse the points of p1 and p2
+// p1 is always on first 
+
+// #include <iostream>
+// #include <vector>
+// #include <set>
+// #include <climits>
+// #include <cmath>
+// using namespace std;
+
+// int main() {
+//     int n;
+//     cin >> n;
+
+//     vector<pair<int, int>> points(n);       // To store all the input points
+//     set<pair<int, int>> points_st;          // To check existence of any point in O(1) time
+
+//     // Taking n input points
+//     for (int i = 0; i < n; i++) {
+//         cin >> points[i].first >> points[i].second;
+//         points_st.insert(points[i]);
+//     }
+
+//     int ar_min = INT_MAX, ar_max = INT_MIN; // Initialize min and max area
+
+//     // Loop through all pairs of points
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             auto p1 = points[i];
+//             auto p2 = points[j];
+
+//             // Skip if x or y coordinates are the same (won’t form rectangle corners)
+//             if (p1.first == p2.first || p1.second == p2.second)
+//                 continue;
+
+//             // These are the other two corners of the rectangle
+//             int x1 = p1.first, y1 = p2.second;
+//             int x2 = p2.first, y2 = p1.second;
+
+//             // Check if the other two corners exist to form a valid rectangle
+//             if (points_st.count({x1, y1}) && points_st.count({x2, y2})) {   // both takes the t.c of O(logn)
+//                 int area = abs(p1.first - p2.first) * abs(p1.second - p2.second);
+//                 ar_min = min(ar_min, area); // Update min area
+//                 ar_max = max(ar_max, area); // Update max area
+//             }
+//         }
+//     }
+
+//     // If no rectangle was found
+//     if (ar_min == INT_MAX) {
+//         cout << -1 << endl;
+//     } else {
+//         // Print max and min area found
+//         cout << "Max Area: " << ar_max << ", Min Area: " << ar_min << endl;
+//     }
+
+//     return 0;
+// }
+
+//       t.c - O(log n)
+
+
+
+//               Lufy needs food 
+
+//  initially f amount of food 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//          // Time complexity of Recursion function 
+
+// 1). first calculate how many function calls are there and calculate what is time complexity of each function , and give combinational summ of time complexity of function
+// 2). for each case our each function divided into 2 , so some where on worst case total 2^n+1 calls are there 
+// 3). for closing braces so total no. of function calls for n is 2^n+1 and O(1) total complexity will be O(2^n)
+
+// 4). for merge sort question total time complexity from begining is o(n) and after dividing into two of each of subset takes O(n/2) time complexity for merging so at on subset level the t.c will be O(n) ... so at last level each merge takes O(1) at n level so its will be O(n) ... so total time complexity will be O(nlogn)
+
+
+//               Ultimate Maths and Number theory 
+// 1). Baasic Understanding of maths and Number theory must arises binnary numbers its an important topics 
+// 2). binary numbers contain 1 and 0 
+// 3). To convert binary numbers to decimal, simply multiply each digit by its place value and add the results
+// 4). binary to decimal conversion how its done if we multiply and add 2^n bits at their place value
+// 5). as their last bit is 0 to convert binary number its just invert to 1
+
+// 6). xor is very tricky and important topic for questions 
+// 7). if any in two numbers is 0 so together xor also be 0 where for or if any numbers 1 it returns 1 and if in any case two no. are same so their xor will be 0 otherwise 1
+// 8). L.S -> <<    3 << 1 --> 1  3 << x  L.S shift x bit to the left   R.S -> just shift your bit to the right  
+// 9). maximum numbers should be made using 4 bits is 2^n-1 = 15 number    -->  our integers are of 32 bits so 32 number will included 
+
+// 10). whenever would like to known the power of 2^n just shift your first bit for an countable n times  1 << n
+
+// 11). as you shift your bits for 1 >> n then total no. of digits will be n+1 .. 
+
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e5+10;
+
+int main(){
+      cout << INT_MAX << endl;
+//       int a = ()  
+// as you shift a bit with long numbers it also makes long number so dont be forget to make it long 
+      int a = (1LL << 31) - 1;
+      cout << a;
+}
 
 
 
