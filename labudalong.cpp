@@ -110,7 +110,7 @@ using namespace std;
 //         // Create the head node using the first element of the array
 //         DoublyListNode* head = new DoublyListNode(arr[0]);
     
-//         // 'cur' keeps track of the last node added to the list
+//         // 'cur' keeps track of the last dded to the list
 //         DoublyListNode* cur = head;
     
 //         // Iterate through the rest of the array starting from index 1
@@ -180,7 +180,7 @@ class DoublyListNode {
         // Constructor to initialize a node with a given value, and set next and prev to NULL
         DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
     };
-    
+    // *** This is an utility function needs to be defined to work with the class  */
     // Function to create a doubly linked list from a vector of integers
     DoublyListNode* createDoublyLinkedList(vector<int>& arr) {
         // If the input array is empty, return NULL since there's no node to create
@@ -203,27 +203,90 @@ class DoublyListNode {
 
 
 
+//  int main(){
+//     vector<int> arr{10, 20, 20 , 40 , 50};
+// // create doubly linked list as a function is called with arrinpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
+//     DoublyListNode* head = createDoublyLinkedList(arr);
+
+//       DoublyListNode* tail = nullptr;
+
+// // traverse the doubly linked list from the head node to the end
+// for (DoublyListNode* p = head; p != nullptr; p = p->next) {
+//     cout << p->val << endl;
+//     tail = p;
+// }
+
+// // traverse the doubly linked list from the tail node to the head
+// for (DoublyListNode* p = tail; p != nullptr; p = p->prev) {
+//     cout << p->val << endl;
+// }
+//  }
+ 
+// **Note**  while accessing or modifying you can choose the most appropiate direction to traverse based on whethere the index is closer to the end or head or tail 
+
+
+//           1). Addition of a node in a Doubly Linked list 
+
+// int main(){
+//     vector<int> arr{10, 20, 20 , 40 , 50};
+// // create doubly linked list as a function is called with arrnpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
+//     DoublyListNode* head = createDoublyLinkedList(arr);
+//     DoublyListNode* tail = nullptr;
+//  // create a new node (new head)  with value 0   // create a new node of type doubly list node with value 0 on the head and store its address in the pointer newhead
+//     DoublyListNode* newHead = new DoublyListNode(0);
+//     newHead->next = head;
+//     if(head != NULL) head->prev = newHead;
+//  // for placing newnode to starting point of the list  // from now on the head of the list is new head 
+//     head = newHead;
+//     for (DoublyListNode* p = head; p != nullptr; p = p->next) {
+//         cout << p->val;
+//         // after the loop finishes keeping track of last node is must be needed 
+//         tail = p;
+//     }
+//     cout << endl;
+    
+//     // traverse the doubly linked list from the tail node to the head
+//     for (DoublyListNode* p = tail; p != nullptr; p = p->prev) {
+//         cout << p->val;
+//     }
+    
+// }
+
+//          2). Addition of an node onto the last of linked list 
+
 int main(){
     vector<int> arr{10, 20, 20 , 40 , 50};
-// create doubly linked list as a function is called with arrinpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
+// create doubly linked list as a function is called with arrnpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
     DoublyListNode* head = createDoublyLinkedList(arr);
+    DoublyListNode* tail = head;
+    while(tail->next != nullptr){
+       tail = tail->next;
+    }
+    DoublyListNode* newnode = new DoublyListNode(99);
+    tail->next = newnode;
+    newnode->prev = tail;
+    // update the tail node reference with the new node 
+    // if not update tail node still points previous node 
+    tail = newnode;
 
-    DoublyListNode* temp = head;
-    while(temp != NULL){
-       cout <<  temp->val;
-       if(temp->next == NULL) break;
-        temp = temp-> next;
-        
+    
+    for (DoublyListNode* p = head; p != nullptr; p = p->next) {
+        cout << p->val;
+        // after the loop finishes keeping track of last node is must be needed 
+        tail = p;
     }
     cout << endl;
-    while(temp != NULL){
-        cout << temp->val;
-        temp = temp->prev;
+    
+    // traverse the doubly linked list from the tail node to the head
+    for (DoublyListNode* p = tail; p != nullptr; p = p->prev) {
+        cout << p->val;
     }
-    cout << endl;
-    return 0;
     
 }
+
+
+
+
 
 
 
