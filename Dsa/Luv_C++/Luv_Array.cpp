@@ -3414,7 +3414,7 @@ using namespace std;
 //         ans *= mid;
 //     }
 //     return ans;
-// }
+// }          
 
 // int main(){
 //         double x;
@@ -3760,7 +3760,7 @@ using namespace std;
 // 5). as their last bit is 0 to convert binary number its just invert to 1
 
 // 6). xor is very tricky and important topic for questions 
-// 7). if any in two numbers is 0 so together xor also be 0 where for or if any numbers 1 it returns 1 and if in any case two no. are same so their xor will be 0 otherwise 1
+// 7). if any in two numbers is 0 so together then thier and also be 0 where for or if any numbers 1 it returns 1 and if in any case two no. are same so their xor will be 0 otherwise 1
 // 8). L.S -> <<    3 << 1 --> 1  3 << x  L.S shift x bit to the left   R.S -> just shift your bit to the right  
 // 9). maximum numbers should be made using 4 bits is 2^n-1 = 15 number    -->  our integers are of 32 bits so 32 number will included 
 
@@ -3769,21 +3769,87 @@ using namespace std;
 // 11). as you shift your bits for 1 >> n then total no. of digits will be n+1 .. 
 
 
+// #include<bits/stdc++.h>
+// using namespace std;
+// const int N = 1e5+10;
+
+// int main(){
+//       cout << INT_MAX << endl;
+// //       int a = ()  
+// // as you shift a bit with long numbers it also makes long number so dont be forget to make it long 
+//       int a = (1LL << 31) - 1;
+//       cout << a;
+//       unsigned int b = (1LL << 32) - 1;
+//       cout << b << endl;
+//  // a bit of signed int is reserved for the sign (0 for positive and 1 for negative)
+//  // where as u
+// }
+
+
+//                        Play With bits 
+// 1). Lsb points out to the last bit (0th bit) in binary numbers  and nth bit in nth no. will be most significant bit (msb)
+// 2). counting will always be proceed from the lsb to msb 
+// 3). ina an binary number  1 bit - set   unset - 0 
+// 4). so in 10111011 - bit representation with 1 = 6 and bit representation with 0 = 2
+// 5). For checking nth bit is set or not, select another binary numbers whose nth bith is same as the current number and do & of both of them if result at nth bit is 1 then its nth bit be an set 
+// 6). note* precedence binary element of 2^n is n times 1 .... like 2^4 -> 15 1111
+// 
+
 #include<bits/stdc++.h>
 using namespace std;
-const int N = 1e5+10;
 
-int main(){
-      cout << INT_MAX << endl;
-//       int a = ()  
-// as you shift a bit with long numbers it also makes long number so dont be forget to make it long 
-      int a = (1LL << 31) - 1;
-      cout << a;
+void PrintBinary(int num){
+        for(int i = 10; i>= 0; --i){
+                // it just shift ith bit of the number num
+                cout << ((num >> i) & 1); 
+        }
+        cout << endl;
 }
 
+int main(){
+        PrintBinary(9);
+        int a = 9;
+        int i = 4;
+        // (1 << i describes 1 are in on ith bit)
+        if((a & 1 << i) != 0){
+                cout << "set bit" << endl;
+        }else{
+                cout << "not set bit " << endl;
+        }
+        // for set a bit we find a number whose ith bit is 1 and left shift the bit by 1 
+        PrintBinary((a | (1<<1)));
+        // for unset ith bit then we so pleased to formed the number whose nth bit is 0 for acheving this we choose a number whose ith bit is 0 and other bits are 1 and their and 
+  //           0 0 0 1 0 0 1
+  //to find    1 1 1 0 1 1 1
+  //formed &   0 0 0 0 0 0 1
+  //for searc  0 0 0 1 0 0 0
+  // uf we do and of search and find so we will get unset of formed 
+  // To invert the bit use ~ a 
+  
+        // bit unset 
+        PrintBinary(a&(~(1<<3)));
 
-
-
+        // toogle 
+       // xor toggles the numbers xor of 0 with 1 togles 0 to 1 and xor of 1 with 0 toggles 1 to 0
+    // 1 << 2 -> means 1 shift left by 2 bits 
+       PrintBinary( a ^ ( 1 << 2));
+       PrintBinary(a ^ (1<< 3));
+       PrintBinary(a ^ (1 << 4));
+       // bit count defines how many set bits are there in a given number
+       // if 32 bits are there 
+       int ct = 0;
+       for(int i = 31; i>= 0; --i){
+        // if set of bit is not equal to 0
+         if((a & (1 << i)) != 0){
+                ct++;
+         }
+       }
+       cout << ct << endl;
+       // inbuilt function for counting set of bit 
+       cout << __builtin_popcount(a) << endl;
+       // for long long type integers builtin_popcountll
+       cout << __builtin_popcountll((1LL << 35)-1) << endl;
+}
 
 
 
