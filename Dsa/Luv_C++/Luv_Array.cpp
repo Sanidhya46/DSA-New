@@ -3786,7 +3786,7 @@ using namespace std;
 // }
 
 
-//                        Play With bits 
+//                         Play With bits 
 // 1). Lsb points out to the last bit (0th bit) in binary numbers  and nth bit in nth no. will be most significant bit (msb)
 // 2). counting will always be proceed from the lsb to msb 
 // 3). ina an binary number  1 bit - set   unset - 0 
@@ -3795,66 +3795,194 @@ using namespace std;
 // 6). note* precedence binary element of 2^n is n times 1 .... like 2^4 -> 15 1111
 // 
 
-#include<bits/stdc++.h>
-using namespace std;
+// #include<bits/stdc++.h>
+// using namespace std;
 
+// void PrintBinary(int num){
+//         for(int i = 10; i>= 0; --i){
+//                 // it just shift ith bit of the number num
+//                 cout << ((num >> i) & 1); 
+//         }
+//         cout << endl;
+// }
+
+// int main(){
+//         PrintBinary(9);
+//         int a = 9;
+//         int i = 4;
+//         // (1 << i describes 1 are in on ith bit)
+//         if((a & 1 << i) != 0){
+//                 cout << "set bit" << endl;
+//         }else{
+//                 cout << "not set bit " << endl;
+//         }
+//         // for set a bit we find a number whose ith bit is 1 and left shift the bit by 1 
+//         PrintBinary((a | (1<<1)));
+//         // for unset ith bit then we so pleased to formed the number whose nth bit is 0 for acheving this we choose a number whose ith bit is 0 and other bits are 1 and their and 
+//   //           0 0 0 1 0 0 1
+//   //to find    1 1 1 0 1 1 1
+//   //formed &   0 0 0 0 0 0 1
+//   //for searc  0 0 0 1 0 0 0
+//   // uf we do and of search and find so we will get unset of formed 
+//   // To invert the bit use ~ a 
+  
+//         // bit unset 
+//         PrintBinary(a&(~(1<<3)));
+
+//         // toogle 
+//        // xor toggles the numbers xor of 0 with 1 togles 0 to 1 and xor of 1 with 0 toggles 1 to 0
+//     // 1 << 2 -> means 1 shift left by 2 bits 
+//        PrintBinary( a ^ ( 1 << 2));
+//        PrintBinary(a ^ (1<< 3));
+//        PrintBinary(a ^ (1 << 4));
+//        // bit count defines how many set bits are there in a given number
+//        // if 32 bits are there 
+//        int ct = 0;
+//        for(int i = 31; i>= 0; --i){
+//         // if set of bit is not equal to 0
+//          if((a & (1 << i)) != 0){
+//                 ct++;
+//          }
+//        }
+//        cout << ct << endl;
+//        // inbuilt function for counting the number of set bit 
+//        cout << __builtin_popcount(a) << endl;
+//        // for long long type integers builtin_popcountll
+//        cout << __builtin_popcountll((1LL << 35)-1) << endl;
+// }
+
+//               6 Amazing bit manipulation tricks 
+
+
+// 1). Note* - Oth bit of odd number is always be 1 and 0th bit of even number is always be 0
+// 2). & of any odd binary number with 1 is 0 - 000001101 & 000000001 -- 0 otherwise for even it gives 1
 void PrintBinary(int num){
         for(int i = 10; i>= 0; --i){
                 // it just shift ith bit of the number num
                 cout << ((num >> i) & 1); 
         }
         cout << endl;
-}
+}            
+
+//         Trick 1 - Odd Even Check
+
+// int main(){
+
+//    for(int i =0; i<8; i++){
+//         PrintBinary(i);
+//         if(i&1){
+//             cout << "Odd";   
+//         }else{
+//            cout << "Even";
+//         }
+//    }
+// }
+
+// 3). if you want to check for n binary number is even or odd then do n&1 if its true then odd otherwise even 
+// 4). In comparision to bit manipulation techiniques modulo operations are very slower n%2
+
+//   Trick - 2  ( multiply / Divide by 2 )
+
+// Note* - For dividing a binary by 2 is done by Right shifting of a bit 
+//         For multiplying Left shift for a bit will take care for that situation
+
+// int main(){
+//         int n = 8;   // 01000
+//         cout << (n>>1) << endl;
+//         cout << (n<<1) << endl;
+//  // 1). Also implemented in binary search by shifting a bit after adding their 
+//        //  cout << (hi + lo) >> 1
+//         // 101 - (2^2*1 + 2^1*0 + 2^0*1) * 2
+//         // 10 
+// }
+
+//      Trick 3 - Uppercase and Lower Case
+
+// 1).  characters are internally sky value 
+// NOte* - In capital letters the 5th bit are unsetted where as 5th bit is setted for small letters 
+// NOte* - Conversion of Capital letters to small letters should be done effortlessely by just setting their 5th bit 
+// NOte* - Fill in your memory 32 bit is an sky value of space 
+// Note* - OR of capital letter with space character gives the small letter in result 
+// bitset<8> - is a function which tells the compiler to display the binary number using 8 bits 
+// bit(32) -> (0100000) 1 is at 6th bit 
+// int(x) -> int conversion of an binary number x
+// '_' -> represent as 000000101111 with 95 (with 5th bit is 1 ) and A -> represent as 000001000001 with int(65)
+// so we observed 5th bit of underscore is 1 and with toogling 5th bit of capital letter to small is done by '&' operation and small letter to capital by 'or' operation
+// Lower to upper conversion - char('A' & '_')   For upper to Lower and operation of Capital letter with underscore is requitred 
+// Upper to lower conversion - char('a' | '_')
+// Upper to lower conversion - char('A' | ' ')
+// for clearing lsb to ith bit - (a & (~((1<<i+1)-1)))
+// for calculating a number is power of 2 or not then the and of the n & n-1 should not be true means false
+
+// int main(){
+//          for(char c = 'A'; c <= 'E'; c++ ){
+//                 cout << c << endl;
+//                 PrintBinary(c);
+//          }
+//          for(char c = 'a'; c <= 'e'; c++){
+//                 cout << c << endl;
+//                 PrintBinary(c);
+//          }
+//          char A = 'A';
+//          // for convertig set a to result of turning of 5th bit of the character A using bitwise or with 1 shifted left by 5 bits
+//          char a = A | (1 << 5);
+//          cout << a << endl;
+//         // as previous method capital letters are also converted into small letters with the unsetting of 5th bit
+//          cout << char(a& (~(1<<5))) << endl;
+//      // 1 shift 5 is 32 and sky value of 32 is 0    
+//          cout << char(1<<5);
+//     // 
+//          cout << char('C' | ' ') << endl;
+
+//         PrintBinary(32);
+//         cout << bitset<8>(1 << 5) << endl;
+        
+      
+//         PrintBinary(int('_'));    // 00001011111
+
+//         cout << char('a' & '_') << endl;    // A
+//         cout << int('_') << " ";
+//      // By toglling or setting the 5th bit of an character A should be done by using or operation with space character
+//         PrintBinary(int(A | ' '));  // 000001100001
+     
+//         cout << char( 'A' | ' ' );
+//  }
+
+
+//    How to clear lsb from starting to the ith bit
+
+// To clear all bits from the least significant bit (LSB) up to and including the ith bit, create a mask using ~((1 << (i + 1)) - 1) and apply it with bitwise AND to the original number
+
+// int main(){
+// // PrintBinary(59);
+// // int a = 59;
+// int i = 4;     // 1111111110000 --> inversion of 1111111110000 -> right shift of 1 by i + 1  00000100000 - 1 
+// // 1).  create a mask of 1s in that range of (1 << (i+1)) -1 
+// // 2). invert it using bitwise not to  get 0s in  lsb to  i and 1's elsewhere
+// // 3). Apply the mask with bitwise AND to clear the desired bits
+
+// // // int b = a & (~(1<<(i+1)) - 1);
+// // cout << b << " ";
+// // PrintBinary(27);
+// int a = 99;
+// PrintBinary(a);
+// int b = (a & (~((1<<(i+1)) - 1)));
+// PrintBinary(b);
+// // it calculates msb by kepting ith element at last as it is
+// int c = (a&((1<<(i+1))-1));
+// PrintBinary(c);
+// }
+
+
+//           Trick 4 - How to check Power of 2 
+// 1). if any existence number are their then power of 2 must have the '1' And operation with n - 1(makes 1 from 0th bit to n - 1 + 1)
 
 int main(){
-        PrintBinary(9);
-        int a = 9;
-        int i = 4;
-        // (1 << i describes 1 are in on ith bit)
-        if((a & 1 << i) != 0){
-                cout << "set bit" << endl;
+        int n = 16;
+        
+        if(n & (n-1)){
+               cout << "not power of 2";
         }else{
-                cout << "not set bit " << endl;
+               cout << " power of 2";
         }
-        // for set a bit we find a number whose ith bit is 1 and left shift the bit by 1 
-        PrintBinary((a | (1<<1)));
-        // for unset ith bit then we so pleased to formed the number whose nth bit is 0 for acheving this we choose a number whose ith bit is 0 and other bits are 1 and their and 
-  //           0 0 0 1 0 0 1
-  //to find    1 1 1 0 1 1 1
-  //formed &   0 0 0 0 0 0 1
-  //for searc  0 0 0 1 0 0 0
-  // uf we do and of search and find so we will get unset of formed 
-  // To invert the bit use ~ a 
-  
-        // bit unset 
-        PrintBinary(a&(~(1<<3)));
-
-        // toogle 
-       // xor toggles the numbers xor of 0 with 1 togles 0 to 1 and xor of 1 with 0 toggles 1 to 0
-    // 1 << 2 -> means 1 shift left by 2 bits 
-       PrintBinary( a ^ ( 1 << 2));
-       PrintBinary(a ^ (1<< 3));
-       PrintBinary(a ^ (1 << 4));
-       // bit count defines how many set bits are there in a given number
-       // if 32 bits are there 
-       int ct = 0;
-       for(int i = 31; i>= 0; --i){
-        // if set of bit is not equal to 0
-         if((a & (1 << i)) != 0){
-                ct++;
-         }
-       }
-       cout << ct << endl;
-       // inbuilt function for counting set of bit 
-       cout << __builtin_popcount(a) << endl;
-       // for long long type integers builtin_popcountll
-       cout << __builtin_popcountll((1LL << 35)-1) << endl;
 }
-
-
-
- 
-
-
-
-
