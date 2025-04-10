@@ -6,7 +6,8 @@
         "deque": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "new": "cpp"
     },
     "cmake.sourceDirectory": "C:/Users/sanid/OneDrive/Desktop/C++ gfg/lc-plugin-template/cpp-template"
 }

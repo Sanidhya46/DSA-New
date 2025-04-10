@@ -3760,13 +3760,13 @@ using namespace std;
 // 5). as their last bit is 0 to convert binary number its just invert to 1
 
 // 6). xor is very tricky and important topic for questions 
-// 7). if any in two numbers is 0 so together then thier and also be 0 where for or if any numbers 1 it returns 1 and if in any case two no. are same so their xor will be 0 otherwise 1
-// 8). L.S -> <<    3 << 1 --> 1  3 << x  L.S shift x bit to the left   R.S -> just shift your bit to the right  
-// 9). maximum numbers should be made using 4 bits is 2^n-1 = 15 number    -->  our integers are of 32 bits so 32 number will included 
+// 7). if any in two numbers is 0 so together then thier and also be 0 where for or if any numbers 1 it returns 1 and if in any case two no. are same so their xor will be 0 otherwise 1.
+// 8). L.S -> <<    3 << 1 --> 1  3 << x  L.S shift x bit to the left   R.S -> just shift your bit to the right.
+// 9). maximum numbers should be made using 4 bits is 2^n-1 = 15 number    -->  our integers are of 32 bits so 32 number will included.
 
-// 10). whenever would like to known the power of 2^n just shift your first bit for an countable n times  1 << n
+// 10). whenever would like to known the power of 2^n just shift your first bit for an countable n times  1 << n.
 
-// 11). as you shift your bits for 1 >> n then total no. of digits will be n+1 .. 
+// 11). as you shift your bits for 1 >> n then total no. of digits will be n+1 ..
 
 
 // #include<bits/stdc++.h>
@@ -3786,7 +3786,7 @@ using namespace std;
 // }
 
 
-//                         Play With bits 
+//                            Play With bits 
 // 1). Lsb points out to the last bit (0th bit) in binary numbers  and nth bit in nth no. will be most significant bit (msb)
 // 2). counting will always be proceed from the lsb to msb 
 // 3). ina an binary number  1 bit - set   unset - 0 
@@ -3856,9 +3856,10 @@ using namespace std;
 
 // 1). Note* - Oth bit of odd number is always be 1 and 0th bit of even number is always be 0
 // 2). & of any odd binary number with 1 is 0 - 000001101 & 000000001 -- 0 otherwise for even it gives 1
+
 void PrintBinary(int num){
         for(int i = 10; i>= 0; --i){
-                // it just shift ith bit of the number num
+                // extracts the ith bit from the right , 0 based of the number num by shifting num for it right i times which brings the desired bit to the lsb and then masking with 1 isolate that single bit 
                 cout << ((num >> i) & 1); 
         }
         cout << endl;
@@ -3906,9 +3907,8 @@ void PrintBinary(int num){
 // bitset<8> - is a function which tells the compiler to display the binary number using 8 bits 
 // bit(32) -> (0100000) 1 is at 6th bit 
 // int(x) -> int conversion of an binary number x
-// '_' -> represent as 000000101111 with 95 (with 5th bit is 1 ) and A -> represent as 000001000001 with int(65)
+// '_' -> represent as 0000001011111 with 95 (with 5th bit is 1 ) and A -> represent as 000001000001 with int(65)
 // so we observed 5th bit of underscore is 1 and with toogling 5th bit of capital letter to small is done by '&' operation and small letter to capital by 'or' operation
-// Lower to upper conversion - char('A' & '_')   For upper to Lower and operation of Capital letter with underscore is requitred 
 // Upper to lower conversion - char('a' | '_')
 // Upper to lower conversion - char('A' | ' ')
 // for clearing lsb to ith bit - (a & (~((1<<i+1)-1)))
@@ -3938,14 +3938,14 @@ void PrintBinary(int num){
 //         cout << bitset<8>(1 << 5) << endl;
         
       
-//         PrintBinary(int('_'));    // 00001011111
+//        PrintBinary(int('_'));    // 00001011111
 
-//         cout << char('a' & '_') << endl;    // A
+//      cout << char('a' & '_') << endl;    // A
 //         cout << int('_') << " ";
 //      // By toglling or setting the 5th bit of an character A should be done by using or operation with space character
-//         PrintBinary(int(A | ' '));  // 000001100001
+//      PrintBinary(int('A' | ' '));  // 000001100001
      
-//         cout << char( 'A' | ' ' );
+        // cout << char( 'a' | ' ' );
 //  }
 
 
@@ -3977,12 +3977,106 @@ void PrintBinary(int num){
 //           Trick 4 - How to check Power of 2 
 // 1). if any existence number are their then power of 2 must have the '1' And operation with n - 1(makes 1 from 0th bit to n - 1 + 1)
 
-int main(){
-        int n = 16;
+// int main(){
+//         int n = 16;
         
-        if(n & (n-1)){
-               cout << "not power of 2";
-        }else{
-               cout << " power of 2";
+//         if(n & (n-1)){
+//                cout << "not power of 2";
+//         }else{
+//                cout << " power of 2";
+//         }
+// }
+
+//           Video no. 64 || Bitmasking 
+
+// 1). Bit masking is a technique used in low-level programming language to manipuplate specific binary bits with in a binary number using and or xor and not combined with bitmask that modifies certain bits without altering other bits  (modifies data while leaving others unchanged)
+//     Setting a bit - x = x | (1 << n);   // it set nth bit to 1
+//     clearing a bit - x = x & (-1 << n);  // set the nth bit to 0
+//     Toggling a bit - x = x ^ (1 << n);   // flips the nth bit 
+//     checking if a bit is set if (x & (1 << n))  // bit n is a set 
+
+//   Bit masking --> Bit + mask 
+// Lets suppose there were multiple peoples want to select fruits from only 4 type of fruits
+//  1-[Apple] 2-[Orange] 3-[grapes] 4-[[promogrenate]]
+// person 1 selects - 2 3   1100 (bitmask) - 12
+// person 2 selects - 1 3   1010 (bitmask) - 10
+// person 3 selects - 2 1   0110 (bitmask) - 6
+
+// if we stored into array - for common fruits(intersection) will be used -> t.c will becames -- O(n) 
+// from now we stored a particular number which represent the particular bitmask which correctly stores which fruit you choose 
+
+
+// Limitations of Bitmask - There is an limit to store value in flag we can't store value more than 32 bits for int and 64 bits for long long because it reaches to the maxlimit of binary type
+
+
+//      Example -    Workers works for multiple days 
+// Target - to find maximum of two workers our target is to find maximum of intersection of two workers 
+// int main(){
+//         int n; 
+//         cin >> n;
+//         vector<int> days[n];
+//         for(int i =0; i<n; i++){
+//           int num_workers;
+//           cin >> num_workers;
+//           for(int j=0; j<n; j++){
+//                 int day;
+//                 cin >> day;
+//                 days[i].push_back(day);
+//           }
+         
+//         }
+        
+
+// for(int i = 0; i< n; i++){
+//         for(int j =0; j<n; j++){
+//        // As i using days[i] and days[j]  then their time complexity -> O(n)
+     
+//         }
+//         // 
+// }
+// }
+
+int main(){
+        int n; 
+        cin >> n;
+        vector<int> masks(n,0);
+        for(int i =0; i<n; i++){
+          int num_workers;
+          cin >> num_workers;
+          int mask = 0;
+          for(int j=0; j<num_workers; j++){
+                int day;
+                cin >> day;
+                // For setting of particular day in vector 
+                mask = (mask | (1 << day));
+          }
+         masks[i] = mask;
         }
+        for(int i =0; i<n; i++){
+                cout << masks[i] << endl;
+                PrintBinary(masks[i]);
+        }
+   int max_days = 0; 
+   int person1 = -1;
+   int person2 = -1;
+for(int i = 0; i< n; i++){
+        for(int j =0; j<n; j++){
+       // As i using days[i] and days[j]  then their time complexity -> O(n)
+       // Intersection shows as common bit shared so and operation will be the best choice 
+          int intersection = masks[i] & masks[j];
+        // count of setted bits will be give the how many common days are there 
+         int common_days = __builtin_popcount(intersection);
+         cout << i << " " << j << " " << common_days << endl;
+         max_days = max(max_days, common_days);
+         cout << max_days;
+         if(common_days > max_days){
+                max_days = common_days;
+                person1 = i;
+                person2 = j;
+         }
+        }
+        
+        // 
+}
+cout << person1 << " " << person2 << endl;
 }
