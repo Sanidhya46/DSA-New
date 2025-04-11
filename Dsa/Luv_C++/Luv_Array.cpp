@@ -3092,7 +3092,7 @@ using namespace std;
 // }
 
 
-//              Video no . 50 ||  Binary Search
+//               Video no . 50 ||  Binary Search
 
 // 1). In book it commonly mention that binary search are used in sorted array 
 // 
@@ -3243,7 +3243,7 @@ using namespace std;
 //         }
 //   }
 //   // so first of all we goona check that lower element is mid or not 
-//   // as on searching if current element is greater than lower or hi both then first we -- check for lower element and fast check for hi 
+//   // as on searching ifur crent element is greater than lower or hi both then first we -- check for lower element and fast check for hi 
 //   if(v[lo] >= element){
 //     return lo;
 //   }
@@ -3792,7 +3792,7 @@ using namespace std;
 // 3). ina an binary number  1 bit - set   unset - 0 
 // 4). so in 10111011 - bit representation with 1 = 6 and bit representation with 0 = 2
 // 5). For checking nth bit is set or not, select another binary numbers whose nth bith is same as the current number and do & of both of them if result at nth bit is 1 then its nth bit be an set 
-// 6). note* precedence binary element of 2^n is n times 1 .... like 2^4 -> 15 1111
+// 6). note* precedence binary element of 2^n is n times 1 .... like 2^4 -> 15 1111 
 // 
 
 // #include<bits/stdc++.h>
@@ -3897,7 +3897,7 @@ void PrintBinary(int num){
 //         // 10 
 // }
 
-//      Trick 3 - Uppercase and Lower Case
+//       Trick 3 - Uppercase and Lower Case
 
 // 1).  characters are internally sky value 
 // NOte* - In capital letters the 5th bit are unsetted where as 5th bit is setted for small letters 
@@ -3909,7 +3909,7 @@ void PrintBinary(int num){
 // int(x) -> int conversion of an binary number x
 // '_' -> represent as 0000001011111 with 95 (with 5th bit is 1 ) and A -> represent as 000001000001 with int(65)
 // so we observed 5th bit of underscore is 1 and with toogling 5th bit of capital letter to small is done by '&' operation and small letter to capital by 'or' operation
-// Upper to lower conversion - char('a' | '_')
+// Upper to lower conversion - char('a' & '_')
 // Upper to lower conversion - char('A' | ' ')
 // for clearing lsb to ith bit - (a & (~((1<<i+1)-1)))
 // for calculating a number is power of 2 or not then the and of the n & n-1 should not be true means false
@@ -3987,7 +3987,24 @@ void PrintBinary(int num){
 //         }
 // }
 
-//           Video no. 64 || Bitmasking 
+//           Video no. 61 || Xor operator 
+// 1). Xor of same two no. is always be  0
+// 2). X^0 == x, x^0 == 0
+// 3). Note* - x^y^z = x^z^y = y^x^z because xor is associative 
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+        int a = 4, b = 6;
+         a = a ^ b;
+         b = b ^ a; // b --> a // this steps stores the value of a in b   // b --> a
+    //a becames  b = b ^ (a ^ b)  ==> b ^ b ^ a
+
+        a = a ^ b;  // a --> b
+        // a = (a^b)^a ==> a^a^b --> b
+        cout << a << " " << b << endl;
+
+}
+//           Video no. 62 || Bitmasking 
 
 // 1). Bit masking is a technique used in low-level programming language to manipuplate specific binary bits with in a binary number using and or xor and not combined with bitmask that modifies certain bits without altering other bits  (modifies data while leaving others unchanged)
 //     Setting a bit - x = x | (1 << n);   // it set nth bit to 1
@@ -4036,47 +4053,50 @@ void PrintBinary(int num){
 // }
 // }
 
-int main(){
-        int n; 
-        cin >> n;
-        vector<int> masks(n,0);
-        for(int i =0; i<n; i++){
-          int num_workers;
-          cin >> num_workers;
-          int mask = 0;
-          for(int j=0; j<num_workers; j++){
-                int day;
-                cin >> day;
-                // For setting of particular day in vector 
-                mask = (mask | (1 << day));
-          }
-         masks[i] = mask;
-        }
-        for(int i =0; i<n; i++){
-                cout << masks[i] << endl;
-                PrintBinary(masks[i]);
-        }
-   int max_days = 0; 
-   int person1 = -1;
-   int person2 = -1;
-for(int i = 0; i< n; i++){
-        for(int j =0; j<n; j++){
-       // As i using days[i] and days[j]  then their time complexity -> O(n)
-       // Intersection shows as common bit shared so and operation will be the best choice 
-          int intersection = masks[i] & masks[j];
-        // count of setted bits will be give the how many common days are there 
-         int common_days = __builtin_popcount(intersection);
-         cout << i << " " << j << " " << common_days << endl;
-         max_days = max(max_days, common_days);
-         cout << max_days;
-         if(common_days > max_days){
-                max_days = common_days;
-                person1 = i;
-                person2 = j;
-         }
-        }
+// int main(){
+//         int n; 
+//         cin >> n;
+//         vector<int> masks(n,0);
+//         for(int i =0; i<n; i++){
+//           int num_workers;
+//           cin >> num_workers;
+//           int mask = 0;
+//           for(int j=0; j<num_workers; j++){
+//                 int day;
+//                 cin >> day;
+//                 // For setting of particular day in vector 
+//                 mask = (mask | (1 << day));
+//           }
+//          masks[i] = mask;
+//         }
+//         for(int i =0; i<n; i++){
+//                 cout << masks[i] << endl;
+//                 PrintBinary(masks[i]);
+//         }
+//    int max_days = 0; 
+//    int person1 = -1;
+//    int person2 = -1;
+// for(int i = 0; i< n; i++){
+//         for(int j =0; j<n; j++){
+//        // As i using days[i] and days[j]  then their time complexity -> O(n)
+//        // Intersection shows as common bit shared so and operation will be the best choice 
+//           int intersection = masks[i] & masks[j];
+//         // count of setted bits will be give the how many common days are there 
+//          int common_days = __builtin_popcount(intersection);
+//          cout << i << " " << j << " " << common_days << endl;
+//          max_days = max(max_days, common_days);
+//          cout << max_days;
+//          if(common_days > max_days){
+//                 max_days = common_days;
+//                 person1 = i;
+//                 person2 = j;
+//          }
+//         }
         
-        // 
-}
-cout << person1 << " " << person2 << endl;
-}
+//         // 
+// }
+// cout << person1 << " " << person2 << endl;
+// }
+//  O(n^2)
+
+
