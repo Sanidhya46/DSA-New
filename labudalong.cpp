@@ -403,41 +403,146 @@ class DoublyListNode {
     
 // }
 
-//     6).  Deleting a Last Node in a linked list 
+//          6).  Deleting a Last Node in a linked list 
 // 1). create a head pointer to stores the address of the current head node 
 // 2). keep points to the next pointer and update autonomously until it reaches last node 
 // 3). After Reaching on to the end for detaching previous node points the next pointer of the prev pointer of the current node to nullptr
 // 4). To prevent dagling pointer issue points the prev pointer of last node to the null pointer 
-int main(){
-    vector<int> arr{10, 20, 30 , 40 , 50};
-// create doubly linked list as a function is called with arrnpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
-    DoublyListNode* head = createDoublyLinkedList(arr);
-    DoublyListNode* p = head;
-    while(p->next != nullptr){
-        // updating the next pointer on each iteration
-       p =  p->next;
-    }
-    p->prev->next = nullptr;
+
+// int main(){
+//     vector<int> arr{10, 20, 30 , 40 , 50};
+// // create doubly linked list as a function is called with arrnpur and it returns pointer to the head node of the linked list ...  or array vector as argumented 
+//     DoublyListNode* head = createDoublyLinkedList(arr);
+//     DoublyListNode* p = head;
+//     while(p->next != nullptr){
+//         // updating the next pointer on each iteration
+//        p =  p->next;
+//     }
+//     p->prev->next = nullptr;
     
-    p->prev = nullptr;
+//     p->prev = nullptr;
   
     
 
-    DoublyListNode* tail = nullptr;
-    for (DoublyListNode* p = head; p != nullptr; p = p->next) {
-        cout << p->val;
-        // after the loop finishes keeping track of last node is must be needed 
-        tail = p;  // set tail to last node for keeping track of it for reversing 
+//     DoublyListNode* tail = nullptr;
+//     for (DoublyListNode* p = head; p != nullptr; p = p->next) {
+//         cout << p->val;
+//         // after the loop finishes keeping track of last node is must be needed 
+//         tail = p;  // set tail to last node for keeping track of it for reversing 
+//     }
+//     cout << endl;
+    
+//     // traverse the doubly linked list from the tail node to the head
+//     for (DoublyListNode* p = tail; p != nullptr; p = p->prev) {
+//         cout << p->val;
+//     }
+    
+    
+// }
+
+// 1). Dummy nodes are special nodes that do not hold meaningful data. They serve as placeholders to simplify list operations, especially insertions and deletions at the boundaries. 
+//            Doubly Linked List Code Implementation
+// 3). Template<Typename E> defines a template that can operate with any data type specified at the time of instaniation. This Process is fudamental to genric programming languages allowing for creating flexible and reusable code components 
+// 4). Template and class are interchangable 
+// 5). Best Practices - Always update and maintain size after Performing any operation in linkned list. 
+// 6). *** Be foucussed sometimes no member error occured due to case senstive of public class method please keep this in mind that c++ is case senstive 
+
+#include<bits/stdc++.h>
+using namespace std;
+template<typename E>
+class MyLinkedList{   // Now class is instantiated memory is allocated for utilisation of class or templates defined structure and behaviour 
+struct Node {   // struct node data is not stored in contagious memory allocations each node contains data and reference to next node allowing efficient insertion without reorganizing the similar structure 
+E val;  // data member value is initialised of type E- which allows to stores data of any type 
+Node* prev;  // declare pointers 
+Node* next;
+// value is the parameter of type E passed to the constructor used to initialise constructor to initiialise the node's data member 
+Node(E value) : val(value), next(nullptr), prev(nullptr) {}
+};
+// virtual head and tail nodes 
+Node* head; // define pointers to the first node and last node of the linked list 
+Node* tail;
+int size;    // size is for keep tracking for the no. of nodes present in the list 
+public:
+   // constructor initializes virtual head and tail nodes
+   MyLinkedList(){
+  // 
+    head = new Node(E());   // E() creates the default initialised object of type E which is then passed to the node constructor 
+    tail = new Node(E());
+    head->next = tail;  //next pointer of dummy head node will points to the dummy tail node signifies there is no real node in between dummy head and dummy tail node 
+    tail->prev = head;  
+    size = 0; // ** initialising size = 0 is essential it reflects that there is no data nodes are present between head and tail and head and tail are ready to fill the nodes 
+   }
+
+              //***  (1).    Add Last     ***/
+// 1). create a node value e identifying a node correctly at the end of the list , and create a linkage of x between temp and tail
+   void addLast(E e){  // e is an instance of node going to add into the end of the linked list 
+        Node* x = new Node(e);
+    //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
+        Node* temp = tail->prev;
+     // temp <-> x
+        temp->next = x;
+        x->prev = temp;
+        tail->prev = x;
+        x->next = tail;
+        // temp<-> x <-> tail
+        size++;
+   }
+             // *****  (2)  Add First  *****
+            
+             void addFirst(E e){  // e is an instance of node going to add into the end of the linked list 
+                Node* x = new Node(e);
+            //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
+                Node* temp = head->next;
+             // head <-> x
+             
+                x->next = temp;
+                temp->prev = x;
+                x->prev = head;
+                head->next = x;
+                
+                // head-> x -> temp
+                size++;
+           }
+
+           //  ****  (3)  Add At (index, element)
+        
+           void add(int index, int element){
+                Checj
+           }
+
+           bool isElementIndex(int index) const {
+            return index >= 0 && index < size;
+        }
+        void checkElementIndex(int index) const {
+            if (!isElementIndex(index))
+                throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+        }
+
+           
+             
+   void display() {
+    std::cout << "size = " << size << std::endl;
+    for (Node* p = head->next; p != tail; p = p->next) {
+        std::cout << p->val << " <-> ";
     }
-    cout << endl;
-    
-    // traverse the doubly linked list from the tail node to the head
-    for (DoublyListNode* p = tail; p != nullptr; p = p->prev) {
-        cout << p->val;
-    }
-    
-    
+    std::cout << "null" << std::endl;
+    std::cout << std::endl;
 }
+};
+
+int main() {
+    MyLinkedList<int> list;  // This line creates an instance named list of template class with type parameter E specified as int through this any type of parameter can be used 
+    list.addLast(2);
+    list.addLast(2);
+    list.addFirst(3);
+
+    list.display();
+    // size = 5
+    // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
+
+    return 0;
+}
+
 
 
 

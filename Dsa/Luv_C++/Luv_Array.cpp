@@ -3991,19 +3991,35 @@ void PrintBinary(int num){
 // 1). Xor of same two no. is always be  0
 // 2). X^0 == x, x^0 == 0
 // 3). Note* - x^y^z = x^z^y = y^x^z because xor is associative 
+// 4).
 #include<bits/stdc++.h>
 using namespace std;
-int main(){
-        int a = 4, b = 6;
-         a = a ^ b;
-         b = b ^ a; // b --> a // this steps stores the value of a in b   // b --> a
-    //a becames  b = b ^ (a ^ b)  ==> b ^ b ^ a
+// int main(){
+//         int a = 4, b = 6;
+//          a = a ^ b; // a now holds the result of a XOR b.
+//          b = b ^ a; // b --> a // b becomes the original value of a.// b --> a
+//     //a becames  b = b ^ (a ^ b)  ==> b ^ b ^ a
 
-        a = a ^ b;  // a --> b
-        // a = (a^b)^a ==> a^a^b --> b
-        cout << a << " " << b << endl;
+//         a = a ^ b; //a-->b // a becomes the original value of b
+//         // a = (a^b)^a ==> a^a^b --> b
+//         cout << a << " " << b << endl;
 
-}
+// }
+// *** Imp interview questions Given array a of n integers. All integers are present in event count except one. Find that one integer which has odd count O(N) time complexity and O(1) space 
+// N < 10^5
+// a[i] < 10^5
+// sol - In between xor of all the even count will be zero and xor with odd number will easily showned in the result 
+// int main(){
+//       int n;
+//       cin >>  n;
+//       int x;
+//       int ans = 0;
+//       for(int i =0; i<n; i++){
+//         cin >> x;
+//         ans^=x;  //even count will be the erased and odd count will be showned 
+//       }  
+//       cout << ans << endl;
+// }
 //           Video no. 62 || Bitmasking 
 
 // 1). Bit masking is a technique used in low-level programming language to manipuplate specific binary bits with in a binary number using and or xor and not combined with bitmask that modifies certain bits without altering other bits  (modifies data while leaving others unchanged)
@@ -4100,3 +4116,24 @@ int main(){
 //  O(n^2)
 
 
+
+
+
+// *Imp -> Return the number which have odd count  
+// Given array a of n integers. All integers are present in even count except one.
+//  Find that one integer which has odd count O(N) time complexity and O(1) space 
+
+// 7
+// 3 2 1 2 1 2 2
+
+int main(){
+        int n;
+        cin >> n;
+        int x;
+        int ans = 0;
+        for(int i =0; i<n; i++){
+                cin >> x;
+                ans ^= x;
+        }
+        cout << ans << endl;
+}
