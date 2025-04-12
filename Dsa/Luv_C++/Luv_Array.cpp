@@ -4143,38 +4143,121 @@ using namespace std;
 // 1). Bit masking is binary representation of particular array ,subset or particular value
 // 2). A bit mask is a bit of mask that represent a binary representation of a number 
 
-vector<vector<int>> subsets(vector<int>& nums) {
-            int n = nums.size();
-          for(int i =0; i<n; i++){
-             int subset_ct = (1<<n);
-             vector<vector<int>> subsets;
-             vector<int> subset;
-             for(int mask =0; i<subset_ct; i++){
-                  if(mask & (1 << i) != 0){
-                        
-                        subset.push_back(nums[i]);
+// vector<vector<int>> subsets(vector<int>& nums) {
+//         int n = nums.size();
+//         int subset_ct = (1 << n); // Total number of subsets is 2^n
+//         vector<vector<int>> subsets;
+        
+//         for (int mask = 0; mask < subset_ct; ++mask) {
+//             vector<int> subset;
+//             for (int i = 0; i < n; ++i) {
+//                 if ((mask & (1 << i)) != 0) { // Check if the i-th bit is set
+//                     subset.push_back(nums[i]);
+//                 }
+//             }
+//             subsets.push_back(subset); // Add the subset to the result
+//         }
+        
+//         return subsets;
+//     }
 
-                  }
-                  subsets.push_back(subset);
-             }
-             return subsets;
-          }
-}
 
-int main(){
-       int n;
-       cin >> n;
-       vector<int> v;
-       for(int i =0; i<n; i++){
-       cin >> v[i];
-       }
-   // the auto keyword instructs the compiler to automatially deduce the return type function
-       auto all_subsets = subsets(v);
-      for(auto subset : all_subsets){
-        for( auto element : subset){
-               cout << element << endl;
+
+// int main(){
+//        int n;
+//        cin >> n;
+//        vector<int> v(n);
+//        for(int i =0; i<n; i++){
+//        cin >> v[i];
+//        }
+//    // the auto keyword instructs the compiler to automatially deduce the return type function
+//        auto all_subsets = subsets(v);
+//       for(auto subset : all_subsets){
+//         for( int element : subset){
+//                cout << element << " ";
+//         }
+       
+//       }
+//       cout << endl;
+// }
+
+
+
+//        GCD and LCM using euclid divisions algorithm 
+// 1). gcd = greatest common divisor in the no. 
+// 2). lcm = the lowest common multiple of the no.
+// 3). a*b/gcd = lcm 
+// 4). a*b/lcm = gcd
+// 5). keep dividing untill the reamainder becames 0 
+//     converts divisor -> divident 
+//              remainder -> divisor
+
+// int gcd(int a, int b){
+//         if(a%b == 0) return a;
+//         return(b, a%b);
+// }
+// int main(){
+//         cout << gcd(30,40);
+// }
+
+
+
+
+
+
+//         Gcd and Lcm using Euclid algorithm   
+
+//  divisor , divident 
+// int gcd(int a, int b){
+//         if(b == 0) return a;
+//         return(b,a%b);
+// }
+// int main(){
+//         cout << gcd(10, 20);
+//         cout << 10*20/gcd(10,20) << endl;
+// }
+
+
+
+//                    Unique Xor Triplets 
+
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+class Solution {
+public:
+    int uniqueXorTriplets(std::vector<int>& nums) {
+        int n = nums.size();
+        std::unordered_set<int> uniqueXORs;
+
+        // Iterate over all possible subsets using bitmasking
+        for (int mask = 0; mask < (1 << n); ++mask) {
+            int xorValue = 0;
+            for (int i = 0; i < n; ++i) {
+                if (mask & (1 << i)) {
+                    xorValue ^= nums[i];
+                    cout << xorValue << " ";
+                }
+            }
+            cout << xorValue << endl;
+            uniqueXORs.insert(xorValue);
         }
-      }
+
+        return uniqueXORs.size();
+    }
+};
+
+int main() {
+    Solution sol;
+
+    std::vector<int> nums1 = {1, 2};
+    std::cout << "Unique XOR values count for [1, 2]: "
+              << sol.uniqueXorTriplets(nums1) << std::endl;
+
+    std::vector<int> nums2 = {3, 1, 2};
+    std::cout << "Unique XOR values count for [3, 1, 2]: "
+              << sol.uniqueXorTriplets(nums2) << std::endl;
+
+    return 0;
 }
-
-
