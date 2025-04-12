@@ -4126,14 +4126,55 @@ using namespace std;
 // 7
 // 3 2 1 2 1 2 2
 
-int main(){
-        int n;
-        cin >> n;
-        int x;
-        int ans = 0;
-        for(int i =0; i<n; i++){
-                cin >> x;
-                ans ^= x;
-        }
-        cout << ans << endl;
+// int main(){
+//         int n;
+//         cin >> n;
+//         int x;
+//         int ans = 0;
+//         for(int i =0; i<n; i++){
+//                 cin >> x;
+//                 ans ^= x;
+//         }
+//         cout << ans << endl;
+// }
+
+
+//           Video no. 63   ||   Subset Generation with bit masking 
+// 1). Bit masking is binary representation of particular array ,subset or particular value
+// 2). A bit mask is a bit of mask that represent a binary representation of a number 
+
+vector<vector<int>> subsets(vector<int>& nums) {
+            int n = nums.size();
+          for(int i =0; i<n; i++){
+             int subset_ct = (1<<n);
+             vector<vector<int>> subsets;
+             vector<int> subset;
+             for(int mask =0; i<subset_ct; i++){
+                  if(mask & (1 << i) != 0){
+                        
+                        subset.push_back(nums[i]);
+
+                  }
+                  subsets.push_back(subset);
+             }
+             return subsets;
+          }
 }
+
+int main(){
+       int n;
+       cin >> n;
+       vector<int> v;
+       for(int i =0; i<n; i++){
+       cin >> v[i];
+       }
+   // the auto keyword instructs the compiler to automatially deduce the return type function
+       auto all_subsets = subsets(v);
+      for(auto subset : all_subsets){
+        for( auto element : subset){
+               cout << element << endl;
+        }
+      }
+}
+
+
