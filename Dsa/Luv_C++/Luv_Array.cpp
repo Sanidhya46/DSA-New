@@ -4219,45 +4219,183 @@ using namespace std;
 
 
 
-//                    Unique Xor Triplets 
+//           practice      Unique Xor Triplets 
 
-#include <iostream>
-#include <vector>
-#include <unordered_set>
+// #include <iostream>
+// #include <vector>
+// #include <unordered_set>
 
-class Solution {
-public:
-    int uniqueXorTriplets(std::vector<int>& nums) {
-        int n = nums.size();
-        std::unordered_set<int> uniqueXORs;
+// class Solution {
+// public:
+//     int uniqueXorTriplets(std::vector<int>& nums) {
+//         int n = nums.size();
+//         std::unordered_set<int> uniqueXORs;
 
-        // Iterate over all possible subsets using bitmasking
-        for (int mask = 0; mask < (1 << n); ++mask) {
-            int xorValue = 0;
-            for (int i = 0; i < n; ++i) {
-                if (mask & (1 << i)) {
-                    xorValue ^= nums[i];
-                    cout << xorValue << " ";
-                }
-            }
-            cout << xorValue << endl;
-            uniqueXORs.insert(xorValue);
-        }
+//         // Iterate over all possible subsets using bitmasking
+//         for (int mask = 0; mask < (1 << n); ++mask) {
+//             int xorValue = 0;
+//             for (int i = 0; i < n; ++i) {
+//                 if (mask & (1 << i)) {
+//                     xorValue ^= nums[i];
+//                     cout << xorValue << " ";
+//                 }
+//             }
+//             cout << xorValue << endl;
+//             uniqueXORs.insert(xorValue);
+//         }
 
-        return uniqueXORs.size();
+//         return uniqueXORs.size();
+//     }
+// };
+
+// int main() {
+//     Solution sol;
+
+//     std::vector<int> nums1 = {1, 2};
+//     std::cout << "Unique XOR values count for [1, 2]: "
+//               << sol.uniqueXorTriplets(nums1) << std::endl;
+
+//     std::vector<int> nums2 = {3, 1, 2};
+//     std::cout << "Unique XOR values count for [3, 1, 2]: "
+//               << sol.uniqueXorTriplets(nums2) << std::endl;
+
+//     return 0;
+// }
+
+
+//   Imp*       Video no. 65   Binary Exponentiation   (Recursive Method)
+// 1). Binary Exponentiaion is used to prevent from precision errors 
+// 2). pow(a,b) function always return double for prevention we can use modulo 
+// 3). setprecision controls the no. of value to be displayed of floating point numbers 
+// 4). We can't store maximum value using pow function so the modulo are being used for that cases  
+// int main(){
+// double d = 1e24;
+// cout << fixed << setprecision(30) << d;
+// }
+
+//        for calculating power of two number ( O(n))
+// 3). the time complexity is O(n) 
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//     int a = 2, b = 13;
+//     int ans = 1;
+//     for(int i = 0; i<b; i++){
+//         ans *= a;
+//         ans %= m;
+//     }
+//     cout << ans << endl;
+// }
+
+// for calculating power of two number 
+//   2^4 = 2^2 * 2^2
+//   for power of evn multiple - f(a,b) even -> f(a, b/2) * f(a, b/2)
+//   for  power of odd multiple - f(a, b) odd -> a * f(a, b/2) * f(a, b/2)
+
+// function calls led to the increase of time complexity 
+// *** this algorithm reduces the no. of multiplications required bu recursively break down the exponentiation process 
+// modules prevent integer overflow exponentiating numbers without a modulud quickly lead to extremly large results 
+// modular exponentiation allows for efficient computation even with larger inputs 
+//  res can be overflow so writing 1LL could be beneficial 
+
+// 
+// const int M = 1e9+7;
+// int binaryrec(int a , int b){
+//     if(b == 0) return 1;
+     // recursively computes the smaller of res = binaryrec(a, b/2)
+//     int res = binaryrec(a, b/2);
+//     if(b&1){
+//         return (a * ((res * res * 1LL) % M)) % M;
+//     }else{
+//    // expressed as squaring half the exponent 
+//         return (res * res)%M;
+//     }
+// }
+
+// int main(){
+//     int a = 4, b = 4;
+//     cout << binaryrec(a,b);
+// }
+
+
+//          Imp    binary exponential method iterative    (Iterative Method)
+
+// 1). for a^b our target is find out setted bit b and calcuting their combination power sum of 2^n for every setted bit of b with the power of a 
+// 2). for a^b we search for every setted bit of b we going to do a corresponding 2^position of setted bit and combinational sum of each bit will be showned as power of a and b.
+// 3). to finding each setted bit we will check for 0th bit and left shift the numbers for each time and perform 2^n for each bits and add into previous combinational result.
+// 4). 
+
+// 3^15 --> 3(1101) --> 3^(2^3+2^2+2^0+2^1) 
+// right shift the bit and convert and update with 3^n autonomously 
+// time complexity will be log(b)
+// b    a    ans
+// 
+// const int M = 1e9+7;
+// int binaryrec(int a , int b){
+//     int ans = 1;
+//     // if 0th bit is setted or not 
+//     while(b){
+//     if(b&1){
+//         // ans will be updated with 
+//         ans = (ans* a) % M;
+//     }
+//     // a is successively squared in each iteration of the loop
+//         a = (a * a);
+//         b >>= 1;  // shift the bit for the one 
+        
+//     }
+//     return ans;
+// }
+
+// int main(){
+//     int a = 4, b = 4;
+//     cout << binaryrec(a,b);
+// }
+
+
+
+
+
+
+
+
+
+//       for calculating power of two number ( O(n))
+
+// int PowerRec(int a , int b){
+//     if(b == 0) return 1;
+//     long long result = PowerRec(a, b/2);
+//     if(b&1){
+//         return (a*(result*result));
+//     }else{
+//         return (result*result);
+//     }
+// }
+// // t.c =- O(log b)
+// int main(){
+//     int a = 2 , b = 5;
+//     cout << PowerRec(a,b);
+// }
+
+
+
+//     for caluclating n multiples using iterative method 
+
+int PowerRec(int a , int b){
+    long long M = 1e9 + 7;
+     int ans = 1;
+     while(b){
+     if(b&1){
+        ans = (ans * a) % M;
+     }
+        a = (a * a) % M;
+        b >>= 1;
     }
-};
-
-int main() {
-    Solution sol;
-
-    std::vector<int> nums1 = {1, 2};
-    std::cout << "Unique XOR values count for [1, 2]: "
-              << sol.uniqueXorTriplets(nums1) << std::endl;
-
-    std::vector<int> nums2 = {3, 1, 2};
-    std::cout << "Unique XOR values count for [3, 1, 2]: "
-              << sol.uniqueXorTriplets(nums2) << std::endl;
-
-    return 0;
+    return ans;
 }
+// t.c =- O(log b)
+int main(){
+    int a = 2 , b = 5;
+    cout << PowerRec(a,b);
+} 
