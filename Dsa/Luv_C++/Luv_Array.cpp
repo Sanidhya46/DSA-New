@@ -4266,7 +4266,7 @@ using namespace std;
 //        Video no. 65   Binary Exponentiation
 // 1). Binary Exponentiaion is used to prevent from precision errors 
 // 2). pow(a,b) function always return double for prevention we can use modulo 
-// 3).
+// 3). 
 
 int main(){
 double d = 1e24;
