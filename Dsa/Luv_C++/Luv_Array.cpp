@@ -4219,45 +4219,56 @@ using namespace std;
 
 
 
-//                    Unique Xor Triplets 
+//           practice      Unique Xor Triplets 
 
-#include <iostream>
-#include <vector>
-#include <unordered_set>
+// #include <iostream>
+// #include <vector>
+// #include <unordered_set>
 
-class Solution {
-public:
-    int uniqueXorTriplets(std::vector<int>& nums) {
-        int n = nums.size();
-        std::unordered_set<int> uniqueXORs;
+// class Solution {
+// public:
+//     int uniqueXorTriplets(std::vector<int>& nums) {
+//         int n = nums.size();
+//         std::unordered_set<int> uniqueXORs;
 
-        // Iterate over all possible subsets using bitmasking
-        for (int mask = 0; mask < (1 << n); ++mask) {
-            int xorValue = 0;
-            for (int i = 0; i < n; ++i) {
-                if (mask & (1 << i)) {
-                    xorValue ^= nums[i];
-                    cout << xorValue << " ";
-                }
-            }
-            cout << xorValue << endl;
-            uniqueXORs.insert(xorValue);
-        }
+//         // Iterate over all possible subsets using bitmasking
+//         for (int mask = 0; mask < (1 << n); ++mask) {
+//             int xorValue = 0;
+//             for (int i = 0; i < n; ++i) {
+//                 if (mask & (1 << i)) {
+//                     xorValue ^= nums[i];
+//                     cout << xorValue << " ";
+//                 }
+//             }
+//             cout << xorValue << endl;
+//             uniqueXORs.insert(xorValue);
+//         }
 
-        return uniqueXORs.size();
-    }
-};
+//         return uniqueXORs.size();
+//     }
+// };
 
-int main() {
-    Solution sol;
+// int main() {
+//     Solution sol;
 
-    std::vector<int> nums1 = {1, 2};
-    std::cout << "Unique XOR values count for [1, 2]: "
-              << sol.uniqueXorTriplets(nums1) << std::endl;
+//     std::vector<int> nums1 = {1, 2};
+//     std::cout << "Unique XOR values count for [1, 2]: "
+//               << sol.uniqueXorTriplets(nums1) << std::endl;
 
-    std::vector<int> nums2 = {3, 1, 2};
-    std::cout << "Unique XOR values count for [3, 1, 2]: "
-              << sol.uniqueXorTriplets(nums2) << std::endl;
+//     std::vector<int> nums2 = {3, 1, 2};
+//     std::cout << "Unique XOR values count for [3, 1, 2]: "
+//               << sol.uniqueXorTriplets(nums2) << std::endl;
 
-    return 0;
+//     return 0;
+// }
+
+
+//        Video no. 65   Binary Exponentiation
+// 1). Binary Exponentiaion is used to prevent from precision errors 
+// 2). pow(a,b) function always return double for prevention we can use modulo 
+// 3).
+
+int main(){
+double d = 1e24;
+cout << fixed << setprecision(d);
 }
