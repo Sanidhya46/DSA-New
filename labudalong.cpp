@@ -440,13 +440,13 @@ class DoublyListNode {
     
 // }
 
-// 1). Dummy nodes are special nodes that do not hold meaningful data. They serve as placeholders to simplify list operations, especially insertions and deletions at the boundaries. 
+// 1). Dummy nodes are special nodes that do not hold meaningful data. They serve as placeholders to simplify list operations, especially insertions and deletions at the boundaries. senitel method simplifies operations at boundaries of the list and befits are i).Avoidance of null pointer exceptions - when you want to get reference of null object  ii). consistent operations iii). simplified edge cases 
 //            Doubly Linked List Code Implementation
 // 3). Template<Typename E> defines a template that can operate with any data type specified at the time of instaniation. This Process is fudamental to genric programming languages allowing for creating flexible and reusable code components 
 // 4). Template and class are interchangable 
 // 5). Best Practices - Always update and maintain size after Performing any operation in linkned list. 
 // 6). *** Be foucussed sometimes no member error occured due to case senstive of public class method please keep this in mind that c++ is case senstive 
-
+//
 #include<bits/stdc++.h>
 using namespace std;
 template<typename E>
@@ -507,13 +507,88 @@ public:
            //  ****  (3)  Add At (index, element)
         
            void add(int index, int element){
-                Checj
+              checkElementIndex(index);
+              if(index == size){
+                addLast(element);
+                return;
+              }
+              // temp node is essential step for keep tracking 
+              Node* p = getnode(index);
+              
+              Node* temp = p->prev;
+              //   temp <-> p
+              Node* x = new Node(element);
+              // temp <-> x <-> p
+              
+
+              p->prev = x;  
+              temp->next = x;
+              x->prev = temp;
+              x->next = p;
+              
+
+              size++;
+              
+                   
            }
 
+        // *** (4) How to remove First element
+           // member function of specified template 
+           E removeFirst(){
+             if(size<1){
+                throw("NO node to remove");
+             };
+             // <head> <-> x <-> temp 
+               Node* x = head->next;
+               Node* temp = x-> next;
+               x->prev = head;
+               head->next = x;
+               x->next = temp;
+     
+               E val = x->val;
+               size--;
+               delete x;
+
+           };                           
            bool isElementIndex(int index) const {
             return index >= 0 && index < size;
+        };
+
+        E removeLast(){
+            if(size<1){
+               throw("NO node to remove");
+            };
+            // <temp> <-> x <-> tail
+              Node* x = tail->prev;
+              Node* temp = x->prev;
+              x->next = tail;
+              tail->prev = x;
+              temp->next = x;
+    
+              E val = x->val;
+              size--;
+              delete x;
+
+          };                           
+          bool isElementIndex(int index) const {
+           return index >= 0 && index < size;
+       };
+
+Node* getnode(int index){
+       checkElementIndex(index);
+       Node* P = head->next;
+       for(int i=0; i<index; i++){
+        P->next;
+       }
+       return P;
+}   
+        bool get(int index){
+            checkElementIndex(index);
+            Node* p = getnode(index);
+
+            return p->value;
         }
-        void checkElementIndex(int index) const {
+          void checkElementIndex(int index) const {
             if (!isElementIndex(index))
                 throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
         }
@@ -533,9 +608,14 @@ public:
 int main() {
     MyLinkedList<int> list;  // This line creates an instance named list of template class with type parameter E specified as int through this any type of parameter can be used 
     list.addLast(2);
+    list.display();
     list.addLast(2);
+    list.display();
     list.addFirst(3);
-
+    list.display();
+    list.add(1,4);
+    list.display();
+    list.removeLast();
     list.display();
     // size = 5
     // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
