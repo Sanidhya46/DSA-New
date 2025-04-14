@@ -3909,8 +3909,8 @@ void PrintBinary(int num){
 // int(x) -> int conversion of an binary number x
 // '_' -> represent as 0000001011111 with 95 (with 5th bit is 1 ) and A -> represent as 000001000001 with int(65)
 // so we observed 5th bit of underscore is 1 and with toogling 5th bit of capital letter to small is done by '&' operation and small letter to capital by 'or' operation
-// Upper to lower conversion - char('a' & '_')
-// Upper to lower conversion - char('A' | ' ')
+// Upper to lower conversion - char('A' & '_')
+// Upper to lower conversion - char('a' | ' ')
 // for clearing lsb to ith bit - (a & (~((1<<i+1)-1)))
 // for calculating a number is power of 2 or not then the and of the n & n-1 should not be true means false
 
@@ -4338,7 +4338,7 @@ using namespace std;
 //     while(b){
 //     if(b&1){
 //         // ans will be updated with 
-//         ans = (ans* a) % M;
+//         ans = (ans*1LL* a) % M;
 //     }
 //     // a is successively squared in each iteration of the loop
 //         a = (a * a);
@@ -4382,20 +4382,80 @@ using namespace std;
 
 //     for caluclating n multiples using iterative method 
 
-int PowerRec(int a , int b){
-    long long M = 1e9 + 7;
-     int ans = 1;
-     while(b){
-     if(b&1){
-        ans = (ans * a) % M;
-     }
-        a = (a * a) % M;
-        b >>= 1;
+// int PowerRec(int a , int b){
+//     long long M = 1e9 + 7;
+//      int ans = 1;
+//      while(b){
+//      if(b&1){
+//         ans = (ans * a) % M;
+//      }
+//         a = (a * a) % M;
+//         b >>= 1;
+//     }
+//     return ans;
+// }
+// // t.c =- O(log b)
+// int main(){
+//     int a = 2 , b = 5;
+//     cout << PowerRec(a,b);
+// } 
+
+//        Cases of large exponentiation  (multiplication of two number)
+// i). to solve exponentiation of large number .
+// ii). a^b % M - (a%M)^b)%M
+//  a =10^18
+// iii). a*a % m  -> a + a + times -> i do modulo of every a at each step and add into the result one by one a + a % M , + a % M, + a%M
+// iv). for O(m) -> we can run the loop for n times and compute sum and doing moulo with using a for n times
+// v). The steps for multiplying two numbers are as follows -> 
+
+
+// vi). Now we can apply long long int int in a multiple because we can easily fit it into ans and a and after doing modulous helps for shortening us 
+
+// In every log n loop 2 log n loop will run so the time complexity will be 
+
+
+// A = 10^ 9 , b= 10^9  M = 10^9
+long long M = 10^9;
+int binaryexp(long long a, long long b){
+    int ans = 1;
+    // if 0th bit is setted or not 
+    while(b > 0){
+    if(b&1){
+       // ans is assign to the result of calling the binaryexp function with arguments ans and a 
+        ans = binaryexp(ans, a);
+    }
+  
+        a = binarymultiply(a,a);
+        b >>= 1;  // shift the bit for the one 
+        
     }
     return ans;
 }
-// t.c =- O(log b)
-int main(){
-    int a = 2 , b = 5;
-    cout << PowerRec(a,b);
-} 
+// // log^2(N)
+
+// // vi). when m becames very large then use binary multiply 
+// // This function efficiently multiplies two numbers a and b using binary representation of b by doubling a and halving b, 
+// // adding a to the result only when the current bit in b is set. It ensures the result stays within the modulo 1e5 + 7.
+
+// const int M = 1e5+ 7;
+int binarymultiply(long long a, long long b){      // (a + a) for b times
+        int ans = 0;
+        
+        while(b > 0){
+        if(b&1){  // if b is setted means it is 1 and true 
+      
+            ans = (ans + a) % M;
+        } 
+        // on each step we was successively adding the numbers 
+            a = (a + a) % M;
+            b >>= 1;  // shift the bit for the one 
+            
+        }
+        return ans;
+    }
+    
+    int main(){
+        int a = 4, b = 4;
+        cout << binarymultiply(a,b);
+    }
+
