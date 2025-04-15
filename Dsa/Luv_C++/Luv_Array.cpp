@@ -4415,22 +4415,22 @@ using namespace std;
 
 
 // A = 10^ 9 , b= 10^9  M = 10^9
-long long M = 10^9;
-int binaryexp(long long a, long long b){
-    int ans = 1;
-    // if 0th bit is setted or not 
-    while(b > 0){
-    if(b&1){
-       // ans is assign to the result of calling the binaryexp function with arguments ans and a 
-        ans = binaryexp(ans, a);
-    }
+// long long M = 10^9;
+// int binaryexp(long long a, long long b){
+//     int ans = 1;
+//     // if 0th bit is setted or not 
+//     while(b > 0){
+//     if(b&1){
+//        // ans is assign to the result of calling the binaryexp function with arguments ans and a 
+//         ans = binaryexp(ans, a);
+//     }
   
-        a = binarymultiply(a,a);
-        b >>= 1;  // shift the bit for the one 
+//         a = binarymultiply(a,a);
+//         b >>= 1;  // shift the bit for the one 
         
-    }
-    return ans;
-}
+//     }
+//     return ans;
+// }
 // // log^2(N)
 
 // // vi). when m becames very large then use binary multiply 
@@ -4438,24 +4438,97 @@ int binaryexp(long long a, long long b){
 // // adding a to the result only when the current bit in b is set. It ensures the result stays within the modulo 1e5 + 7.
 
 // const int M = 1e5+ 7;
-int binarymultiply(long long a, long long b){      // (a + a) for b times
-        int ans = 0;
+// int binarymultiply(long long a, long long b){      // (a + a) for b times
+//         int ans = 0;
         
-        while(b > 0){
-        if(b&1){  // if b is setted means it is 1 and true 
+//         while(b > 0){
+//         if(b&1){  // if b is setted means it is 1 and true 
       
-            ans = (ans + a) % M;
-        } 
-        // on each step we was successively adding the numbers 
-            a = (a + a) % M;
-            b >>= 1;  // shift the bit for the one 
+//             ans = (ans + a) % M;
+//         } 
+//         // on each step we was successively adding the numbers 
+//             a = (a + a) % M;
+//             b >>= 1;  // shift the bit for the one 
             
-        }
-        return ans;
-    }
+//         }
+//         return ans;
+//     }
     
-    int main(){
-        int a = 4, b = 4;
-        cout << binarymultiply(a,b);
-    }
+//     int main(){
+//         int a = 4, b = 4;
+//         cout << binarymultiply(a,b);
+//     }
 
+// //        Video no. 65  || Leetcode SuperPow || Large Exp Etf and Euler Theorem 
+
+// long long M = 10^9;
+
+//  b >= 10 ^9
+//  b <= 10^18
+// 2). if b and c very large number (a^b^c) % M  ->
+// 3). (50^64^32) % 10^9 + 7  --> while loop runs for 64^32 times 
+// 4). coprimes are the numbers when common factors is 1,  means gcd is 1 
+// 5). Eular Totient Function - count of coprime numbers from 1 to n , the number from 1 to n are comprimes with n is etf value of that number 
+// 6). such that count k ... then the such 1 <= k <= N  k, n are coprime 
+// 7). phi(5) = 1, 2 , 3 , 4 
+//     phi(6) = 2 , 3 , 4 , 6 = 2   1 and 5 is not included because these are coprimes only factors 1 
+// 8). phi(n) = n * prime n/p (1-1/p)  --> prime n/p means prime factor 
+// 9). phi(6) = prime factorisation ( 2 and 3) = 6(1-1/2)(1-1/3) = 2  --> p is distint divisors - we only count each prime once           
+// 10). phi(12) = 4 = 12 * 2/3 * 1/2
+// 11). a =_ (b mod (n))  --> this theorem tells a and b both should give same remainder when divided with n,,, so our remainder will be b , ii). --> n divides a - b
+// 12).** (a^b % n) = (a^b%phi(n)) % M
+// 13). (a^(b % phi(m)) % M
+// 14). every prime no. should have n - 1 etf .. phi(n) - n(1-1/n) = n - 1 ... phi(13) = etf - (12)
+// 15). ** if m is prime <--> (a^(b % m - 1) % M
+// 16). ** if m is not prime <--> (a^(b % phi(m)))
+
+// 17). 50^(64^32 % M -1) i can again calculated as binary exponentiation 
+// *** Binary exponentiation quickly computes a^b mod m by squaring the base and multiplying it to the result only when the current bit is 1 ****
+
+const int M = 1e9 + 7;
+//    a^(b^c)
+int binaryexp(long long a, long long b, int m){
+    int ans = 1;
+    // we applied exponentian logic for each bit 
+    while(b > 0){
+    // if last signigicant bit is 1 then we need to multiply ans by the current value of a 
+    if(b&1){
+       // squares a for next bit 
+        ans = (ans * 1LL * a) % m;
+    }
+      // this applies contribution of a when the current bit of b is 1 that power in its binary representation 
+        a = (a*1LL*a) % m;
+        b >>= 1;  // shift the bit for the one 
+        
+    }
+    return ans;
+}
+
+
+// // the method efficiently computes large modulo m 
+
+// int main(){
+//     cout << binaryexp(40,binaryexp(45, 32, M-1), M);
+// }
+
+
+//               Super Pow (leetcode)
+// Case 1- if b is extremly large and given as list [3, 2 , 1 , 0]
+// 
+// Sol - just iterate into the array and raise the current result to the power 10
+// 
+
+int superpow(int a, vector<int>& b){
+    // for digit in b 
+    int ans = 1;
+      for (int digit : b){
+        ans = binaryexp(ans, 10, M);
+        ans = (ans*binaryexp(a,digit,M)) % M
+      }
+      return ans;
+}
+
+int main(){
+    cout << superpow(2, vector<int>{1,0})
+    return 0;
+}  
