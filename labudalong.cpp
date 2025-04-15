@@ -447,181 +447,203 @@ class DoublyListNode {
 // 5). Best Practices - Always update and maintain size after Performing any operation in linkned list. 
 // 6). *** Be foucussed sometimes no member error occured due to case senstive of public class method please keep this in mind that c++ is case senstive 
 //
-#include<bits/stdc++.h>
-using namespace std;
-template<typename E>
-class MyLinkedList{   // Now class is instantiated memory is allocated for utilisation of class or templates defined structure and behaviour 
-struct Node {   // struct node data is not stored in contagious memory allocations each node contains data and reference to next node allowing efficient insertion without reorganizing the similar structure 
-E val;  // data member value is initialised of type E- which allows to stores data of any type 
-Node* prev;  // declare pointers 
-Node* next;
-// value is the parameter of type E passed to the constructor used to initialise constructor to initiialise the node's data member 
-Node(E value) : val(value), next(nullptr), prev(nullptr) {}
-};
-// virtual head and tail nodes 
-Node* head; // define pointers to the first node and last node of the linked list 
-Node* tail;
-int size;    // size is for keep tracking for the no. of nodes present in the list 
-public:
-   // constructor initializes virtual head and tail nodes
-   MyLinkedList(){
-  // 
-    head = new Node(E());   // E() creates the default initialised object of type E which is then passed to the node constructor 
-    tail = new Node(E());
-    head->next = tail;  //next pointer of dummy head node will points to the dummy tail node signifies there is no real node in between dummy head and dummy tail node 
-    tail->prev = head;  
-    size = 0; // ** initialising size = 0 is essential it reflects that there is no data nodes are present between head and tail and head and tail are ready to fill the nodes 
-   }
+// #include<bits/stdc++.h>
+// using namespace std;
+// template<typename E>
+// class MyLinkedList{   // Now class is instantiated memory is allocated for utilisation of class or templates defined structure and behaviour 
+// struct Node {   // struct node data is not stored in contagious memory allocations each node contains data and reference to next node allowing efficient insertion without reorganizing the similar structure 
+// E val;  // data member value is initialised of type E- which allows to stores data of any type 
+// Node* prev;  // declare pointers 
+// Node* next;
+// // value is the parameter of type E passed to the constructor used to initialise constructor to initiialise the node's data member 
+// Node(E value) : val(value), next(nullptr), prev(nullptr) {}
+// };
+// // virtual head and tail nodes 
+// Node* head; // define pointers to the first node and last node of the linked list 
+// Node* tail;
+// int size;    // size is for keep tracking for the no. of nodes present in the list 
+// public:
+//    // constructor initializes virtual head and tail nodes
+//    MyLinkedList(){
+//   // 
+//     head = new Node(E());   // E() creates the default initialised object of type E which is then passed to the node constructor 
+//     tail = new Node(E());
+//     head->next = tail;  //next pointer of dummy head node will points to the dummy tail node signifies there is no real node in between dummy head and dummy tail node 
+//     tail->prev = head;  
+//     size = 0; // ** initialising size = 0 is essential it reflects that there is no data nodes are present between head and tail and head and tail are ready to fill the nodes 
+//    }
 
-              //***  (1).    Add Last     ***/
-// 1). create a node value e identifying a node correctly at the end of the list , and create a linkage of x between temp and tail
-   void addLast(E e){  // e is an instance of node going to add into the end of the linked list 
-        Node* x = new Node(e);
-    //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
-        Node* temp = tail->prev;
-     // temp <-> x
-        temp->next = x;
-        x->prev = temp;
-        tail->prev = x;
-        x->next = tail;
-        // temp<-> x <-> tail
-        size++;
-   }
-             // *****  (2)  Add First  *****
+//               //***  (1).    Add Last     ***/
+// // 1). create a node value e identifying a node correctly at the end of the list , and create a linkage of x between temp and tail
+//    void addLast(E e){  // e is an instance of node going to add into the end of the linked list 
+//         Node* x = new Node(e);
+//     //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
+//         Node* temp = tail->prev;
+//      // temp <-> x
+//         temp->next = x;
+//         x->prev = temp;
+//         tail->prev = x;
+//         x->next = tail;
+//         // temp<-> x <-> tail
+//         size++;
+//    }
+//              // *****  (2)  Add First  *****
             
-             void addFirst(E e){  // e is an instance of node going to add into the end of the linked list 
-                Node* x = new Node(e);
-            //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
-                Node* temp = head->next;
-             // head <-> x
+//              void addFirst(E e){  // e is an instance of node going to add into the end of the linked list 
+//                 Node* x = new Node(e);
+//             //** */ creating temp node is crucial for keep tracking for the last real existed node to insert new node in the list 
+//                 Node* temp = head->next;
+//              // head <-> x
              
-                x->next = temp;
-                temp->prev = x;
-                x->prev = head;
-                head->next = x;
+//                 x->next = temp;
+//                 temp->prev = x;
+//                 x->prev = head;
+//                 head->next = x;
                 
-                // head-> x -> temp
-                size++;
-           }
+//                 // head-> x -> temp
+//                 size++;
+//            }
 
-           //  ****  (3)  Add At (index, element)
+//            //  ****  (3)  Add At (index, element)
         
-           void add(int index, int element){
-              checkElementIndex(index);
-              if(index == size){
-                addLast(element);
-                return;
-              }
-              // temp node is essential step for keep tracking 
-              Node* p = getnode(index);
+//            void add(int index, int element){
+//               checkElementIndex(index);
+//               if(index == size){
+//                 addLast(element);
+//                 return;
+//               }
+//               // temp node is essential step for keep tracking 
+//               Node* p = getnode(index);
               
-              Node* temp = p->prev;
-              //   temp <-> p
-              Node* x = new Node(element);
-              // temp <-> x <-> p
-              
-
-              p->prev = x;  
-              temp->next = x;
-              x->prev = temp;
-              x->next = p;
+//               Node* temp = p->prev;
+//               //   temp <-> p
+//               Node* x = new Node(element);
+//               // temp <-> x <-> p
               
 
-              size++;
+//               p->prev = x;  
+//               temp->next = x;
+//               x->prev = temp;
+//               x->next = p;
+              
+
+//               size++;
               
                    
-           }
+//            }
 
-        // *** (4) How to remove First element
-           // member function of specified template 
-           E removeFirst(){
-             if(size<1){
-                throw("NO node to remove");
-             };
-             // <head> <-> x <-> temp 
-               Node* x = head->next;
-               Node* temp = x-> next;
-               x->prev = head;
-               head->next = x;
-               x->next = temp;
+//         // *** (4) How to remove First element
+//            // member function of specified template 
+//            E removeFirst(){
+//              if(size<1){
+//                 throw("NO node to remove");
+//              };
+//              // <head> <-> x <-> temp 
+//                Node* x = head->next;
+//                Node* temp = x-> next;
+//                x->prev = head;
+//                head->next = x;
+//                x->next = temp;
      
-               E val = x->val;
-               size--;
-               delete x;
+//                E val = x->val;
+//                size--;
+//                delete x;
 
-           };                           
-           bool isElementIndex(int index) const {
-            return index >= 0 && index < size;
-        };
+//            };                           
+//            bool isElementIndex(int index) const {
+//             return index >= 0 && index < size;
+//         };
 
-        E removeLast(){
-            if(size<1){
-               throw("NO node to remove");
-            };
-            // <temp> <-> x <-> tail
-              Node* x = tail->prev;
-              Node* temp = x->prev;
-              x->next = tail;
-              tail->prev = x;
-              temp->next = x;
+//         E removeLast(){
+//             if(size<1){
+//                throw("NO node to remove");
+//             };
+//             // <temp> <-> x <-> tail
+//               Node* x = tail->prev;
+//               Node* temp = x->prev;
+//               x->next = tail;
+//               tail->prev = x;
+//               temp->next = x;
     
-              E val = x->val;
-              size--;
-              delete x;
+//               E val = x->val;
+//               size--;
+//               delete x;
 
-          };                           
-          bool isElementIndex(int index) const {
-           return index >= 0 && index < size;
-       };
+//           };                           
+//           bool isElementIndex(int index) const {
+//            return index >= 0 && index < size;
+//        };
 
-Node* getnode(int index){
-       checkElementIndex(index);
-       Node* P = head->next;
-       for(int i=0; i<index; i++){
-        P->next;
-       }
-       return P;
-}   
-        bool get(int index){
-            checkElementIndex(index);
-            Node* p = getnode(index);
+// Node* getnode(int index){
+//        checkElementIndex(index);
+//        Node* P = head->next;
+//        for(int i=0; i<index; i++){
+//         P->next;
+//        }
+//        return P;
+// }   
+//         bool get(int index){
+//             checkElementIndex(index);
+//             Node* p = getnode(index);
 
-            return p->value;
-        }
-          void checkElementIndex(int index) const {
-            if (!isElementIndex(index))
-                throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
-        }
+//             return p->value;
+//         }
+//           void checkElementIndex(int index) const {
+//             if (!isElementIndex(index))
+//                 throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+//         }
 
            
              
-   void display() {
-    std::cout << "size = " << size << std::endl;
-    for (Node* p = head->next; p != tail; p = p->next) {
-        std::cout << p->val << " <-> ";
-    }
-    std::cout << "null" << std::endl;
-    std::cout << std::endl;
-}
-};
+//    void display() {
+//     std::cout << "size = " << size << std::endl;
+//     for (Node* p = head->next; p != tail; p = p->next) {
+//         std::cout << p->val << " <-> ";
+//     }
+//     std::cout << "null" << std::endl;
+//     std::cout << std::endl;
+// }
+// };
 
-int main() {
-    MyLinkedList<int> list;  // This line creates an instance named list of template class with type parameter E specified as int through this any type of parameter can be used 
-    list.addLast(2);
-    list.display();
-    list.addLast(2);
-    list.display();
-    list.addFirst(3);
-    list.display();
-    list.add(1,4);
-    list.display();
-    list.removeLast();
-    list.display();
-    // size = 5
-    // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
+// int main() {
+//     MyLinkedList<int> list;  // This line creates an instance named list of template class with type parameter E specified as int through this any type of parameter can be used 
+//     list.addLast(2);
+//     list.display();
+//     list.addLast(2);
+//     list.display();
+//     list.addFirst(3);
+//     list.display();
+//     list.add(1,4);
+//     list.display();
+//     list.removeLast();
+//     list.display();
+//     // size = 5
+//     // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
 
-    return 0;
+//     return 0;
+// }
+
+
+
+//    Circular Array Technique and Implementation 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main(){
+// array with length 5
+vector<int> arr = {1, 2, 3, 4, 5};
+
+int i = 0;
+while(i < arr.size()){
+    // when it reaches the last element brings me back to the first element of the array and form the locgical array 
+  i = (i + 1) % arr.size();
+  cout << arr[i] << endl;
 }
+}
+
+
 
 
 
