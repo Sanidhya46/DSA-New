@@ -4485,24 +4485,24 @@ using namespace std;
 // 17). 50^(64^32 % M -1) i can again calculated as binary exponentiation 
 // *** Binary exponentiation quickly computes a^b mod m by squaring the base and multiplying it to the result only when the current bit is 1 ****
 
-const int M = 1e9 + 7;
-//    a^(b^c)
-int binaryexp(long long a, long long b, int m){
-    int ans = 1;
-    // we applied exponentian logic for each bit 
-    while(b > 0){
-    // if last signigicant bit is 1 then we need to multiply ans by the current value of a 
-    if(b&1){
-       // squares a for next bit 
-        ans = (ans * 1LL * a) % m;
-    }
-      // this applies contribution of a when the current bit of b is 1 that power in its binary representation 
-        a = (a*1LL*a) % m;
-        b >>= 1;  // shift the bit for the one 
+// const int M = 1e9 + 7;
+// //    a^(b^c)
+// int binaryexp(long long a, long long b, int m){
+//     int ans = 1;
+//     // we applied exponentian logic for each bit 
+//     while(b > 0){
+//     // if last signigicant bit is 1 then we need to multiply ans by the current value of a 
+//     if(b&1){
+//        // squares a for next bit 
+//         ans = (ans * 1LL * a) % m;
+//     }
+//       // this applies contribution of a when the current bit of b is 1 that power in its binary representation 
+//         a = (a*1LL*a) % m;
+//         b >>= 1;  // shift the bit for the one 
         
-    }
-    return ans;
-}
+//     }
+//     return ans;
+// }
 
 
 // // the method efficiently computes large modulo m 
@@ -4518,17 +4518,107 @@ int binaryexp(long long a, long long b, int m){
 // Sol - just iterate into the array and raise the current result to the power 10
 // 
 
-int superpow(int a, vector<int>& b){
-    // for digit in b 
-    int ans = 1;
-      for (int digit : b){
-        ans = binaryexp(ans, 10, M);
-        ans = (ans*binaryexp(a,digit,M)) % M
-      }
-      return ans;
-}
+// int superpow(int a, vector<int>& b){
+//     // for digit in b 
+//     int ans = 1;
+//       for (int digit : b){
+//         ans = binaryexp(ans, 10, M);
+//         ans = (ans*binaryexp(a,digit,1137)) % 1140;
+//       }
+//       return ans;
+// }
 
-int main(){
-    cout << superpow(2, vector<int>{1,0})
-    return 0;
-}  
+// int main(){
+//     vector<int> b ={1,0};
+//     cout << superpow(2, b);
+//     return 0;
+// }  
+
+//           Basics of Factors and Divisors 
+// 1). To find Divisors of any no. do n % i == 0
+// 2). you can also find count and sum 
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main(){
+//     int n; 
+//     cin >> n;
+//     int sum = 0;
+//     int ct = 0;
+//     for(int i = 1; i<= n ; i++){
+//      //   i is a factor/divisor of n".  if it divides n exactly 
+//         if(n% i == 0){
+//             cout << i << endl;
+//             ct++;
+//             sum += i;   // add the divisors i to the total sum of i 
+
+//         }
+//     }
+//     cout << ct << " " << sum << endl;
+// }   // O(n)
+
+//    1). (SQRT Method) Time Efficient method for divisors 
+
+// Note - The total number of factors (divisors) of a number come in pairs. For each factor a less than or equal to √n, there is a corresponding factor b = n / a such that a × b = n. So, after the halfway point (square root of the number), the remaining factors are the multipliers (or pair factors) of the earlier ones.
+
+
+// ➡️ 1 × 36
+// ➡️ 2 × 18
+// ➡️ 3 × 12
+// ➡️ 4 × 9
+// ➡️ 6 × 6
+
+// int main(){
+//     int n; 
+//     cin >> n;
+//     int sum = 0;
+//     int ct = 0;
+
+//           //* other half ways are same 
+//     for(int i = 1; i<= sqrt(n); i++){
+
+        
+        
+//      //   i is a factor/divisor of n".  if it divides n exactly 
+//         if(n% i == 0){
+//             cout << i << endl;
+//             ct++;
+//             sum += i;   // add the divisors i to the total sum of i 
+
+//         }
+//     }
+
+//     cout << ct << " " << sum << endl;
+//  } 
+
+
+ //              using  i * i <= n;  
+
+ int main(){
+    int n; 
+    cin >> n;
+    int sum = 0;
+    int ct = 0;
+
+          //* other half ways are same 
+    for(int i = 1; i*i <= n; i++){
+       
+        
+        
+     //   i is a factor/divisor of n".  if it divides n exactly 
+        if(n% i == 0){
+            cout << i << " " << n / i << endl;
+            ct += 1;  // on every pair 2 factor is formed 
+            sum += i;   // add the divisors i to the total sum of i 
+            // when paired factor is different from i add the factor and counts that factor  
+            if(n/i != i){  
+                sum += n/i;
+                ct += 1;
+            }
+        }
+    }
+
+    cout << ct << " " << sum << endl;
+ } 
+
