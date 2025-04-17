@@ -173,34 +173,34 @@ using namespace std;
 // 2). expression must have class type but it have int usually appear when someone trying to access member or method on a variable that is not a object 
 // Definition of a node in a doubly linked list
 
-class DoublyListNode {
-    public:
-        int val; // Holds the value of the node
-        DoublyListNode *next, *prev; // Pointers to the next and previous nodes in the list
+// class DoublyListNode {
+//     public:
+//         int val; // Holds the value of the node
+//         DoublyListNode *next, *prev; // Pointers to the next and previous nodes in the list
     
-        // Constructor to initialize a node with a given value, and set next and prev to NULL
-        DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
-    };
-    // *** This is an utility function needs to be defined to work with the class  */
-    // Function to create a doubly linked list from a vector of integers
-    DoublyListNode* createDoublyLinkedList(vector<int>& arr) {
-        // If the input array is empty, return NULL since there's no node to create
-        if (arr.empty()) {
-            return NULL;
-        }
+//         // Constructor to initialize a node with a given value, and set next and prev to NULL
+//         DoublyListNode(int x) : val(x), next(NULL), prev(NULL) {}
+//     };
+//     // *** This is an utility function needs to be defined to work with the class  */
+//     // Function to create a doubly linked list from a vector of integers
+//     DoublyListNode* createDoublyLinkedList(vector<int>& arr) {
+//         // If the input array is empty, return NULL since there's no node to create
+//         if (arr.empty()) {
+//             return NULL;
+//         }
 
-        DoublyListNode* head = new DoublyListNode(arr[0]);
-        DoublyListNode* cur = head;
-        for(int i =0; i<arr.size(); i++){
-            DoublyListNode* newnode = new DoublyListNode(arr[i]);
-            cur->next = newnode;
-            newnode->prev = cur;
-            cur = cur -> next;
+//         DoublyListNode* head = new DoublyListNode(arr[0]);
+//         DoublyListNode* cur = head;
+//         for(int i =0; i<arr.size(); i++){
+//             DoublyListNode* newnode = new DoublyListNode(arr[i]);
+//             cur->next = newnode;
+//             newnode->prev = cur;
+//             cur = cur -> next;
 
-        }
-        return head;
+//         }
+//         return head;
 
-    }
+//     }
 
 
 
@@ -625,27 +625,170 @@ class DoublyListNode {
 
 
 
-//    Circular Array Technique and Implementation 
+//       Circular Array Technique and Implementation 
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
+// int main(){
+// // array with length 5
+// vector<int> arr = {1, 2, 3, 4, 5};
+
+// int i = 0;
+// // while(i < arr.size()){
+// //     // when it reaches the last element brings me back to the first element of the array and form the locgical array and do operations at head 
+// //   i = (i + 1) % arr.size();
+// //   cout << arr[i] << endl;
+// // }
+// }
+
+//             Principle of Cicular array technique 
+
+#include <iostream>
+#include <stdexcept>
+#include <ostream>
+
+template<typename T>
+class CycleArray {
+    std::unique_ptr<T[]> arr;
+    int start;  // first position where reading begins 
+    int end;    // next position of valid element 
+    int count;     // How many valid elements are currently in the buffer
+    int size;     //  Total capacity of the buffer
+
+ //   Closed Interval - (Real valid element)
+ //   Open Interval - (Next to the real valid element)
+// close interval have value open interval have not value 
+
+//*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
+
+void resize(int newSize) {
+    // create a new array
+    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
+    // copy elements from the old array to the new array
+    for (int i = 0; i < count; ++i) {
+        newArr[i] = arr[(start + i) % size];
+    }
+    arr = std::move(newArr);
+    // reset the start and end pointers
+    start = 0;
+    end = count;
+    size = newSize;
+}
+
+public:
+    CycleArray() : CycleArray(1) {
+    }
+
+    explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
+        arr = std::make_unique<T[]>(size);
+    }
+
+    // add an element to the front of the array, time complexity O(1)
+    void addFirst(const T &val) {
+        // if the array is full, double its size
+        if (isFull()) {
+            resize(size * 2);
+        }
+        // since start is a closed interval, move left first, then assign
+        // I am coming one space backward and wraps the number back to the begining 
+        start = (start - 1 + size) % size;
+        arr[start] = val;
+        count++;
+    }
+
+    // remove an element from the front of the array, time complexity O(1)
+    void removeFirst() {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // since start is a closed interval, assign first, then move right
+        arr[start] = T();  
+        // after removing the element the next item becames the new front 
+        start = (start + 1) % size;
+        count--; 
+               // if the number of elements in the array decreases to
+        // a quarter of the original size, halve the size of the
+        if (count > 0 && count == size / 4) {
+            resize(size / 2);
+        }
+    }
+
+    // add an element to the end of the array, time complexity O(1)
+    void addLast(const T &val) {
+        if (isFull()) {
+            resize(size * 2);
+        }
+        // since end is an open interval, assign first, then move right
+        arr[end] = val;
+        // poiny end to the next position and wraps the number for circular array 
+        end = (end + 1) % size;
+        count++;
+    }
+
+    // remove an element from the end of the array, time complexity O(1)
+    void removeLast() {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // since end is an open interval, move left first, then assign
+        end = (end - 1 + size) % size;
+        arr[end] = T();
+        count--;
+        // reduce the size
+        if (count > 0 && count == size / 4) {
+            resize(size / 2);
+        }
+    }
+
+    // get the first element of the array, time complexity O(1)
+    T getFirst() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        return arr[start];
+    }
+    
+    // get the last element of the array, time complexity O(1)
+    T getLast() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // end is an open interval, pointing to the next element's position, so subtract 1
+        return arr[(end - 1 + size) % size];
+    }
+
+    bool isFull() const {
+        return count == size;
+    }
+
+    int getSize() const {
+        return count;
+    }
+
+    bool isEmpty() const {
+        return count == 0;
+    }
+};
+// circular can delete the element in the array in O(1) complexity 
+// 
+
+//      Add an element to the front of the array, time complexity O(1)
+
 int main(){
-// array with length 5
-vector<int> arr = {1, 2, 3, 4, 5};
+    CycleArray<int> arr(5);
+arr.addLast(1);
+arr.addLast(2);
+arr.addFirst(0);
+arr.removeLast();
 
-int i = 0;
-while(i < arr.size()){
-    // when it reaches the last element brings me back to the first element of the array and form the locgical array 
-  i = (i + 1) % arr.size();
-  cout << arr[i] << endl;
+std::cout << "First element: " << arr.getFirst() << std::endl;
+std::cout << "Last element: " << arr.getLast() << std::endl;
+std::cout << "Size (valid elements): " << arr.getSize() << std::endl;
+
+
 }
-}
-
-
-
-
 
 
 

@@ -4392,7 +4392,7 @@ using namespace std;
 //         a = (a * a) % M;
 //         b >>= 1;
 //     }
-//     return ans;
+//     return ans; 
 // }
 // // t.c =- O(log b)
 // int main(){
@@ -4558,7 +4558,7 @@ using namespace std;
 //     cout << ct << " " << sum << endl;
 // }   // O(n)
 
-//    1). (SQRT Method) Time Efficient method for divisors 
+//          1). (SQRT Method) Time Efficient method for divisors 
 
 // Note - The total number of factors (divisors) of a number come in pairs. For each factor a less than or equal to √n, there is a corresponding factor b = n / a such that a × b = n. So, after the halfway point (square root of the number), the remaining factors are the multipliers (or pair factors) of the earlier ones.
 
@@ -4595,30 +4595,84 @@ using namespace std;
 
  //              using  i * i <= n;  
 
- int main(){
-    int n; 
-    cin >> n;
-    int sum = 0;
-    int ct = 0;
+//  int main(){
+//     int n; 
+//     cin >> n;
+//     int sum = 0;
+//     int ct = 0;
 
-          //* other half ways are same 
-    for(int i = 1; i*i <= n; i++){
+//           //* other half ways are same 
+//     for(int i = 1; i*i <= n; i++){
        
         
         
-     //   i is a factor/divisor of n".  if it divides n exactly 
-        if(n% i == 0){
-            cout << i << " " << n / i << endl;
-            ct += 1;  // on every pair 2 factor is formed 
-            sum += i;   // add the divisors i to the total sum of i 
-            // when paired factor is different from i add the factor and counts that factor  
-            if(n/i != i){  
-                sum += n/i;
-                ct += 1;
-            }
-        }
-    }
+//      //   i is a factor/divisor of n".  if it divides n exactly 
+//         if(n% i == 0){
+//             cout << i << " " << n / i << endl;
+//             ct += 1;  // on every pair 2 factor is formed 
+//             sum += i;   // add the divisors i to the total sum of i 
+//             // when paired factor is different from i add the factor and counts that factor  
+//             if(n/i != i){  
+//                 sum += n/i;
+//                 ct += 1;
+//             }
+//         }
+//     }
 
-    cout << ct << " " << sum << endl;
- } 
+//     cout << ct << " " << sum << endl;
+//  } 
+
+// x = p1^n1 * p2^n2 * p3^n3  so all subset will be going to make divisors 
+// subset of p1 , p2 and p3 are make one divisors 
+// if x = p1^n1 * p2^n2 .... pn^n     count of divisors = (n1 + 1)(n2 + 1)(n3 + 1)    16 = (2*4) count (4 + 1 = 5)  if a number of x is written as a product of its prime factors raised to their respective powers then total no. of divisors will be the product of one more than each of the powers  
+// sum of count of the formula 
+// n = p1^a1 . p2^a2 .... pk^ak    then sum of the divisors will be sum = p1^(n1+1)-1/p1-1 * p2(n2+1)-1/p2-1 * p3(n^3+1)-1/p3-1
+
+
+//          Prime Check and Factorisation 
+// 1). prime number - two divisors 1(1,n)
+// 2). *for every prime number their last divisors must be the prime nubers -- 
+// 3). prime_factors.push_back(i);   // and we push our elements into the array that divides the divisor for each time 
+//     n /= i;   // we are eliminating the divisors of each number one by one by dividing it by each time i divides n completely 
+
+// int main(){
+//     int n ;
+//     cin >> n;
+//     if(n == 1) return 0;
+//     bool is_prime = true;
+//     for(int i = 2; i <= n; i++){
+//       if(i % n == 0){
+//         is_prime = false;
+//         break;
+//       }
+//     }
+// }
+
+// int main(){
+//     int n ;
+//     cin >> n;
+//     vector<int> prime_factors;
+//     for(int i = 2; i * i <= n; i++){
+//       while(n % i == 0){
+//        prime_factors.push_back(i);   // and we push our elements into the array that divides the divisor for each time 
+//        n /= i;   // we are eliminating the divisors of each number one by one by dividing it by each time i divides n completely 
+//     }
+//     }
+//     // so for handling last digit prime we check for ths loop 
+//     if(n > 1){
+//         prime_factors.push_back(n); 
+//     }
+//  O(sqrt n)
+// for(int prime : prime_factors){
+//     cout << prime << " ";
+// }
+// }
+
+
+
+
+//          prime factorisation 
+
+
+
 
