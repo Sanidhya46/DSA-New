@@ -4671,8 +4671,90 @@ using namespace std;
 
 
 
-//          prime factorisation 
 
 
 
 
+//             prime factorisation   (sieve algorithm) (all prime numbers)
+// 1). mark all numbers from 1 to the n number is prime 
+// 2). we pick first element cross out teir multiple elements amd move for next prime numbers and we cross out their multiples so eventually we find all the prime numbers 
+// 1 2 3 4 5 6 7 8 9 
+// 10 11 12 13 14 15 16 
+// at the end it marks one for all of the prime numbers
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// const int N = 1e7;
+// vector<bool> isprime(N, 1);
+
+// int main(){
+//     isprime[1] = isprime[0] = false;
+//     for(int i =2; i<N; i++){
+//         if(isprime[i] == true)
+//       for(int j = 2* i; j <N; j += i){   // j += i because we want to remove multiple of the i 
+//           isprime[j] = false;
+//       }
+//    }
+
+//    for(int i =1; i<100; i++){
+//     cout << isprime[i] << endl;
+// }
+
+// // T.c - for removing multiples of all numbers - n/2 + n/3 + n/4 .... n/n times 
+// // n(1/2 + 1/3 + ...)  = n(log(n))
+// // T.C - n(log log(n))
+
+
+// int q;
+// cin >> q;
+// while(q--){
+//    int num;
+//    cin >> num;
+//    if(isprime[num]){
+//     cout << "prime\n";
+//    }else{
+//     cout << "NOt prime\n";
+//    }
+// }
+// }
+
+
+
+
+
+
+
+//          Prime Factorisation sieve algorithms 
+
+const int N = 1e7;
+vector<bool> isprime(N,1);
+
+int main(){
+isprime[0] = isprime[1] = false;
+for(int i =2; i<N; i++){
+     isprime[i] = true;
+     for(int j = i; j <=N; j += i){ 
+        isprime[j] = false;
+     }
+ 
+
+for (int i = 0; i< 100; i++){
+        cout << isprime[i];
+}
+
+// T.c = n *log n log n
+int q;
+cin >> q;
+while(q--){
+        int num;
+        cin >> num;
+        if(isprime[num]){
+                cout << "prime" << endl;
+        }else{
+                cout << " non prime" << endl;
+        }
+}
+
+}
+}
