@@ -4675,6 +4675,10 @@ using namespace std;
 
 
 
+
+
+
+
 //             prime factorisation   (sieve algorithm) (all prime numbers)
 // 1). mark all numbers from 1 to the n number is prime 
 // 2). we pick first element cross out teir multiple elements amd move for next prime numbers and we cross out their multiples so eventually we find all the prime numbers 
@@ -4733,28 +4737,142 @@ vector<bool> isprime(N,1);
 int main(){
 isprime[0] = isprime[1] = false;
 for(int i =2; i<N; i++){
-     isprime[i] = true;
-     for(int j = i; j <=N; j += i){ 
+     if(isprime[i] == true){
+     for(int j = 2*i; j < N; j += i){ 
         isprime[j] = false;
      }
+}
  
-
+}
 for (int i = 0; i< 100; i++){
         cout << isprime[i];
-}
-
-// T.c = n *log n log n
-int q;
-cin >> q;
-while(q--){
-        int num;
-        cin >> num;
-        if(isprime[num]){
-                cout << "prime" << endl;
-        }else{
-                cout << " non prime" << endl;
-        }
-}
 
 }
 }
+// // T.c = n *log n log n
+// int q;
+// cin >> q;
+// while(q--){
+//         int num;
+//         cin >> num;
+//         if(isprime[num]){
+//                 cout << "prime" << endl;
+//         }else{
+//                 cout << " non prime" << endl;
+//         }
+// }
+
+// }
+// }
+
+
+//     Video no. 73   ||    Sieve Variations
+// 1). Highest Prime
+// 2). Lowest Prime
+// 3). prime factorisation 
+// 4). Divisors 
+
+// 10 --> lowest prime - 2   , highest prime - 5
+
+// const int N = 1e7;
+// vector<bool> isprime(N,1);
+// //  lowest prime tells lowest prime number in lp(i) and hp(i)
+
+// vector<int> lp(N), hp(N);
+
+// // ith vectors stores all the divisors of the ith vector 
+
+// vector<int> divisors[N];
+// // Modified Sieve for prime factorization 
+
+// int main(){
+// isprime[0] = isprime[1] = false;
+// for(int i = 2; i<N; i++){
+//     if(isprime[i] == true){   
+//         lp[i] = hp[i] = i;   // for when high prime number and lowest prime number is same ..  this line assigning the highest prime number and lowest prime number when i is a prime number 
+//      for(int j = 2*i; j < N; j += i){ 
+//         isprime[j] = false;    // i is an prime number which divides j 
+//         hp[j] = i;   // the last prime number whose going to mark j is false is the highest prime number 
+//      if(lp[j] == 0){  // when i is the first prime then only marks lp[j] = false 
+//         lp[j] = i;  // lowest prime can not be upgraded 
+//      }
+//      }
+//     }
+
+// }
+
+// int num;
+// cin >> num;
+// // vector<int> prime_factors;
+// // for getting count of that numbers put this into map 
+
+
+// map<int , int> prime_factors;
+
+// //  Prime factorisation of any number sieve method 
+// while(num > 1){
+//         int prime_factor = hp[num];  // hp[num] recomputes prime factor again and again 
+//         // when the number can be divisibe by prime factor 
+//         while(num % prime_factor == 0){
+//                 num /= prime_factor;
+//                 // prime_factors.push_back(prime_factor);
+//                 // for finding count of prime_factor you can increase their count 
+//                 prime_factors[prime_factor]++;
+//         }
+//         // O(log log n)
+// }   
+
+// //        for(auto factor: prime_factors){
+// //            cout << factor << " " << endl;
+// //        }
+
+//        for(auto factor : prime_factors){
+//           cout << factor.first << " " << factor.second << endl;
+//        }
+
+// }   
+// for (int i = 1; i< 90; i++){
+//         cout << lp[i] << " " << hp[i] << endl;
+// }
+
+
+//       Divisors via Sieve method
+
+// #include<bits/stdc++.h>
+// using namespace std;
+
+
+// const int N = 1e5;
+// vector<int> divisors[N];
+// int sum[N];
+// // 1). For finding divisors of each numbers for a particular range 
+// // 2). 
+// int main(){
+     
+// Loop over every number from 2 to N-1
+// for (int i = 2; i < N; i++) {
+
+//         // For each multiple of i, starting from i itself up to N-1
+//         for (int j = i; j < N; j += i) {      
+//             // Add i to the list of divisors of j
+//             divisors[j].push_back(i);
+//             // Add i to the sum of divisors of j
+//             sum[j] += i;
+//         }
+//     }
+            
+//         // the loop runs for n/2 + n/3 + n/4 + n/5.... n so afte taking common n * (1/2 + 1/3 + 1/4) = n (log n)
+
+//         for(int i =0; i<10; i++){
+//                 cout << sum[i] << endl;
+//                 for(int div : divisors[i]){
+//                         cout << div << " ";
+//                 }
+//                 cout << endl;
+               
+//         }
+//         }
+        
+
+
+
