@@ -4874,5 +4874,40 @@ for (int i = 0; i< 100; i++){
 //         }
         
 
+//                Modified Sieve of Eratosthenes ||  
+
+// The isprime array is used to keep track of which numbers prime.
+// The outer loop runs through each odd numbers starting from 3.
+// The j is jumps for i*2 times to skip even elements in between them. 
+// The inners loop marks multiples of current prime as non prime 
+// The multiples of i starts from i^2 to avoid redudant work 
+// The result is updated to reflect the numbers of primes found marking the 
 
 
+// class Solution {
+//         public:
+//             int countPrimes(int n) {
+//                 if (n < 3) {
+//                     return 0;
+//                 }
+//                 bool isprime[n];
+        
+//                 memset(isprime, true, n);
+        
+//                 int result = n / 2;
+//                 for (int i = 3; i * i < n; i += 2) {
+//                     if (isprime[i]) {
+//                         int d = i * 2;
+//                         for (int j = i * i; j < n; j += d) {
+//                             if (isprime[j]) {
+//                                 isprime[j] = false;
+//                                 result--;
+//                             }
+//                         }
+//                     }
+//                 }
+//                 return result;
+//             }
+//         };
+
+//          
