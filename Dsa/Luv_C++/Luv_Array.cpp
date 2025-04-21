@@ -4731,24 +4731,24 @@ using namespace std;
 
 //          Prime Factorisation sieve algorithms 
 
-const int N = 1e7;
-vector<bool> isprime(N,1);
+// const int N = 1e7;
+// vector<bool> isprime(N,1);
 
-int main(){
-isprime[0] = isprime[1] = false;
-for(int i =2; i<N; i++){
-     if(isprime[i] == true){
-     for(int j = 2*i; j < N; j += i){ 
-        isprime[j] = false;
-     }
-}
+// int main(){
+// isprime[0] = isprime[1] = false;
+// for(int i =2; i<N; i++){
+//      if(isprime[i] == true){
+//      for(int j = 2*i; j < N; j += i){ 
+//         isprime[j] = false;
+//      }
+// }
  
-}
-for (int i = 0; i< 100; i++){
-        cout << isprime[i];
+// }
+// for (int i = 0; i< 100; i++){
+//         cout << isprime[i];
 
-}
-}
+// }
+// }
 // // T.c = n *log n log n
 // int q;
 // cin >> q;
@@ -4910,4 +4910,78 @@ for (int i = 0; i< 100; i++){
 //             }
 //         };
 
-//          
+//          Modular MUltiplicative inverse 
+
+// 1). (A/B) % M = (A*B^-1/ M) = ((A % M) * (B^-1) % M) % M
+// 2). (A * B) = 1 then it written as B is moular of 1
+// 3). Run the loop For B =1 to M -1,,, (A * B) % M = 1 -- B is MM1 of a 
+// 5). So B is lies in range of 1 <= B < M -1
+// 6). MMI (Modular Multiplicative inversive)defines only when MM1 of A with M are coprimes .. coprimes - gcd(a, n)
+// 7). A^(M-1) =_ 1 mod (M)        if A^M-1 divides by M will give the remainder 1 
+// 8). A^(M-1) =_ 1 mod (M)   Fermet little theorem 
+//      Condition for fermet - i).  m should be prime  ii). A is not the multiple of M
+// 9). A^(M-2) =+ A^-1 mod (M) // Bin exp - log(N)
+// 10). (A^(m-2)% M) = A^-1 
+// 11). M-M-I = E-E-A 
+
+
+// Function to perform binary exponentiation: (a^b) % m
+#include <iostream>
+using namespace std;
+
+int binexp(int a, int b, int m){      // (a + a) for b times
+    int result = 1;
+    
+    while(b > 0){
+        if(b & 1){  // if b is setted means it is 1 and true 
+            result = (result * 1LL * a) % m;
+        } 
+        // on each step we was successively adding the numbers 
+        a = (a * 1LL * a) % m;
+        b >>= 1;  // shift the bit for the one 
+    }
+    return result;
+}
+
+// There are N children and K toffees . K < N 
+// count the no. of ways to distribute toffe among N students such that each students get 1 toffe only nCk
+// N < 10^9, k < N < 10^9
+// n! / ((n-r)! * r!)
+const int N = 1e6 + 10;
+int fact[N];
+const int M = 1e9 + 7; 
+
+int main() {
+    // Set the factorial of 0 as 1 because 0! = 1
+    fact[0] = 1;
+
+    // Precompute all factorials up to N using modulo M
+    // This loop fills the `fact` array with factorial values mod M
+    for (int i = 1; i < N; i++) {
+        // fact[i] = (fact[i-1] * i) % M
+        // 1LL is used to prevent integer overflow by promoting to long long
+        fact[i] = (fact[i - 1] * 1LL * i) % M;
+    }
+
+    int n, k;  // Declare two integer variables to store input values
+
+    // Take input from the user for n (total children) and k (toffees)
+    cin >> n >> k;
+
+    // Check if the input is invalid
+    // Condition 1: We cannot give toffees to more children than available (k > n)
+    // Condition 2: We only precomputed factorials up to N, so n must be less than N
+    if (k > n || n >= N) {
+        cout << "Invalid input or factorial out of range\n";  // Print error message
+        return 0;  // Exit the program early
+    }
+
+    // Calculate nCk = n! / (k! * (n-k)!) mod M
+    int num = fact[n];  // n!
+    int den = (fact[n - k] * 1LL * fact[k]) % M;  // (n-k)! * k!
+    int inv_den = binexp(den, M - 2, M);  // Modular inverse using Fermat's Little Theorem
+    int ans = (num * 1LL * inv_den) % M;  // Final answer
+
+    cout << ans << endl;
+    return 0;
+}
