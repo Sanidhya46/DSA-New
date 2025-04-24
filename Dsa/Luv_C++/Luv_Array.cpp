@@ -140,7 +140,7 @@ using namespace std;
 // }
 //                          Checking for pass by value and reference for other data type
 // void func( string &s){
-//     s = "";
+//     s = "";    //  value updates if you passing to the function 
 // }
 // int main(){
 //     string s = "abcd";
@@ -182,35 +182,39 @@ using namespace std;
 //     int *p_n;   // p_n is an pointer which stores the address of an integer variable
 //     p_n = &n;   // p_n stores the address of n. &n = 1; address of first byte of int data type which is 1 ,  
 //     cout << *p_n;   // value at p_n or value at adreess of n.
+
 //     *p_n = 5;  //change the value at p_n to 5
 //     p_n = p_n + 1;   //p_n adds the size of int bytes
 //     cout << p_n;
 
 //     int a[4] =  {10,20,30,40};   // a is also an pointer
 //     cout << a;  // a stores address of 1st integer 
+
 //     cout << *a;  // *a means value at address of 0th index
 //     // a and &a[0] is same
 //     cout << *(a + 1);  // value at a+1 means value at a[1] which is 20
 
-//     int *p;  // *p is an pointer which stores the address of integer
-//     int **p;   // **p is an pointer which stores the addres of an integer pointer(*pp)
+// //     int *p;  // *p is an pointer which stores the address of integer
+// //     int **p;   // **p is an pointer which stores the addres of an integer pointer(*pp)
 //     int x = 4;
 //     int *p = &x;   // *p is value at p, or value at address of x which is 4
 //     cout << *p;
+// }
 //     int **pp = &p;   // value at integer pointer (*pp) stores the value at pp , pp is address of p which is adress of x) 
 //     cout << **pp;    //value at p print 4;
 
-//     int x = 4;
-//     int *p_x = &x;
-//     // (int **p_p_x = &p_x)  means (&p_x == p_p_x)
+    // int x = 4;
+    // int *p_x = &x;
+    // (int **p_p_x = &p_x)  means (&p_x == p_p_x)
 //     // double pointer(p_p_x) stores the address of an pointer
 
 //     // **p_p_x = 7;  // now we can also change value by using double pointer
 
 //     int a[10];
-//     a[0] = 1;
+//     a[0] = 2;
 //     a[1] =2;
 //     cout << "pointer a is = " << a << "  value at  pointer a is = " <<*a;
+// }
 //     cout << "pointer a = " << a << " and " << " &a[0] is " << &a[0];
 
     
@@ -228,6 +232,7 @@ using namespace std;
 // }
 
 // void increment(int *x){
+//     (*x)++;
 //     (*x)++;
 // }
 // int main(){
@@ -267,6 +272,7 @@ using namespace std;
 //         int y;
 //         y = 5;
 //         y++;
+        
 //       }
 // }
 // number of iterations - 3
@@ -275,20 +281,23 @@ using namespace std;
 
 // *2). No. of iteration in one second in coding platformm is - 10^7 - 10^8 seconds
 //  note*- if(10^7 - 1second, 10^8 - 10 second, 10^9 - 100 second, 10^10 iteration takes - 1000 sec - 15 min very large...)
-//      *- in power time complexity increases very fast
+//      *- in power time complexity increases very fast  
 
 
 // N < 100000  // n size array which limits is 10^5
 // a[i] < 100000  // range of an element of an array is 10^5
 
-// int main(){
-//     int n;
-//     cin >> n;
-//     int a[] = {};
-//     for(int i =0; i<n; i++){
-//         cin >> a[i];
-//     }
-// }
+//  int main(){
+//      int n;
+//      cin >> n;
+//      int a[10];
+//        int count = 0; 
+//      for(int i =0; i<n; i++){
+//          cin >> a[i];  
+//        count++;
+//      }
+//      cout << count << endl;
+//  }
 
 // O(1) + O(1) + O(n) -> O(n)
 // if we are adding more no. of loops O(n) + O(n) + O(n) + O(n)... it still O(n)
@@ -378,23 +387,31 @@ constraints:
        print answer in modulo m = 47    // so we are storing answer in form of modulo
        A%m
 */
+
+// 1. Prevents Overflow - When you're multiplying large numbers (like in factorials or powers), the result can exceed the maximum value a data type can store (like int or long long).
+// 💡 Modulo keeps numbers manageable:
+// 2).  2. Speeds Up Calculations - Working with smaller numbers (because of modulo) makes arithmetic faster and less memory-intensive.
+// 3). Makes Patterns Repeat (Cyclic Nature). - Hashing , circular arrays , Rotations , scheduling problems (like clocks) 
+// 4). Number theory algorithms like:  Fermat's Little Theorem,  Chinese Remainder Theorem
+
 // int main(){
 //     int n;
 //     cin >> n;
 //     long long fact= 1;
 //     int m = 47;
-//     for(int i =0; i <=n; i++){   // if we run loop for 100 times then it becames overflow
+//     for(int i =1; i <=n; i++){   // if we run loop for 100 times then it becames overflow
 //         fact = (fact * i)%m;    // we are taking modulo m in each result one by one by formula on
 //     }
 //     cout << fact;
 // }
+
 //    2). Significance of using (m = 10^9 + 7)
 //        1). 10^9 + 7 - very close to integer 
 //        2). can take m as int, no take extra spaces
 //        2). m is prime so we can find multiplicative inverse of any number between 10^9 + 7
 
 //                  Video no. 18 ||  Pre computation technique and hashing
-/* Given T test cases and in each test case a umber N. prinnt its factorial for each test case % m
+/* Given T test cases and in each test case a number N. print its factorial for each test case % m
 where m= 10^9 + 7
 constraints 
 1<= T <= 10^5
@@ -417,7 +434,7 @@ constraints
 //                 2). for factorial loop never start from 0
 //                 3). long long fact - creates an constant space of 8mb in memory to store large integer values
 
-//               **** why to compute *** 
+//                   **** why to compute *** 
 //    1). if we have to factorial of same numbers the loop run for many times -- so we can put already pre computed value rater than recalculation
 //    2). we can already store and compute the value of all factorial numbers
 
@@ -425,6 +442,8 @@ constraints
 #include<bits/stdc++.h>
 using namespace std;
 
+//   compile time constant - A compile-time constant is a value that is known and fixed during compilation. It never changes while the program is running.  ex. the same value each time an application runs .. .. the value known at compile time 
+//   Run time constant - run time constant is a value that does not changed once assigned but its actual value is determined while the program is running.  like from user input ...  the run time constant are continuously changes for each timel.
 //     const int m = 1e9 + 7;
 //     const int N = 1e5 + 10;  // we are taking large array
 //     // long long fact[N]; // N is run time constant  // we already compute all the factorial
