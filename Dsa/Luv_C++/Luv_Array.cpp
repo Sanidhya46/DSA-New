@@ -5028,9 +5028,9 @@ int binexp(int a, int b, int m){      // (a + a) for b times
         a = (a * 1LL * a) % m;   
         b >>= 1;  // shift the bit for the one 
     }
-    return result;
+    return result;   
 }
-
+  
 int main(){
     int t; 
     cin >> t;
