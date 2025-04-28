@@ -5021,7 +5021,7 @@ int binexp(int a, int b, int m){      // (a + a) for b times
     int result = 1;
     
     while(b > 0){ 
-        if(b & 1){  // if b is setted means it is 1 and true 
+        if(b & 1){  // if b is setted means it is 1 and true       
             result = (result * 1LL * a) % m;
         } 
         // on each step we was successively adding the numbers 
