@@ -1112,7 +1112,7 @@ using namespace std;
 //       }
 // }
 
-//                                 13). Count set bits in an integer
+//                               13). Count set bits in an integer
 // unsigned int countsetbits(unsigned int n){
 //      int count = 0;
 //      while(n){
