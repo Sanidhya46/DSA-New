@@ -5034,7 +5034,7 @@ int binexp(int a, int b, int m){      // (a + a) for b times
 int main(){
     int t; 
     cin >> t;
-    fact[0] = 1;   // first initialise fact 0 to 1; 
+    fact[0] = 1;   // first initialise fact 0 to 1;    
     for(int i = 1; i<N; i++){
         // computing i! modulo m using long long to prevent overflow condition 
         fact[i] = (fact[i-1] * 1LL * i) % M;
