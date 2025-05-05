@@ -322,7 +322,7 @@ using namespace std;
     
 // }
 
-//    4). Deleting a Node in a Doubly linked list 
+//              4). Deleting a Node in a Doubly linked list 
 // 1). classic dangling pointer issue - the node is deleted but the memory is remain undeleted so it is account into the daggling pointer issue 
 // 2). If upcoming node have broken linkage but you looping through the linkedlist leading to the undefined behaviour , garbage value or reenters value will be showned 
 // 3). Using of saving method ensures that structural changes like insertions or deletions are correctly tracked preserving the list integrity and issues like daggling pointers 
@@ -474,6 +474,9 @@ using namespace std;
 //    }
 
 //               //***  (1).    Add Last     ***/
+// // 1). This method inserts a new node x at the beginning of the list, right after the dummy head node,
+// // 2). by updating the necessary next and prev pointers of head, x, and the original first node (temp).
+
 // // 1). create a node value e identifying a node correctly at the end of the list , and create a linkage of x between temp and tail
 //    void addLast(E e){  // e is an instance of node going to add into the end of the linked list 
 //         Node* x = new Node(e);
@@ -505,7 +508,10 @@ using namespace std;
 //            }
 
 //            //  ****  (3)  Add At (index, element)
-        
+// // 1). index must be valid 
+// // 2).  if index points to the last element add element to the last index 
+// // 3). get the node corresponding to the index and create new node with the element that have to be inserted and manage pointer of corresponding index node and new node 
+
 //            void add(int index, int element){
 //               checkElementIndex(index);
 //               if(index == size){
@@ -570,15 +576,16 @@ using namespace std;
 //               delete x;
 
 //           };                           
-//           bool isElementIndex(int index) const {
-//            return index >= 0 && index < size;
-//        };
+         
+
+// // 1). Index must be valid and 
+// // 2). create node points next pointer of head and traverse 
 
 // Node* getnode(int index){
 //        checkElementIndex(index);
 //        Node* P = head->next;
 //        for(int i=0; i<index; i++){
-//         P->next;
+//         P = P->next;
 //        }
 //        return P;
 // }   
@@ -617,6 +624,7 @@ using namespace std;
 //     list.display();
 //     list.removeLast();
 //     list.display();
+//     list.getnode(2);
 //     // size = 5
 //     // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
 
@@ -627,9 +635,9 @@ using namespace std;
 
 //       Circular Array Technique and Implementation 
 
-#include <iostream>
-#include <vector>
-using namespace std;
+// #include <iostream>
+// #include <vector>
+// using namespace std;
 
 // int main(){
 // // array with length 5
@@ -645,152 +653,378 @@ using namespace std;
 
 //             Principle of Cicular array technique 
 
+// #include <iostream>
+// #include <stdexcept>
+// #include <ostream>
+
+// template<typename T>
+// class CycleArray {
+//     std::unique_ptr<T[]> arr;
+//     int start;  // first position where reading begins 
+//     int end;    // next position after the last valid element 
+//     int count;     // How many valid elements are currently in the buffer
+//     int size;     //  Total capacity of the buffer
+
+//  //   Closed Interval - (Real valid element)
+//  //   Open Interval - (Next to the real valid element)
+// // close interval have value open interval have not value 
+
+// //*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
+
+// void resize(int newSize) {
+//     // create a new array
+//     std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
+//     // copy elements from the old array to the new array
+//     for (int i = 0; i < count; ++i) {
+//         newArr[i] = arr[(start + i) % size];
+//     }
+//     arr = std::move(newArr);
+//     // reset the start and end pointers
+//     start = 0;
+//     end = count;
+//     size = newSize;
+// }
+
+// public:
+//     CycleArray() : CycleArray(1) {
+//     }
+
+//     explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
+//         arr = std::make_unique<T[]>(size);
+//     }
+
+//     // add an element to the front of the array, time complexity O(1)
+//     void addFirst(const T &val) {
+//         // if the array is full, double its size
+//         if (isFull()) {
+//             resize(size * 2);
+//         }
+//         // since start is a closed interval, move left first, then assign
+//         // I am coming one space backward and wraps the number back to the begining 
+//         start = (start - 1 + size) % size;
+//         arr[start] = val;
+//         count++;
+//     }
+
+//     // remove an element from the front of the array, time complexity O(1)
+//     void removeFirst() {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // since start is a closed interval, assign first, then move right
+//         arr[start] = T();  
+//         // after removing the element the next item becames the new front 
+//         start = (start + 1) % size;
+//         count--; 
+//                // if the number of elements in the array decreases to
+//         // a quarter of the original size, halve the size of the
+//         if (count > 0 && count == size / 4) {
+//             resize(size / 2);
+//         }
+//     }
+
+//     // add an element to the end of the array, time complexity O(1)
+//     void addLast(const T &val) {
+//         if (isFull()) {
+//             resize(size * 2);
+//         }
+//         // since end is an open interval, assign first, then move right
+//         arr[end] = val;
+//         // poiny end to the next position and wraps the number for circular array 
+//         end = (end + 1) % size;
+//         count++;
+//     }
+
+//     // remove an element from the end of the array, time complexity O(1)
+//     void removeLast() {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // since end is an open interval, move left first, then assign
+//         end = (end - 1 + size) % size;
+//         arr[end] = T();
+//         count--;
+//         // reduce the size
+//         if (count > 0 && count == size / 4) {
+//             resize(size / 2);
+//         }
+//     }
+
+//     // get the first element of the array, time complexity O(1)
+//     T getFirst() const {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         return arr[start];
+//     }
+    
+//     // get the last element of the array, time complexity O(1)
+//     T getLast() const {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // end is an open interval, pointing to the next element's position, so subtract 1
+//         return arr[(end - 1 + size) % size];
+//     }
+
+//     bool isFull() const {
+//         return count == size;
+//     }
+
+//     int getSize() const {
+//         return count;
+//     }
+
+//     bool isEmpty() const {
+//         return count == 0;
+//     }
+// };
+// // circular can delete the element in the array in O(1) complexity 
+// // 
+
+// //      Add an element to the front of the array, time complexity O(1)
+
+// int main(){
+//     CycleArray<int> arr(5);
+// arr.addLast(1);
+// arr.addLast(2);
+// arr.addFirst(0);
+// arr.removeLast();
+
+// std::cout << "First element: " << arr.getFirst() << std::endl;
+// std::cout << "Last element: " << arr.getLast() << std::endl;
+// std::cout << "Size (valid elements): " << arr.getSize() << std::endl;
+
+
+// }
+
+
+//    Singly Linked LIst Code implementation 
+
 #include <iostream>
 #include <stdexcept>
-#include <ostream>
 
-template<typename T>
-class CycleArray {
-    std::unique_ptr<T[]> arr;
-    int start;  // first position where reading begins 
-    int end;    // next position of valid element 
-    int count;     // How many valid elements are currently in the buffer
-    int size;     //  Total capacity of the buffer
+template <typename E>
+class MyLinkedList2 {
+private:
+    // Node structure
+    struct Node {
+        E val;
+        Node* next;
 
- //   Closed Interval - (Real valid element)
- //   Open Interval - (Next to the real valid element)
-// close interval have value open interval have not value 
+        Node(E value) : val(value), next(nullptr) {}
+    };
 
-//*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
-
-void resize(int newSize) {
-    // create a new array
-    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
-    // copy elements from the old array to the new array
-    for (int i = 0; i < count; ++i) {
-        newArr[i] = arr[(start + i) % size];
-    }
-    arr = std::move(newArr);
-    // reset the start and end pointers
-    start = 0;
-    end = count;
-    size = newSize;
-}
+    Node* head;
+    // actual reference to the tail node
+    Node* tail;
+    int size_;
 
 public:
-    CycleArray() : CycleArray(1) {
+    MyLinkedList2() {
+        head = new Node(E());
+        tail = head;
+        size_ = 0;
     }
 
-    explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
-        arr = std::make_unique<T[]>(size);
-    }
-
-    // add an element to the front of the array, time complexity O(1)
-    void addFirst(const T &val) {
-        // if the array is full, double its size
-        if (isFull()) {
-            resize(size * 2);
+    ~MyLinkedList2() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
         }
-        // since start is a closed interval, move left first, then assign
-        // I am coming one space backward and wraps the number back to the begining 
-        start = (start - 1 + size) % size;
-        arr[start] = val;
-        count++;
     }
 
-    // remove an element from the front of the array, time complexity O(1)
-    void removeFirst() {
+    void addFirst(E e) {
+        Node* newNode = new Node(e);
+        newNode->next = head->next;
+        head->next = newNode;
+        if (size_ == 0) {
+            tail = newNode;
+        }
+        size_++;
+    }
+
+    void addLast(E e) {
+        Node* newNode = new Node(e);
+        tail->next = newNode;
+        tail = newNode;
+        size_++;
+    }
+
+    void add(int index, E element) {
+        checkPositionIndex(index);
+
+        if (index == size_) {
+            addLast(element);
+            return;
+        }
+
+        Node* prev = head;
+        for (int i = 0; i < index; i++) {
+            prev = prev->next;
+        }
+        Node* newNode = new Node(element);
+        newNode->next = prev->next;
+        prev->next = newNode;
+        size_++;
+    }
+
+    E removeFirst() {
         if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
+            throw std::out_of_range("No elements to remove");
         }
-        // since start is a closed interval, assign first, then move right
-        arr[start] = T();  
-        // after removing the element the next item becames the new front 
-        start = (start + 1) % size;
-        count--; 
-               // if the number of elements in the array decreases to
-        // a quarter of the original size, halve the size of the
-        if (count > 0 && count == size / 4) {
-            resize(size / 2);
+        Node* first = head->next;
+        head->next = first->next;
+        if (size_ == 1) {
+            tail = head;
         }
+        size_--;
+        E val = first->val;
+        delete first;
+        return val;
     }
 
-    // add an element to the end of the array, time complexity O(1)
-    void addLast(const T &val) {
-        if (isFull()) {
-            resize(size * 2);
-        }
-        // since end is an open interval, assign first, then move right
-        arr[end] = val;
-        // poiny end to the next position and wraps the number for circular array 
-        end = (end + 1) % size;
-        count++;
-    }
-
-    // remove an element from the end of the array, time complexity O(1)
-    void removeLast() {
+//        For remove at last 
+// 1). check the list is empty or not 
+// 2). create a refrence node start from starting and Traverse to the node just before the last node. by pointing its next pointer of created node till the prev->next != tail then extract the tail value and delete and handle the null pointer of next ponter of starting node and now the tail becames starting node 
+    E removeLast() {
         if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
+            throw std::out_of_range("No elements to remove");
         }
-        // since end is an open interval, move left first, then assign
-        end = (end - 1 + size) % size;
-        arr[end] = T();
-        count--;
-        // reduce the size
-        if (count > 0 && count == size / 4) {
-            resize(size / 2);
+
+        Node* prev = head;
+        while (prev->next != tail) {
+            prev = prev->next;
         }
+        E val = tail->val;
+        delete tail;
+        prev->next = nullptr;
+        tail = prev;
+        size_--;
+        return val;
     }
 
-    // get the first element of the array, time complexity O(1)
-    T getFirst() const {
+    //     removing at particular index 
+// 1). check valid index
+// 2). create a reference node start from starting and traverse to the one before to the remove index and link the pointers to the next element of to remove node like skipping the to remove node
+
+    E remove(int index) {
+        checkElementIndex(index);
+
+        Node* prev = head;
+        for (int i = 0; i < index; i++) {
+            prev = prev->next;
+        }
+
+        Node* nodeToRemove = prev->next;
+        prev->next = nodeToRemove->next;
+        // deleting the last element
+        if (index == size_ - 1) {
+            tail = prev;
+        }
+        size_--;
+        E val = nodeToRemove->val;
+        delete nodeToRemove;
+        return val;
+    }
+
+    // ***** Retrieve *****
+
+    E getFirst() {
         if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
+            throw std::out_of_range("No elements in the list");
         }
-        return arr[start];
+        return head->next->val;
     }
-    
-    // get the last element of the array, time complexity O(1)
-    T getLast() const {
+
+    E getLast() {
         if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
+            throw std::out_of_range("No elements in the list");
         }
-        // end is an open interval, pointing to the next element's position, so subtract 1
-        return arr[(end - 1 + size) % size];
+        return tail->val;
     }
 
-    bool isFull() const {
-        return count == size;
+    E get(int index) {
+        checkElementIndex(index);
+        Node* p = getNode(index);
+        return p->val;
     }
 
-    int getSize() const {
-        return count;
+    // ***** Update *****
+
+    E set(int index, E element) {
+        checkElementIndex(index);
+        Node* p = getNode(index);
+
+        E oldVal = p->val;
+        p->val = element;
+
+        return oldVal;
     }
 
-    bool isEmpty() const {
-        return count == 0;
+    // ***** Other Utility Functions *****
+    int size() {
+        return size_;
+    }
+
+    bool isEmpty() {
+        return size_ == 0;
+    }
+
+private:
+    bool isElementIndex(int index) {
+        return index >= 0 && index < size_;
+    }
+
+    bool isPositionIndex(int index) {
+        return index >= 0 && index <= size_;
+    }
+
+    // Check if the index position can have an element
+    void checkElementIndex(int index) {
+        if (!isElementIndex(index)) {
+            throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
+        }
+    }
+
+    // Check if the index position can add an element
+    void checkPositionIndex(int index) {
+        if (!isPositionIndex(index)) {
+            throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
+        }
+    }
+
+    // Return the Node corresponding to the index
+    // Note: Please ensure that the passed index is valid
+    Node* getNode(int index) {
+        Node* p = head->next;
+        for (int i = 0; i < index; i++) {
+            p = p->next;
+        }
+        return p;
     }
 };
-// circular can delete the element in the array in O(1) complexity 
-// 
 
-//      Add an element to the front of the array, time complexity O(1)
+int main() {
+    MyLinkedList2<int> list;
+    list.addFirst(1);
+    list.addFirst(2);
+    list.addLast(3);
+    list.addLast(4);
+    list.add(2, 5);
 
-int main(){
-    CycleArray<int> arr(5);
-arr.addLast(1);
-arr.addLast(2);
-arr.addFirst(0);
-arr.removeLast();
+    std::cout << list.removeFirst() << std::endl; // 2
+    std::cout << list.removeLast() << std::endl; // 4
+    std::cout << list.remove(1) << std::endl; // 5
 
-std::cout << "First element: " << arr.getFirst() << std::endl;
-std::cout << "Last element: " << arr.getLast() << std::endl;
-std::cout << "Size (valid elements): " << arr.getSize() << std::endl;
+    std::cout << list.getFirst() << std::endl; // 1
+    std::cout << list.getLast() << std::endl; // 3
+    std::cout << list.get(1) << std::endl; // 3
 
-
+    return 0;
 }
-
-
 
 
 
