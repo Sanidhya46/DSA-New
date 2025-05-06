@@ -928,7 +928,7 @@ public:
         E val = nodeToRemove->val;
         delete nodeToRemove;
         return val;
-    }
+    }   
 
     // ***** Retrieve *****
 
