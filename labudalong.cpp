@@ -797,234 +797,502 @@ using namespace std;
 
 
 // }
-
-
-//    Singly Linked LIst Code implementation 
-
+//               Doubly linked list   
 #include <iostream>
 #include <stdexcept>
 
-template <typename E>
-class MyLinkedList2 {
-private:
-    // Node structure
-    struct Node {
-        E val;
-        Node* next;
-
-        Node(E value) : val(value), next(nullptr) {}
-    };
-
-    Node* head;
-    // actual reference to the tail node
-    Node* tail;
-    int size_;
+template<typename E>
+class MyLinkedList {
+    // virtual head and tail nodes
+  // Definition of a Node structure used in a doubly linked list
+struct Node {
+    //  defining and initializing a node structure 
+    E val;           // Holds the value/data of generic type E
+    Node* next;      // Pointer to the next node in the list
+    Node* prev;      // Pointer to the previous node in the list
+    // Constructor to initialize a node with a value
+    // and set its next and previous pointers to nullptr
+    Node(E value) : val(value), next(nullptr), prev(nullptr) {}
+}; 
+// Pointer to the dummy head node of the list
+Node* head; // Pointer to the dummy tail node of the list
+Node* tail; // Tracks the number of elements (size) in the linked list
+int size;
 
 public:
-    MyLinkedList2() {
+    // constructor initializes virtual head and tail nodes
+    MyLinkedList() {
+      //  new Node(E()) creates a Node object, with the default value of type E and gives you a pointer to that object.
+        // Create a Node object and let head point to it."
         head = new Node(E());
-        tail = head;
-        size_ = 0;
+        tail = new Node(E());
+        head->next = tail;         // Head's next pointer points to tail
+        size = 0;                  // List is currently empty
+    }
+// A destructor is a special member function of a class that is automatically called when an object goes out of scope or is explicitly deleted
+
+    ~MyLinkedList() {
+        while (size > 0) {
+            removeFirst();
+        }
+        delete head;
+        delete tail;
     }
 
-    ~MyLinkedList2() {
-        Node* current = head;
-        while (current != nullptr) {
-            Node* next = current->next;
-            delete current;
-            current = next;
-        }
+    // ***** Add *****
+
+    // x is reference to the node which can control the prev next val of the new node 
+    void addLast(E e) {
+        Node* x = new Node(e);
+        // giving the reference of last valid element to the temp 
+        Node* temp = tail->prev;
+
+        temp->next = x;
+        x->prev = temp;
+        // temp <-> x
+
+        x->next = tail;
+        tail->prev = x;
+        // temp <-> x <-> tail
+        size++;
     }
 
     void addFirst(E e) {
-        Node* newNode = new Node(e);
-        newNode->next = head->next;
-        head->next = newNode;
-        if (size_ == 0) {
-            tail = newNode;
-        }
-        size_++;
-    }
+        Node* x = new Node(e);
+        // give the reference of first node to the temp
+        Node* temp = head->next;
+        // head <-> temp
+        temp->prev = x;
+        x->next = temp;
 
-    void addLast(E e) {
-        Node* newNode = new Node(e);
-        tail->next = newNode;
-        tail = newNode;
-        size_++;
+        head->next = x;
+        x->prev = head;
+        // head <-> x <-> temp
+        size++;
     }
 
     void add(int index, E element) {
         checkPositionIndex(index);
-
-        if (index == size_) {
+        if (index == size) {
             addLast(element);
             return;
         }
 
-        Node* prev = head;
-        for (int i = 0; i < index; i++) {
-            prev = prev->next;
-        }
-        Node* newNode = new Node(element);
-        newNode->next = prev->next;
-        prev->next = newNode;
-        size_++;
+        // find the Node corresponding to index
+        Node* p = getNode(index);
+        
+        Node* temp = p->prev;
+        // temp <-> p
+
+        // new Node to be inserted
+        Node* x = new Node(element);
+
+        p->prev = x;
+        temp->next = x;
+
+        x->prev = temp;
+        x->next = p;
+
+        // temp <-> x <-> p
+
+        size++;
     }
+
+    // ***** Remove *****
 
     E removeFirst() {
-        if (isEmpty()) {
+        if (size < 1) {
             throw std::out_of_range("No elements to remove");
         }
-        Node* first = head->next;
-        head->next = first->next;
-        if (size_ == 1) {
-            tail = head;
-        }
-        size_--;
-        E val = first->val;
-        delete first;
+        // the existence of virtual nodes prevents us from having to consider nullptr pointers
+        Node* x = head->next;
+        Node* temp = x->next;
+        // head <-> x <-> temp
+        head->next = temp;
+        temp->prev = head;
+
+        E val = x->val;
+        delete x;
+        // head <-> temp
+
+        size--;
         return val;
     }
 
-//        For remove at last 
-// 1). check the list is empty or not 
-// 2). create a refrence node start from starting and Traverse to the node just before the last node. by pointing its next pointer of created node till the prev->next != tail then extract the tail value and delete and handle the null pointer of next ponter of starting node and now the tail becames starting node 
     E removeLast() {
-        if (isEmpty()) {
+        if (size < 1) {
             throw std::out_of_range("No elements to remove");
         }
+        Node* x = tail->prev;
+        Node* temp = tail->prev->prev;
+        // temp <-> x <-> tail
 
-        Node* prev = head;
-        while (prev->next != tail) {
-            prev = prev->next;
-        }
-        E val = tail->val;
-        delete tail;
-        prev->next = nullptr;
-        tail = prev;
-        size_--;
+        tail->prev = temp;
+        temp->next = tail;
+
+        E val = x->val;
+        x->prev = nullptr;
+        x->next = nullptr;
+        delete x;
+        // temp <-> tail
+
+        size--;
         return val;
     }
-
-    //     removing at particular index 
-// 1). check valid index
-// 2). create a reference node start from starting and traverse to the one before to the remove index and link the pointers to the next element of to remove node like skipping the to remove node
 
     E remove(int index) {
         checkElementIndex(index);
+        // find the Node corresponding to index
+        Node* x = getNode(index);
+        Node* prev = x->prev;
+        Node* next = x->next;
+        // prev <-> x <-> next
+        prev->next = next;
+        next->prev = prev;
 
-        Node* prev = head;
-        for (int i = 0; i < index; i++) {
-            prev = prev->next;
-        }
+        E val = x->val;
+        x->prev = nullptr;
+        x->next = nullptr;
+        delete x;
+        // prev <-> next
 
-        Node* nodeToRemove = prev->next;
-        prev->next = nodeToRemove->next;
-        // deleting the last element
-        if (index == size_ - 1) {
-            tail = prev;
-        }
-        size_--;
-        E val = nodeToRemove->val;
-        delete nodeToRemove;
+        size--;
         return val;
-    }   
+    }
 
-    // ***** Retrieve *****
+    // ***** Get *****
+
+    E get(int index) {
+        checkElementIndex(index);
+        // find the Node corresponding to index
+        Node* p = getNode(index);
+
+        return p->val;
+    }
 
     E getFirst() {
-        if (isEmpty()) {
+        if (size < 1) {
             throw std::out_of_range("No elements in the list");
         }
+
         return head->next->val;
     }
 
     E getLast() {
-        if (isEmpty()) {
+        if (size < 1) {
             throw std::out_of_range("No elements in the list");
         }
-        return tail->val;
+
+        return tail->prev->val;
     }
 
-    E get(int index) {
-        checkElementIndex(index);
-        Node* p = getNode(index);
-        return p->val;
-    }
+    // ***** Set *****
 
-    // ***** Update *****
-
-    E set(int index, E element) {
+    E set(int index, E val) {
         checkElementIndex(index);
+        // find the Node corresponding to index
         Node* p = getNode(index);
 
         E oldVal = p->val;
-        p->val = element;
+        p->val = val;
 
         return oldVal;
     }
 
-    // ***** Other Utility Functions *****
-    int size() {
-        return size_;
+    // ***** Other utility functions *****
+
+    int getSize() const {
+        return size;
     }
 
-    bool isEmpty() {
-        return size_ == 0;
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    void display() {
+        std::cout << "size = " << size << std::endl;
+        for (Node* p = head->next; p != tail; p = p->next) {
+            std::cout << p->val << " <-> ";
+        }
+        std::cout << "nullptr" << std::endl;
+        std::cout << std::endl;
     }
 
 private:
-    bool isElementIndex(int index) {
-        return index >= 0 && index < size_;
-    }
-
-    bool isPositionIndex(int index) {
-        return index >= 0 && index <= size_;
-    }
-
-    // Check if the index position can have an element
-    void checkElementIndex(int index) {
-        if (!isElementIndex(index)) {
-            throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
-        }
-    }
-
-    // Check if the index position can add an element
-    void checkPositionIndex(int index) {
-        if (!isPositionIndex(index)) {
-            throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
-        }
-    }
-
-    // Return the Node corresponding to the index
-    // Note: Please ensure that the passed index is valid
     Node* getNode(int index) {
+        checkElementIndex(index);
+        // give the reference to the first valid node 
         Node* p = head->next;
+        // TODO: Can be optimized by deciding whether to
+        // traverse from head or tail based on index
         for (int i = 0; i < index; i++) {
             p = p->next;
         }
         return p;
     }
+
+    bool isElementIndex(int index) const {
+        return index >= 0 && index < size;
+    }
+
+    bool isPositionIndex(int index) const {
+        return index >= 0 && index <= size;
+    }
+
+    // Check if the index position can contain an element
+    void checkElementIndex(int index) const {
+        if (!isElementIndex(index))
+            throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+    }
+
+    // Check if the index position can add an element
+    void checkPositionIndex(int index) const {
+        if (!isPositionIndex(index))
+            throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+    }
 };
 
 int main() {
-    MyLinkedList2<int> list;
-    list.addFirst(1);
-    list.addFirst(2);
+    MyLinkedList<int> list;
+    list.addLast(1);
+    list.addLast(2);
     list.addLast(3);
-    list.addLast(4);
-    list.add(2, 5);
+    list.addFirst(0);
+    list.add(2, 100);
 
-    std::cout << list.removeFirst() << std::endl; // 2
-    std::cout << list.removeLast() << std::endl; // 4
-    std::cout << list.remove(1) << std::endl; // 5
-
-    std::cout << list.getFirst() << std::endl; // 1
-    std::cout << list.getLast() << std::endl; // 3
-    std::cout << list.get(1) << std::endl; // 3
+    list.display();
+    // size = 5
+    // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
 
     return 0;
 }
+
+//    Singly Linked LIst Code implementation 
+
+// #include <iostream>
+// #include <stdexcept>
+
+// template <typename E>
+// class MyLinkedList2 {
+// private:
+//     // Node structure
+//     struct Node {
+//         E val;
+//         Node* next;
+
+//         Node(E value) : val(value), next(nullptr) {}
+//     };
+
+//     Node* head;
+//     // actual reference to the tail node
+//     Node* tail;
+//     int size_;
+
+// public:
+//     MyLinkedList2() {
+//         head = new Node(E());
+//         tail = head;
+//         size_ = 0;
+//     }
+
+//     ~MyLinkedList2() {
+//         Node* current = head;
+//         while (current != nullptr) {
+//             Node* next = current->next;
+//             delete current;
+//             current = next;
+//         }
+//     }
+
+//     void addFirst(E e) {
+//         Node* newNode = new Node(e);
+//         newNode->next = head->next;
+//         head->next = newNode;
+//         if (size_ == 0) {
+//             tail = newNode;
+//         }
+//         size_++;
+//     }
+
+//     void addLast(E e) {
+//         Node* newNode = new Node(e);
+//         tail->next = newNode;
+//         tail = newNode;
+//         size_++;
+//     }
+
+//     void add(int index, E element) {
+//         checkPositionIndex(index);
+
+//         if (index == size_) {
+//             addLast(element);
+//             return;
+//         }
+
+//         Node* prev = head;
+//         for (int i = 0; i < index; i++) {
+//             prev = prev->next;
+//         }
+//         Node* newNode = new Node(element);
+//         newNode->next = prev->next;
+//         prev->next = newNode;
+//         size_++;
+//     }
+
+//     E removeFirst() {
+//         if (isEmpty()) {
+//             throw std::out_of_range("No elements to remove");
+//         }
+//         Node* first = head->next;
+//         head->next = first->next;
+//         if (size_ == 1) {
+//             tail = head;
+//         }
+//         size_--;
+//         E val = first->val;
+//         delete first;
+//         return val;
+//     }
+
+// //        For remove at last 
+// // 1). check the list is empty or not 
+// // 2). create a refrence node start from starting and Traverse to the node just before the last node. by pointing its next pointer of created node till the prev->next != tail then extract the tail value and delete and handle the null pointer of next ponter of starting node and now the tail becames starting node 
+//     E removeLast() {
+//         if (isEmpty()) {
+//             throw std::out_of_range("No elements to remove");
+//         }
+
+//         Node* prev = head;
+//         while (prev->next != tail) {
+//             prev = prev->next;
+//         }
+//         E val = tail->val;
+//         delete tail;
+//         prev->next = nullptr;
+//         tail = prev;
+//         size_--;
+//         return val;
+//     }
+
+//     //     removing at particular index 
+// // 1). check valid index
+// // 2). create a reference node start from starting and traverse to the one before to the remove index and link the pointers to the next element of to remove node like skipping the to remove node
+
+//     E remove(int index) {
+//         checkElementIndex(index);
+
+//         Node* prev = head;
+//         for (int i = 0; i < index; i++) {
+//             prev = prev->next;
+//         }
+
+//         Node* nodeToRemove = prev->next;
+//         prev->next = nodeToRemove->next;
+//         // deleting the last element
+//         if (index == size_ - 1) {
+//             tail = prev;
+//         }
+//         size_--;
+//         E val = nodeToRemove->val;
+//         delete nodeToRemove;
+//         return val;
+//     }   
+
+//     // ***** Retrieve *****
+
+//     E getFirst() {
+//         if (isEmpty()) {
+//             throw std::out_of_range("No elements in the list");
+//         }
+//         return head->next->val;
+//     }
+
+//     E getLast() {
+//         if (isEmpty()) {
+//             throw std::out_of_range("No elements in the list");
+//         }
+//         return tail->val;
+//     }
+
+//     E get(int index) {
+//         checkElementIndex(index);
+//         Node* p = getNode(index);
+//         return p->val;
+//     }
+
+//     // ***** Update *****
+
+//     E set(int index, E element) {
+//         checkElementIndex(index);
+//         Node* p = getNode(index);
+
+//         E oldVal = p->val;
+//         p->val = element;
+
+//         return oldVal;
+//     }
+
+//     // ***** Other Utility Functions *****
+//     int size() {
+//         return size_;
+//     }
+
+//     bool isEmpty() {
+//         return size_ == 0;
+//     }
+
+// private:
+//     bool isElementIndex(int index) {
+//         return index >= 0 && index < size_;
+//     }
+
+//     bool isPositionIndex(int index) {
+//         return index >= 0 && index <= size_;
+//     }
+
+//     // Check if the index position can have an element
+//     void checkElementIndex(int index) {
+//         if (!isElementIndex(index)) {
+//             throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
+//         }
+//     }
+
+//     // Check if the index position can add an element
+//     void checkPositionIndex(int index) {
+//         if (!isPositionIndex(index)) {
+//             throw std::out_of_range("Index: " + std::to_string(index) + ", size_: " + std::to_string(size_));
+//         }
+//     }
+
+//     // Return the Node corresponding to the index
+//     // Note: Please ensure that the passed index is valid
+//     Node* getNode(int index) {
+//         Node* p = head->next;
+//         for (int i = 0; i < index; i++) {
+//             p = p->next;
+//         }
+//         return p;
+//     }
+// };
+
+// int main() {
+//     MyLinkedList2<int> list;
+//     list.addFirst(1);
+//     list.addFirst(2);
+//     list.addLast(3);
+//     list.addLast(4);
+//     list.add(2, 5);
+
+//     std::cout << list.removeFirst() << std::endl; // 2
+//     std::cout << list.removeLast() << std::endl; // 4
+//     std::cout << list.remove(1) << std::endl; // 5
+
+//     std::cout << list.getFirst() << std::endl; // 1
+//     std::cout << list.getLast() << std::endl; // 3
+//     std::cout << list.get(1) << std::endl; // 3
+
+//     return 0;
+// }
 
 
 
