@@ -880,7 +880,7 @@ public:
 
         // find the Node corresponding to index
         Node* p = getNode(index);
-        
+
         Node* temp = p->prev;
         // temp <-> p
 
@@ -982,7 +982,7 @@ public:
         if (size < 1) {
             throw std::out_of_range("No elements in the list");
         }
-
+   
         return tail->prev->val;
     }
 
