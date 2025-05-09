@@ -798,274 +798,274 @@ using namespace std;
 
 // }
 //               Doubly linked list   
-#include <iostream>
-#include <stdexcept>
+// #include <iostream>
+// #include <stdexcept>
 
-template<typename E>
-class MyLinkedList {
-    // virtual head and tail nodes
-  // Definition of a Node structure used in a doubly linked list
-struct Node {
-    //  defining and initializing a node structure 
-    E val;           // Holds the value/data of generic type E
-    Node* next;      // Pointer to the next node in the list
-    Node* prev;      // Pointer to the previous node in the list
-    // Constructor to initialize a node with a value
-    // and set its next and previous pointers to nullptr
-    Node(E value) : val(value), next(nullptr), prev(nullptr) {}
-}; 
-// Pointer to the dummy head node of the list
-Node* head; // Pointer to the dummy tail node of the list
-Node* tail; // Tracks the number of elements (size) in the linked list
-int size;
+// template<typename E>
+// class MyLinkedList {
+//     // virtual head and tail nodes
+//   // Definition of a Node structure used in a doubly linked list
+// struct Node {
+//     //  defining and initializing a node structure 
+//     E val;           // Holds the value/data of generic type E
+//     Node* next;      // Pointer to the next node in the list
+//     Node* prev;      // Pointer to the previous node in the list
+//     // Constructor to initialize a node with a value
+//     // and set its next and previous pointers to nullptr
+//     Node(E value) : val(value), next(nullptr), prev(nullptr) {}
+// }; 
+// // Pointer to the dummy head node of the list
+// Node* head; // Pointer to the dummy tail node of the list
+// Node* tail; // Tracks the number of elements (size) in the linked list
+// int size;
 
-public:
-    // constructor initializes virtual head and tail nodes
-    MyLinkedList() {
-      //  new Node(E()) creates a Node object, with the default value of type E and gives you a pointer to that object.
-        // Create a Node object and let head point to it."
-        head = new Node(E());
-        tail = new Node(E());
-        head->next = tail;         // Head's next pointer points to tail
-        size = 0;                  // List is currently empty
-    }
-// A destructor is a special member function of a class that is automatically called when an object goes out of scope or is explicitly deleted
+// public:
+//     // constructor initializes virtual head and tail nodes
+//     MyLinkedList() {
+//       //  new Node(E()) creates a Node object, with the default value of type E and gives you a pointer to that object.
+//         // Create a Node object and let head point to it."
+//         head = new Node(E());
+//         tail = new Node(E());
+//         head->next = tail;         // Head's next pointer points to tail
+//         size = 0;                  // List is currently empty
+//     }
+// // A destructor is a special member function of a class that is automatically called when an object goes out of scope or is explicitly deleted
 
-    ~MyLinkedList() {
-        while (size > 0) {
-            removeFirst();
-        }
-        delete head;
-        delete tail;
-    }
+//     ~MyLinkedList() {
+//         while (size > 0) {
+//             removeFirst();
+//         }
+//         delete head;
+//         delete tail;
+//     }
 
-    // ***** Add *****
+//     // ***** Add *****
 
-    // x is reference to the node which can control the prev next val of the new node 
-    void addLast(E e) {
-        Node* x = new Node(e);
-        // giving the reference of last valid element to the temp 
-        Node* temp = tail->prev;
+//     // x is reference to the node which can control the prev next val of the new node 
+//     void addLast(E e) {
+//         Node* x = new Node(e);
+//         // giving the reference of last valid element to the temp 
+//         Node* temp = tail->prev;
 
-        temp->next = x;
-        x->prev = temp;
-        // temp <-> x
+//         temp->next = x;
+//         x->prev = temp;
+//         // temp <-> x
 
-        x->next = tail;
-        tail->prev = x;
-        // temp <-> x <-> tail
-        size++;
-    }
+//         x->next = tail;
+//         tail->prev = x;
+//         // temp <-> x <-> tail
+//         size++;
+//     }
 
-    void addFirst(E e) {
-        Node* x = new Node(e);
-        // give the reference of first node to the temp
-        Node* temp = head->next;
-        // head <-> temp
-        temp->prev = x;
-        x->next = temp;
+//     void addFirst(E e) {
+//         Node* x = new Node(e);
+//         // give the reference of first node to the temp
+//         Node* temp = head->next;
+//         // head <-> temp
+//         temp->prev = x;
+//         x->next = temp;
 
-        head->next = x;
-        x->prev = head;
-        // head <-> x <-> temp
-        size++;
-    }
+//         head->next = x;
+//         x->prev = head;
+//         // head <-> x <-> temp
+//         size++;
+//     }
 
-    void add(int index, E element) {
-        checkPositionIndex(index);
-        if (index == size) {
-            addLast(element);
-            return;
-        }
+//     void add(int index, E element) {
+//         checkPositionIndex(index);
+//         if (index == size) {
+//             addLast(element);
+//             return;
+//         }
 
-        // find the Node corresponding to index
-        Node* p = getNode(index);
+//         // find the Node corresponding to index
+//         Node* p = getNode(index);
 
-        Node* temp = p->prev;
-        // temp <-> p
+//         Node* temp = p->prev;
+//         // temp <-> p
 
-        // new Node to be inserted
-        Node* x = new Node(element);
+//         // new Node to be inserted
+//         Node* x = new Node(element);
 
-        p->prev = x;
-        temp->next = x;
+//         p->prev = x;
+//         temp->next = x;
 
-        x->prev = temp;
-        x->next = p;
+//         x->prev = temp;
+//         x->next = p;
 
-        // temp <-> x <-> p
+//         // temp <-> x <-> p
 
-        size++;
-    }
+//         size++;
+//     }
 
-    // ***** Remove *****
+//     // ***** Remove *****
 
-    E removeFirst() {
-        if (size < 1) {
-            throw std::out_of_range("No elements to remove");
-        }
-        // the existence of virtual nodes prevents us from having to consider nullptr pointers
-        Node* x = head->next;
-        Node* temp = x->next;
-        // head <-> x <-> temp
-        head->next = temp;
-        temp->prev = head;
+//     E removeFirst() {
+//         if (size < 1) {
+//             throw std::out_of_range("No elements to remove");
+//         }
+//         // the existence of virtual nodes prevents us from having to consider nullptr pointers
+//         Node* x = head->next;
+//         Node* temp = x->next;
+//         // head <-> x <-> temp
+//         head->next = temp;
+//         temp->prev = head;
 
-        E val = x->val;
-        delete x;
-        // head <-> temp
+//         E val = x->val;
+//         delete x;
+//         // head <-> temp
 
-        size--;
-        return val;
-    }
+//         size--;
+//         return val;
+//     }
 
-    E removeLast() {
-        if (size < 1) {
-            throw std::out_of_range("No elements to remove");
-        }
-        Node* x = tail->prev;
-        Node* temp = tail->prev->prev;
-        // temp <-> x <-> tail
+//     E removeLast() {
+//         if (size < 1) {
+//             throw std::out_of_range("No elements to remove");
+//         }
+//         Node* x = tail->prev;
+//         Node* temp = tail->prev->prev;
+//         // temp <-> x <-> tail
 
-        tail->prev = temp;
-        temp->next = tail;
+//         tail->prev = temp;
+//         temp->next = tail;
 
-        E val = x->val;
-        x->prev = nullptr;
-        x->next = nullptr;
-        delete x;
-        // temp <-> tail
+//         E val = x->val;
+//         x->prev = nullptr;
+//         x->next = nullptr;
+//         delete x;
+//         // temp <-> tail
 
-        size--;
-        return val;
-    }
+//         size--;
+//         return val;
+//     }
 
-    E remove(int index) {
-        checkElementIndex(index);
-        // find the Node corresponding to index
-        Node* x = getNode(index);
-        Node* prev = x->prev;
-        Node* next = x->next;
-        // prev <-> x <-> next
-        prev->next = next;
-        next->prev = prev;
+//     E remove(int index) {
+//         checkElementIndex(index);
+//         // find the Node corresponding to index
+//         Node* x = getNode(index);
+//         Node* prev = x->prev;
+//         Node* next = x->next;
+//         // prev <-> x <-> next
+//         prev->next = next;
+//         next->prev = prev;
 
-        E val = x->val;
-        x->prev = nullptr;
-        x->next = nullptr;
-        delete x;
-        // prev <-> next
+//         E val = x->val;
+//         x->prev = nullptr;
+//         x->next = nullptr;
+//         delete x;
+//         // prev <-> next
 
-        size--;
-        return val;
-    }
+//         size--;
+//         return val;
+//     }
 
-    // ***** Get *****
+//     // ***** Get *****
 
-    E get(int index) {
-        checkElementIndex(index);
-        // find the Node corresponding to index
-        Node* p = getNode(index);
+//     E get(int index) {
+//         checkElementIndex(index);
+//         // find the Node corresponding to index
+//         Node* p = getNode(index);
 
-        return p->val;
-    }
+//         return p->val;
+//     }
 
-    E getFirst() {
-        if (size < 1) {
-            throw std::out_of_range("No elements in the list");
-        }
+//     E getFirst() {
+//         if (size < 1) {
+//             throw std::out_of_range("No elements in the list");
+//         }
 
-        return head->next->val;
-    }
+//         return head->next->val;
+//     }
 
-    E getLast() {
-        if (size < 1) {
-            throw std::out_of_range("No elements in the list");
-        }
+//     E getLast() {
+//         if (size < 1) {
+//             throw std::out_of_range("No elements in the list");
+//         }
    
-        return tail->prev->val;
-    }
+//         return tail->prev->val;
+//     }
 
-    // ***** Set *****
+//     // ***** Set *****
 
-    E set(int index, E val) {
-        checkElementIndex(index);
-        // find the Node corresponding to index
-        Node* p = getNode(index);
+//     E set(int index, E val) {
+//         checkElementIndex(index);
+//         // find the Node corresponding to index
+//         Node* p = getNode(index);
 
-        E oldVal = p->val;
-        p->val = val;
+//         E oldVal = p->val;
+//         p->val = val;
 
-        return oldVal;
-    }
+//         return oldVal;
+//     }
 
-    // ***** Other utility functions *****
+//     // ***** Other utility functions *****
 
-    int getSize() const {
-        return size;
-    }
+//     int getSize() const {
+//         return size;
+//     }
 
-    bool isEmpty() const {
-        return size == 0;
-    }
+//     bool isEmpty() const {
+//         return size == 0;
+//     }
 
-    void display() {
-        std::cout << "size = " << size << std::endl;
-        for (Node* p = head->next; p != tail; p = p->next) {
-            std::cout << p->val << " <-> ";
-        }
-        std::cout << "nullptr" << std::endl;
-        std::cout << std::endl;
-    }
+//     void display() {
+//         std::cout << "size = " << size << std::endl;
+//         for (Node* p = head->next; p != tail; p = p->next) {
+//             std::cout << p->val << " <-> ";
+//         }
+//         std::cout << "nullptr" << std::endl;
+//         std::cout << std::endl;
+//     }
 
-private:
-    Node* getNode(int index) {
-        checkElementIndex(index);
-        // give the reference to the first valid node 
-        Node* p = head->next;
-        // TODO: Can be optimized by deciding whether to
-        // traverse from head or tail based on index
-        for (int i = 0; i < index; i++) {
-            p = p->next;
-        }
-        return p;
-    }
+// private:
+//     Node* getNode(int index) {
+//         checkElementIndex(index);
+//         // give the reference to the first valid node 
+//         Node* p = head->next;
+//         // TODO: Can be optimized by deciding whether to
+//         // traverse from head or tail based on index
+//         for (int i = 0; i < index; i++) {
+//             p = p->next;
+//         }
+//         return p;
+//     }
 
-    bool isElementIndex(int index) const {
-        return index >= 0 && index < size;
-    }
+//     bool isElementIndex(int index) const {
+//         return index >= 0 && index < size;
+//     }
 
-    bool isPositionIndex(int index) const {
-        return index >= 0 && index <= size;
-    }
+//     bool isPositionIndex(int index) const {
+//         return index >= 0 && index <= size;
+//     }
 
-    // Check if the index position can contain an element
-    void checkElementIndex(int index) const {
-        if (!isElementIndex(index))
-            throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
-    }
+//     // Check if the index position can contain an element
+//     void checkElementIndex(int index) const {
+//         if (!isElementIndex(index))
+//             throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+//     }
 
-    // Check if the index position can add an element
-    void checkPositionIndex(int index) const {
-        if (!isPositionIndex(index))
-            throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
-    }
-};
+//     // Check if the index position can add an element
+//     void checkPositionIndex(int index) const {
+//         if (!isPositionIndex(index))
+//             throw std::out_of_range("Index: " + std::to_string(index) + ", Size: " + std::to_string(size));
+//     }
+// };
 
-int main() {
-    MyLinkedList<int> list;
-    list.addLast(1);
-    list.addLast(2);
-    list.addLast(3);
-    list.addFirst(0);
-    list.add(2, 100);
+// int main() {
+//     MyLinkedList<int> list;
+//     list.addLast(1);
+//     list.addLast(2);
+//     list.addLast(3);
+//     list.addFirst(0);
+//     list.add(2, 100);
 
-    list.display();
-    // size = 5
-    // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
+//     list.display();
+//     // size = 5
+//     // 0 <-> 1 <-> 100 <-> 2 <-> 3 <-> null
 
-    return 0;
-}
+//     return 0;
+// }
 
 //    Singly Linked LIst Code implementation 
 
@@ -1293,6 +1293,267 @@ int main() {
 
 //     return 0;
 // }
+
+
+//                Queue/Stack Basics ....    
+//                      Queue 
+
+// Basic API of the queue
+// template <typename E>
+// class MyQueue {
+// public:
+//     // Insert an element at the end of the queue, time complexity O(1)
+//     void push(const E& e);
+
+//     // Remove an element from the front of the queue, time complexity O(1)
+//     E pop();
+
+//     // View the element at the front of the queue, time complexity O(1)
+//     E peek() const;
+
+//     // Return the number of elements in the queue, time complexity O(1)
+//     int size() const;
+// };
+
+// // Basic API of the stack
+// template <typename E>
+// class MyStack {
+// public:
+//     // Insert an element at the top of the stack, time complexity O(1)
+//     void push(const E& e);
+
+//     // Remove an element from the top of the stack, time complexity O(1)
+//     E pop();
+
+//     // View the element at the top of the stack, time complexity O(1)
+//     E peek() const;
+
+//     // Return the number of elements in the stack, time complexity O(1)
+//     int size() const;
+// };
+
+
+//                   Stack 
+
+// Basic API of the queue
+// template <typename E>
+// class MyQueue {
+// public:
+//     // Insert an element at the end of the queue, time complexity O(1)
+//     void push(const E& e);
+
+//     // Remove an element from the front of the queue, time complexity O(1)
+//     E pop();
+
+//     // View the element at the front of the queue, time complexity O(1)
+//     E peek() const;
+
+//     // Return the number of elements in the queue, time complexity O(1)
+//     int size() const;
+// };
+
+// // Basic API of the stack
+// template <typename E>
+// class MyStack {
+// public:
+//     // Insert an element at the top of the stack, time complexity O(1)
+//     void push(const E& e);
+
+//     // Remove an element from the top of the stack, time complexity O(1)
+//     E pop();
+
+//     // View the element at the top of the stack, time complexity O(1)
+//     E peek() const;
+
+//     // Return the number of elements in the stack, time complexity O(1)
+//     int size() const;
+// };
+
+//           1). Implementation of Stack using linked list 
+
+
+// Function	Changes object?	Should be const?
+// push	✅ Yes	❌ No
+// pop	✅ Yes	❌ No
+// peek	❌ No	✅ Yes
+// size	❌ No	✅ Yes
+
+// #include <list>
+// #include<iostream> 
+// #include<bits/stdc++.h>
+
+// template<typename E>
+// class Mylinkedstack {
+// private:
+// // 🔐 private means:
+// // Only member functions of the class can directly access list.
+// // Code outside the class cannot access or modify list directly.
+//    list<E>list;
+// public:
+// // const: Prevents push() from modifying e. Ensures safety.
+// // & (reference): Avoids copying large objects (like big strings or structures), improving performance.
+//    void push(const E &e){
+//      list.push_back(e);    // push front
+//    }
+//    E pop() {
+//       E val = list.back();
+//       list.pop_back();    // pop front 
+//       return val;
+//    }
+//    E peek() const {
+//        return list.back();   // list.front 
+//    }
+//    int size() const {
+//        return list.size();
+//    };
+
+// };
+
+// // T.c for all is O(1) for all operations 
+
+// int main(){
+// Mylinkedstack<int> stack;
+//        stack.push(1);
+//        stack.push(2);
+//        stack.pop();
+//        while(stack.size() > 0){
+//         // if can not pop run for infinite times 
+//         cout << stack.pop() << endl;
+//        }
+//        cout << stack.size();
+//        return 0;
+
+// }
+
+//             2).   Implementation of Queue with linked list
+//Templates in C++ provide generic programming, allowing you to write 
+// flexible, reusable, and type-safe code. Here are the key benefits:
+
+// #include<iostream> 
+// #include<list>
+// #include<bits/stdc++.h>
+// template<typename E>
+// class MylinkedQueue{
+// private:
+//   list<int> list;
+
+// public:
+//   void push(const E&e){
+//     list.push_back(e);
+//   }
+//   int pop(){
+//     int front = list.front();
+//     list.pop_front();
+//     return front;
+//   }
+//   int peek(){
+//     //  front of list
+//     return list.front();
+//   }
+//   int size(){
+//     return list.size();
+//   }
+// };
+
+// //   queue.pop is void in c++;   
+
+// int main(){
+//     MylinkedQueue<int> queue;
+//     queue.push(1);
+//     queue.push(244);
+//     queue.push(34);
+//     queue.pop();
+//     queue.pop();
+
+//     while(queue.size() > 0){
+//         // give me the element and popping it out 
+//       cout << queue.peek() << endl;
+//       queue.pop();
+//     }
+// }
+
+// the earlier section 
+
+//          3). Implement of stack with an array 
+// #include <vector>
+// #include<bits/stdc++.h>
+// template<typename E>
+// class ArrayStack{
+// private:
+//   list<int> list;
+// public:
+//   void push(const E&e){
+//        list.push_back(e);
+//   }
+//   int pop(){
+//        int topelement = list.back();
+//        list.pop_back();
+//        return topelement;
+//   }
+//   int peek(){
+//        return list.front();
+//   }
+//   int size(){
+//        return list.size();
+//   }
+// };
+
+// int main(){
+//     vector<int> arr;
+//     arr.push_back(5);
+//     arr.push_back(6);
+//     arr.push_back(7);
+
+//     arr.pop_back();
+//     while(arr.size() > 0){
+//      cout << arr.back() << endl;
+//      arr.pop_back();
+//     }
+// }
+// Circular Array Technique. This data structure allows adding and removing elements at the head with a time complexity of 
+// O(1)
+// O(1),
+//         4). Implement of queue with array 
+
+// #include<iostream>
+// #include<bits/stdc++.h>
+
+// template<typename E>
+// class MylinkedQueue{
+// private:
+//     list<int> list;
+// public:
+//     void push(const E&e){
+//         list.push_back(e);
+//     }
+//     int pop(){
+//      int topelement = list.front();
+//      list.pop_front();
+//      return topelement;
+//     }
+//     int peek(){
+//      return list.front();
+//     }
+//     int size(){
+//      return list.size();
+//     }
+// };   
+
+// int main(){
+//    MylinkedQueue<int> arr;
+//    arr.push(1);
+//    arr.push(2);
+//    arr.push(3);
+//    arr.pop();
+//    arr.pop();
+
+//    while(arr.size() > 0){
+//     cout << arr.peek() << endl;
+//     arr.pop();
+//    }
+// }
+
+//          
 
 
 
