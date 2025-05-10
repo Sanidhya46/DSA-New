@@ -653,132 +653,143 @@ using namespace std;
 
 //             Principle of Cicular array technique 
 
-// #include <iostream>
-// #include <stdexcept>
-// #include <ostream>
+#include <iostream>
+#include <stdexcept>
+#include <ostream>
 
-// template<typename T>
-// class CycleArray {
-//     std::unique_ptr<T[]> arr;
-//     int start;  // first position where reading begins 
-//     int end;    // next position after the last valid element 
-//     int count;     // How many valid elements are currently in the buffer
-//     int size;     //  Total capacity of the buffer
+template<typename T>
+class CycleArray {
+    std::unique_ptr<T[]> arr;
+    int start;  // first position where reading begins 
+    int end;    // next position after the last valid element 
+    int count;     // How many valid elements are currently in the buffer
+    int size;     //  Total capacity of the buffer
 
-//  //   Closed Interval - (Real valid element)
-//  //   Open Interval - (Next to the real valid element)
-// // close interval have value open interval have not value 
+ //   Closed Interval - (Real valid element)
+ //   Open Interval - (Next to the real valid element)
+// close interval have value open interval have not value 
 
-// //*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
+//*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
 
-// void resize(int newSize) {
-//     // create a new array
-//     std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
-//     // copy elements from the old array to the new array
-//     for (int i = 0; i < count; ++i) {
-//         newArr[i] = arr[(start + i) % size];
-//     }
-//     arr = std::move(newArr);
-//     // reset the start and end pointers
-//     start = 0;
-//     end = count;
-//     size = newSize;
-// }
+void resize(int newSize) {
+    // create a new array
+    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
+    // copy elements from the old array to the new array
+    for (int i = 0; i < count; ++i) {
+        newArr[i] = arr[(start + i) % size];
+    }
+    arr = std::move(newArr);
+    // reset the start and end pointers
+    start = 0;
+    end = count;
+    size = newSize;
+}
+//  1). add [start, end)
+//  2). start points to first valid element and end points to next position of last valid element 
+//  3). insert at start - move left first then insert
+//  4). delete at start - delete first then move right 
+//  5). insert at end - insert first then move right 
+//  6). delete at end - move left first then delete 
 
-// public:
-//     CycleArray() : CycleArray(1) {
-//     }
+public:
+    CycleArray() : CycleArray(1) {
+    }
 
-//     explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
-//         arr = std::make_unique<T[]>(size);
-//     }
+    explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
+        arr = std::make_unique<T[]>(size);
+    }
 
-//     // add an element to the front of the array, time complexity O(1)
-//     void addFirst(const T &val) {
-//         // if the array is full, double its size
-//         if (isFull()) {
-//             resize(size * 2);
-//         }
-//         // since start is a closed interval, move left first, then assign
-//         // I am coming one space backward and wraps the number back to the begining 
-//         start = (start - 1 + size) % size;
-//         arr[start] = val;
-//         count++;
-//     }
+    // add an element to the front of the array, time complexity O(1)
+    void addFirst(const T &val) {
+        // if the array is full, double its size
+        if (isFull()) {
+            resize(size * 2);
+        }
+        // since start is a closed interval, move left first, then assign
+        // I am coming one space backward and wraps the number back to the begining 
+        start = (start - 1 + size) % size;
+        arr[start] = val;
+        count++;
+    }
 
-//     // remove an element from the front of the array, time complexity O(1)
-//     void removeFirst() {
-//         if (isEmpty()) {
-//             throw std::runtime_error("Array is empty");
-//         }
-//         // since start is a closed interval, assign first, then move right
-//         arr[start] = T();  
-//         // after removing the element the next item becames the new front 
-//         start = (start + 1) % size;
-//         count--; 
-//                // if the number of elements in the array decreases to
-//         // a quarter of the original size, halve the size of the
-//         if (count > 0 && count == size / 4) {
-//             resize(size / 2);
-//         }
-//     }
-
-//     // add an element to the end of the array, time complexity O(1)
-//     void addLast(const T &val) {
-//         if (isFull()) {
-//             resize(size * 2);
-//         }
-//         // since end is an open interval, assign first, then move right
-//         arr[end] = val;
-//         // poiny end to the next position and wraps the number for circular array 
-//         end = (end + 1) % size;
-//         count++;
-//     }
-
-//     // remove an element from the end of the array, time complexity O(1)
-//     void removeLast() {
-//         if (isEmpty()) {
-//             throw std::runtime_error("Array is empty");
-//         }
-//         // since end is an open interval, move left first, then assign
-//         end = (end - 1 + size) % size;
-//         arr[end] = T();
-//         count--;
-//         // reduce the size
-//         if (count > 0 && count == size / 4) {
-//             resize(size / 2);
-//         }
-//     }
-
-//     // get the first element of the array, time complexity O(1)
-//     T getFirst() const {
-//         if (isEmpty()) {
-//             throw std::runtime_error("Array is empty");
-//         }
-//         return arr[start];
-//     }
+   void removeFirst() {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // since start is a closed interval, assign first, then move right
+        arr[start] = T();  
+        // after removing the element the next item becames the new front 
+        start = (start + 1) % size;
+        count--; 
+               // if the number of elements in the array decreases to
+        // a quarter of the original size, halve the size of the
+        if (count > 0 && count == size / 4) {
+            resize(size / 2);
+        }
+    } // remove an element from the front of the array, time complexity O(1)
     
-//     // get the last element of the array, time complexity O(1)
-//     T getLast() const {
-//         if (isEmpty()) {
-//             throw std::runtime_error("Array is empty");
-//         }
-//         // end is an open interval, pointing to the next element's position, so subtract 1
-//         return arr[(end - 1 + size) % size];
-//     }
 
-//     bool isFull() const {
-//         return count == size;
-//     }
+    // add an element to the end of the array, time complexity O(1)
+    void addLast(const T &val) {
+        if (isFull()) {
+            resize(size * 2);
+        }
+        // since end is an open interval, assign first, then move right
+        arr[end] = val;
+        // poiny end to the next position and wraps the number for circular array 
+        end = (end + 1) % size;
+        count++;
+    }
 
-//     int getSize() const {
-//         return count;
-//     }
+    // remove an element from the end of the array, time complexity O(1)
+    void removeLast() {
 
-//     bool isEmpty() const {
-//         return count == 0;
-//     }
-// };
+//    1). check empty
+//    2). move left first then assign 
+//    3). reduce the size
+
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // since end is an open interval, move left first, then assign
+        end = (end - 1 + size) % size;
+        arr[end] = T();
+        count--;
+        // reduce the size
+        if (count > 0 && count == size / 4) {
+            resize(size / 2);
+        }
+    }
+
+    // get the first element of the array, time complexity O(1)
+    T getFirst() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        return arr[start];
+    }
+    
+    // get the last element of the array, time complexity O(1)
+    T getLast() const {
+        if (isEmpty()) {
+            throw std::runtime_error("Array is empty");
+        }
+        // end is an open interval, pointing to the next element's position, so subtract 1
+        return arr[(end - 1 + size) % size];
+    }
+
+    bool isFull() const {
+        return count == size;
+    }
+
+    int getSize() const {
+        return count;
+    }
+
+    bool isEmpty() const {
+        return count == 0;
+    }
+};
 // // circular can delete the element in the array in O(1) complexity 
 // // 
 
@@ -1521,24 +1532,27 @@ using namespace std;
 // template<typename E>
 // class MylinkedQueue{
 // private:
-//     list<int> list;
+//     CycleArray<E> arr;
 // public:
+//
+// it is constructor of mYArray Queue where i create an object of MyArrayQueue 
+// MyArrayQueue(){
+//  arr = CycleArray<E>;
+// }
 //     void push(const E&e){
-//         list.push_back(e);
+//         arr.addlast(e)
 //     }
 //     int pop(){
-//      int topelement = list.front();
-//      list.pop_front();
-//      return topelement;
+//         return arr.removefirst();
 //     }
 //     int peek(){
-//      return list.front();
+//      return arr.getfirst();
 //     }
 //     int size(){
-//      return list.size();
+//      return arr.size();
 //     }
 // };   
-
+//             IN Queue remove element at front 
 // int main(){
 //    MylinkedQueue<int> arr;
 //    arr.push(1);
@@ -1552,10 +1566,170 @@ using namespace std;
 //     arr.pop();
 //    }
 // }
+//        Implementing a Deque with LInked list 
 
-//          
+// template<typename E>
+// class MyDeque {
+//     list<E> list;
+// public:
+//    void addFirst(const E&e){
+//      list.push_front(e);
+//    }
+//    void addlast(const E&e){
+//     list.push_back(e);
+//    }
+//    E removefirst(){
+//     list.pop_front();
+//     E frontElement = list.front();
+//     return frontElement;
+//    }
+//    E removelast(){
+//     // return last element after popping out
+//     E lastElement = list.back();
+//     list.pop_back();
+//     return lastElement;
+//    }
+//    E peek(){
+//     return list.front();
+//    }
+//    E size(){
+//     return list.size();
+//    }
+// };
+
+// int main(){
+//     MyDeque<int> deque;
+//     deque.addFirst(5);
+//     deque.addFirst(7);
+//     deque.addlast(9);
+//     deque.removefirst();
+//     deque.removelast();
+//     deque.addFirst(66);
+//     deque.removelast();
+//     while(deque.size() > 0){
+//         cout << deque.peek() << endl;
+//         deque.removelast();
+//     }  
+// }
+
+//       Implementing a Deque with an Array 
+
+// #include<iostream>
+// using namespace std;
+// #include<bits/stdc++.h>
+
+// template<typename E>
+// class Deque {
+// public:
+// // It tells users of the class that what operations are available for that class
+// // Allows other parts of the code to rely on the interface,
+//    void addFirst( const E &e);
+//    void removeFirst();
+//    void addLast();
+//    void removeLast();
+//    void peekFirst();
+//    void peekLast();
+
+   
+// };
+// template<typename E>
+// class MyArrayQueue{
+
+// private:
+//    CycleArray<E> arr;
+// public:
+//    void addFirst(const E &e){
+//        arr.addFirst(e);
+//    }
+//    E removeFirst(){
+//        arr.removeFirst();
+//    }
+//    E addLast(E e){
+//       arr.addLast(e);
+//    }
+//    E removeLast(){
+//       arr.removeLast();
+//    }
+//    E peekFirst(){
+//       return arr.getFirst();
+//    }
+//    E peekLast(){
+//     return arr.getLast();
+//  }
+//    E size(){
+//       return arr.getSize();
+//    }
+// };
+
+// int main(){
+//     // i am creating deque from class Deque for using thier properties  
+//     MyArrayQueue<int> deque;
+//     deque.addFirst(4);
+//     deque.addLast(6);
+//     deque.addFirst(8);
+//     deque.removeLast();
+//     deque.addLast(6);
+//     deque.addFirst(77);
+//     while(deque.size() > 0){
+//         cout << deque.peekFirst() << endl;
+//         deque.removeFirst();
+//     }
+// }
+
+//                 Implementation of HashMap
+//
+// 1). key of hash converts to index and insertion updation are made on this
+// 2). index of table stores value
+
+// search - key of hash is index of table O(1)
+// insert update - key of hash is index of table update hash O(1))
+// delete - key of hash is index of table mark index of table to nullptr
+
+// Note 1 - In a hash table, key is unique and value can be duplicated  
+// NOte 2 - Not always t.c is O(1 for hash table) it depends on how you implement like treemap uses binary tree structure complexity of O(logN)
+// NOte 3 - see the hash key diagram 
+
+// when two hash key belongs to same index is called collisions 
+
+// Caching / Memoization
+// Lookup Tables / Dictionaries
+// Counting Frequencies
+// Storing Adjacency Lists in Graphs
 
 
+#include<bits/stdc++.h>
+template<typename E>
+class HashMap{
+private:
+    vector<void*> table;
+public:
+    void put(auto key, E val){
+        int index = hash(key);
+        table[index] = val;
+    }
+    void remove(E key){
+        int index = hash(key);
+        table[index] = nullptr;
+    }
+    auto get(E key){
+        int index = hash(key);
+        return table[index];
+    }
+    E size(){   
+        return table.size();
+    }
+};
 
+int main(){
+    HashMap<int> HashMap;
+    HashMap.put(0 , 1);
+    HashMap.remove(0);
+    HashMap.put(2,5);
+    
+    cout << HashMap.get(2);
 
+    
+}
 
+// 1). The purpose of a hash function is to convert inputs of arbitrary length (key) into fixed-length outputs (indices)
+// 
