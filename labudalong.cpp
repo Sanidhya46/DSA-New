@@ -653,143 +653,143 @@ using namespace std;
 
 //             Principle of Cicular array technique 
 
-#include <iostream>
-#include <stdexcept>
-#include <ostream>
+// #include <iostream>
+// #include <stdexcept>
+// #include <ostream>
 
-template<typename T>
-class CycleArray {
-    std::unique_ptr<T[]> arr;
-    int start;  // first position where reading begins 
-    int end;    // next position after the last valid element 
-    int count;     // How many valid elements are currently in the buffer
-    int size;     //  Total capacity of the buffer
+// template<typename T>
+// class CycleArray {
+//     std::unique_ptr<T[]> arr;
+//     int start;  // first position where reading begins 
+//     int end;    // next position after the last valid element 
+//     int count;     // How many valid elements are currently in the buffer
+//     int size;     //  Total capacity of the buffer
 
- //   Closed Interval - (Real valid element)
- //   Open Interval - (Next to the real valid element)
-// close interval have value open interval have not value 
+//  //   Closed Interval - (Real valid element)
+//  //   Open Interval - (Next to the real valid element)
+// // close interval have value open interval have not value 
 
-//*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
+// //*** */ A delegating constructor is used when you want one constructor to call another constructor in the same class to avoid repeating initialization code.
 
-void resize(int newSize) {
-    // create a new array
-    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
-    // copy elements from the old array to the new array
-    for (int i = 0; i < count; ++i) {
-        newArr[i] = arr[(start + i) % size];
-    }
-    arr = std::move(newArr);
-    // reset the start and end pointers
-    start = 0;
-    end = count;
-    size = newSize;
-}
-//  1). add [start, end)
-//  2). start points to first valid element and end points to next position of last valid element 
-//  3). insert at start - move left first then insert
-//  4). delete at start - delete first then move right 
-//  5). insert at end - insert first then move right 
-//  6). delete at end - move left first then delete 
+// void resize(int newSize) {
+//     // create a new array
+//     std::unique_ptr<T[]> newArr = std::make_unique<T[]>(newSize);
+//     // copy elements from the old array to the new array
+//     for (int i = 0; i < count; ++i) {
+//         newArr[i] = arr[(start + i) % size];
+//     }
+//     arr = std::move(newArr);
+//     // reset the start and end pointers
+//     start = 0;
+//     end = count;
+//     size = newSize;
+// }
+// //  1). add [start, end)
+// //  2). start points to first valid element and end points to next position of last valid element 
+// //  3). insert at start - move left first then insert
+// //  4). delete at start - delete first then move right 
+// //  5). insert at end - insert first then move right 
+// //  6). delete at end - move left first then delete 
 
-public:
-    CycleArray() : CycleArray(1) {
-    }
+// public:
+//     CycleArray() : CycleArray(1) {
+//     }
 
-    explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
-        arr = std::make_unique<T[]>(size);
-    }
+//     explicit CycleArray(int size) : start(0), end(0), count(0), size(size) {
+//         arr = std::make_unique<T[]>(size);
+//     }
 
-    // add an element to the front of the array, time complexity O(1)
-    void addFirst(const T &val) {
-        // if the array is full, double its size
-        if (isFull()) {
-            resize(size * 2);
-        }
-        // since start is a closed interval, move left first, then assign
-        // I am coming one space backward and wraps the number back to the begining 
-        start = (start - 1 + size) % size;
-        arr[start] = val;
-        count++;
-    }
+//     // add an element to the front of the array, time complexity O(1)
+//     void addFirst(const T &val) {
+//         // if the array is full, double its size
+//         if (isFull()) {
+//             resize(size * 2);
+//         }
+//         // since start is a closed interval, move left first, then assign
+//         // I am coming one space backward and wraps the number back to the begining 
+//         start = (start - 1 + size) % size;
+//         arr[start] = val;
+//         count++;
+//     }
 
-   void removeFirst() {
-        if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
-        }
-        // since start is a closed interval, assign first, then move right
-        arr[start] = T();  
-        // after removing the element the next item becames the new front 
-        start = (start + 1) % size;
-        count--; 
-               // if the number of elements in the array decreases to
-        // a quarter of the original size, halve the size of the
-        if (count > 0 && count == size / 4) {
-            resize(size / 2);
-        }
-    } // remove an element from the front of the array, time complexity O(1)
+//    void removeFirst() {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // since start is a closed interval, assign first, then move right
+//         arr[start] = T();  
+//         // after removing the element the next item becames the new front 
+//         start = (start + 1) % size;
+//         count--; 
+//                // if the number of elements in the array decreases to
+//         // a quarter of the original size, halve the size of the
+//         if (count > 0 && count == size / 4) {
+//             resize(size / 2);
+//         }
+//     } // remove an element from the front of the array, time complexity O(1)
     
 
-    // add an element to the end of the array, time complexity O(1)
-    void addLast(const T &val) {
-        if (isFull()) {
-            resize(size * 2);
-        }
-        // since end is an open interval, assign first, then move right
-        arr[end] = val;
-        // poiny end to the next position and wraps the number for circular array 
-        end = (end + 1) % size;
-        count++;
-    }
+//     // add an element to the end of the array, time complexity O(1)
+//     void addLast(const T &val) {
+//         if (isFull()) {
+//             resize(size * 2);
+//         }
+//         // since end is an open interval, assign first, then move right
+//         arr[end] = val;
+//         // poiny end to the next position and wraps the number for circular array 
+//         end = (end + 1) % size;
+//         count++;
+//     }
 
-    // remove an element from the end of the array, time complexity O(1)
-    void removeLast() {
+//     // remove an element from the end of the array, time complexity O(1)
+//     void removeLast() {
 
-//    1). check empty
-//    2). move left first then assign 
-//    3). reduce the size
+// //    1). check empty
+// //    2). move left first then assign 
+// //    3). reduce the size
 
-        if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
-        }
-        // since end is an open interval, move left first, then assign
-        end = (end - 1 + size) % size;
-        arr[end] = T();
-        count--;
-        // reduce the size
-        if (count > 0 && count == size / 4) {
-            resize(size / 2);
-        }
-    }
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // since end is an open interval, move left first, then assign
+//         end = (end - 1 + size) % size;
+//         arr[end] = T();
+//         count--;
+//         // reduce the size
+//         if (count > 0 && count == size / 4) {
+//             resize(size / 2);
+//         }
+//     }
 
-    // get the first element of the array, time complexity O(1)
-    T getFirst() const {
-        if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
-        }
-        return arr[start];
-    }
+//     // get the first element of the array, time complexity O(1)
+//     T getFirst() const {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         return arr[start];
+//     }
     
-    // get the last element of the array, time complexity O(1)
-    T getLast() const {
-        if (isEmpty()) {
-            throw std::runtime_error("Array is empty");
-        }
-        // end is an open interval, pointing to the next element's position, so subtract 1
-        return arr[(end - 1 + size) % size];
-    }
+//     // get the last element of the array, time complexity O(1)
+//     T getLast() const {
+//         if (isEmpty()) {
+//             throw std::runtime_error("Array is empty");
+//         }
+//         // end is an open interval, pointing to the next element's position, so subtract 1
+//         return arr[(end - 1 + size) % size];
+//     }
 
-    bool isFull() const {
-        return count == size;
-    }
+//     bool isFull() const {
+//         return count == size;
+//     }
 
-    int getSize() const {
-        return count;
-    }
+//     int getSize() const {
+//         return count;
+//     }
 
-    bool isEmpty() const {
-        return count == 0;
-    }
-};
+//     bool isEmpty() const {
+//         return count == 0;
+//     }
+// };
 // // circular can delete the element in the array in O(1) complexity 
 // // 
 
@@ -1697,39 +1697,206 @@ public:
 // Storing Adjacency Lists in Graphs
 
 
-#include<bits/stdc++.h>
-template<typename E>
-class HashMap{
-private:
-    vector<void*> table;
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// template<typename K, typename V>
+// class HashMap {
+// private:
+//     static const int TABLE_SIZE = 1000;  // or pass as constructor param
+//     vector<optional<V>> table;
+
+//     int hash(K key) {    //  // returns a hashed integer value of `key`
+//         return std::hash<K>()(key) % TABLE_SIZE;   //  // hashes the string to a number
+//     }
+
+// public:
+//     HashMap() {
+//         table.resize(TABLE_SIZE);
+//     }
+
+//     void put(K key, V value) {
+//         int index = hash(key);
+//         table[index] = value;
+//     }
+
+//     void remove(K key) {
+//         int index = hash(key);
+//         table[index] = nullopt;
+//     }
+
+//     optional<V> get(K key) {
+//         int index = hash(key);
+//         return table[index];
+//     }
+
+//     int size() const {
+//         return table.size();
+//     }
+// };
+
+// The hashCode method returns an int type, but the issue here is that this int value may be negative, whereas array indices are non-negative integers.
+//                 Hash Function 
+// 1). The purpose of a hash function is to convert inputs of arbitrary length (key) into fixed-length outputs (indices)
+// 2). In a hash table, there cannot be two identical keys, but values can be repeated.
+
+// 3). Hash collisions are inevitable because the hash function essentially maps an infinite space to a finite index space, so different keys are bound to map to the same index.
+
+//                Hash Collisions 
+// 1). A poorly designed hash function results in uneven distribution of key hash values, causing many keys to map to the same index.
+// 2). The hash table is too full, making collisions inevitable even with a perfect hash function.
+
+//                  Load Factor 
+// 1).  The load factor measures how full a hash table is. Generally, a higher load factor indicates more key-value pairs in the hash table, increasing the likelihood of hash collisions and degrading hash table performance.
+// 2). The formula for the load factor is straightforward: size / table.length,  size is key-value pairs 
+// 3). chaining have infinitely large load factor because of linked list where as linear probing have less than 1 .. in java empirical value is 0.75
+// 4). When the number of elements in a hash table reaches the load factor, the hash table expands.
+// 5). Analyzing only from the principle of hash tables, adding or deleting keys in a for loop can easily cause problems due to the same reason mentioned above—hash value changes caused by resizing.
+
+// 6). f you add or delete elements while traversing, and if an insert/delete operation triggers a resize halfway through, the entire table array changes.
+
+
+// class TreeNode {
+//     public:
+//         int val;
+//         TreeNode* left;
+//         TreeNode* right;
+//         TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//     };
+    
+//     // You can construct a binary tree like this:
+//     TreeNode* root = new TreeNode(1);
+//     root->left = new TreeNode(2);
+//     root->right = new TreeNode(3);
+//     root->left->left = new TreeNode(4);
+//     root->right->left = new TreeNode(5);
+//     root->right->right = new TreeNode(6);
+    
+//     // The constructed binary tree is like this:
+//     //     1
+//     //    / \
+//     //   2   3
+//     //  /   / \
+//     // 4   5   6
+
+//       2).  Binary Tree   Recursive level traversal
+
+// Binary trees have only recursive traversal and level-order traversal, nothing else. Recursive traversal can derive DFS algorithms, and level-order traversal can derive BFS algorithms.
+// 1). dfs -- recursive traversal   bfs -- level order traversal
+// 2). The order of recursive traversal of binary tree nodes is fixed, but there are three key positions where inserting code at different positions will produce different effects.
+// 3). The order of level-order traversal of binary tree nodes is also fixed, but there are three different ways of writing it, corresponding to different scenarios.
+
+//                   Recursive Node 
+// by default c++ is private 
+
+// class Treenode{
+// public:
+//     int val;  // pointer to an object 
+//     Treenode* left;
+//     Treenode* right;
+//     Treenode(int x) : val(x), left(nullptr), right(nullptr)  {}  // Anything else you want to run when the object is created
+     
+//     void traverse(Treenode* root){
+//         if(root == nullptr){
+//             return;
+//         }
+//         // traverse the left
+//         // show me where the root points or by root by this i can access the current node 
+//         cout << root->val << endl;
+//         traverse(root->left);
+//         // traverse the right 
+//         traverse(root->right);
+//     }
+// };
+
+// int main(){
+ 
+//      Treenode* root = new Treenode(1);
+//      root->left = new Treenode(2);
+//      root->right = new Treenode(3);
+//      root->left->left = new Treenode(5);
+//      root->left->right = new Treenode(6);
+
+//      // call traversal 
+//      root->traverse(root);
+//      return 0;
+// }
+//               LInear order traversal 
+// #include <bits/stdc++.h>
+// using namespace std;
+// class Treenode{
+// public:
+//     int val; 
+//     // pointe must be of class type 
+//     Treenode* left;
+//     Treenode* right;
+    
+//     Treenode(int x): val(x), left(nullptr) , right(nullptr) {};
+// };
+// void levelOrderTraversal(Treenode* root){
+//     if(root == nullptr){
+//         return;
+//     }
+//     queue <Treenode*> q;
+//     q.push(root);
+//     if(!q.empty()){
+//      Treenode* cur = q.front();
+//      q.pop();
+    
+//      cout << cur->val << endl;
+
+//      if(cur->left != nullptr){
+//         q.push(cur->left);
+//      }
+//      if(cur->right != nullptr){
+//         q.push(cur->right);
+//      }
+//     }
+// }
+
+
+//         LInear order traversal  (by using for loop in queue size)
+
+#include <bits/stdc++.h>
+using namespace std;
+class Treenode{
 public:
-    void put(auto key, E val){
-        int index = hash(key);
-        table[index] = val;
-    }
-    void remove(E key){
-        int index = hash(key);
-        table[index] = nullptr;
-    }
-    auto get(E key){
-        int index = hash(key);
-        return table[index];
-    }
-    E size(){   
-        return table.size();
-    }
+    int val; 
+    // pointe must be of class type 
+    Treenode* left;
+    Treenode* right;
+    
+    Treenode(int x): val(x), left(nullptr) , right(nullptr) {};
 };
 
-int main(){
-    HashMap<int> HashMap;
-    HashMap.put(0 , 1);
-    HashMap.remove(0);
-    HashMap.put(2,5);
-    
-    cout << HashMap.get(2);
+void levelorderTraversal(Treenode* root){
+    if(root == nullptr){
+        return;
+    }
+    queue<Treenode*> q;
+    q.push(root);
+    int depth = 1;
+     while(!q.empty()){
+      int sz = q.size();
+      for(int i = 0; i<sz; i++){
+        Treenode* cur = q.front();
+        q.pop();
 
+        cout << "depth" << depth << "val " << cur->val;
+
+        if(cur->left != nullptr){
+             q.push(cur->left);
+        }
+        if(cur->left != nullptr){
+             q.push(cur->right);
+        }
+      }
+      depth++;
+     }
+}
+int main(){
     
 }
 
-// 1). The purpose of a hash function is to convert inputs of arbitrary length (key) into fixed-length outputs (indices)
-// 
+
+
