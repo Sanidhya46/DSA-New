@@ -116,7 +116,7 @@ using namespace std;
 //     dfs(1);
 // }
 
-//           1).  Connected components -- count of dfs run -- 
+//           1).  Connected components -- count of dfs run -- two vectors connected nodes and cuurent nodes and indentify where you put in 4 condition
 //
 //  T. C = O(n + e)
 // const int N = 1e3;
@@ -174,42 +174,71 @@ using namespace std;
 
 //            2). Detecting cycle in the dfs  -- if node is visited other than just previous visited node then cycle exists 
 
-const int N = 1e3;
-vector<int> g[N];
-bool vis[N];
-bool dfs(int vertex, int par){   // par is for to keep record where it comes 
-    // take action on the vertex after entering the vertex 
-     vis[vertex] = true;
-     bool isLoopExists = false; 
-    for(int child : g[vertex]){
-        if(vis[child] && child == par) continue;
-        if(vis[child]) return true; 
-       isLoopExists |= dfs(child , vertex);  // it checks all the vertexes if any return true return true and you do and for if all return false return false  // now vertex is parent 
+// const int N = 1e3;
+// vector<int> g[N];
+// bool vis[N];
+// bool dfs(int vertex, int par){   // par is for to keep record where it comes 
+//     // take action on the vertex after entering the vertex 
+//      vis[vertex] = true;
+//      bool isLoopExists = false; 
+//     for(int child : g[vertex]){
+//         if(vis[child] && child == par) continue;
+//         if(vis[child]) return true; 
+//        isLoopExists |= dfs(child , vertex);  // it checks all the vertexes if any return true return true and you do and for if all return false return false  // now vertex is parent 
+//     }
+//     return isLoopExists;
+// }
+
+
+// int main(){
+//     int n, e;
+//     cin >> n >> e;
+
+//     for(int i =0; i< e; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2; 
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+
+//     }
+//      bool isLoopExists = false;
+//     for(int i = 1; i <= n; i++){
+//         if(vis[i]) continue;
+//        if(dfs(i , 0)){   // is loop exists in any node 
+//         isLoopExists = true; 
+//         break; 
+//        }
+
+//     }
+//     cout << isLoopExists << endl;
+// }
+
+//                       3). Flood Fill
+// 1) Stay within image bounds and only fill in 4 directions (no diagonals).
+// 2) Only fill pixels that match the starting pixel's initial color.
+// 3) Don't fill if the initial color is the same as the new color (to avoid infinite loop or extra work).
+
+ 
+class Solution {
+    public:
+void dfs(int i, int j, int initialColor, int newColor , vector<vector<int>>& image){
+    if(i<0 || j<0 || i >= image.size() || j >= image[0].size() || image[i][j] != initialColor){
+        return;
     }
-    return isLoopExists;
+    image[i][j] = newColor;
+    dfs(i-1 , j , initialColor , newColor , image);
+    dfs(i+1 , j , initialColor , newColor , image);
+    dfs(i, j+1 , initialColor , newColor , image);
+    dfs(i , j-1 , initialColor , newColor , image);
 }
-
-
-int main(){
-    int n, e;
-    cin >> n >> e;
-
-    for(int i =0; i< e; i++){
-        int v1, v2;
-        cin >> v1 >> v2; 
-        g[v1].push_back(v2);
-        g[v2].push_back(v1);
-
+vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int initialColor = image[sr][sc];
+        if(initialColor != newColor){
+            dfs(sr, sc , initialColor , newColor , image);
+            
+        }
+        return image;    // always return the image 
     }
-     bool isLoopExists = false;
-    for(int i = 1; i <= n; i++){
-        if(vis[i]) continue;
-       if(dfs(i , 0)){   // is loop exists in any node 
-        isLoopExists = true; 
-        break; 
-       }
+};
 
-    }
-    cout << isLoopExists << endl;
-}
 
