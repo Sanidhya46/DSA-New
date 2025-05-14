@@ -1857,46 +1857,106 @@ using namespace std;
 
 //         LInear order traversal  (by using for loop in queue size)
 
-#include <bits/stdc++.h>
-using namespace std;
-class Treenode{
-public:
-    int val; 
-    // pointe must be of class type 
-    Treenode* left;
-    Treenode* right;
+// #include <bits/stdc++.h>
+// using namespace std;
+// class Treenode{
+// public:
+//     int val; 
+//     // pointe must be of class type 
+//     Treenode* left;
+//     Treenode* right;
     
-    Treenode(int x): val(x), left(nullptr) , right(nullptr) {};
-};
+//     Treenode(int x): val(x), left(nullptr) , right(nullptr) {};
+// };
 
-void levelorderTraversal(Treenode* root){
-    if(root == nullptr){
-        return;
-    }
-    queue<Treenode*> q;
-    q.push(root);
-    int depth = 1;
-     while(!q.empty()){
-      int sz = q.size();
-      for(int i = 0; i<sz; i++){
-        Treenode* cur = q.front();
-        q.pop();
+// void levelorderTraversal(Treenode* root){
+//     if(root == nullptr){
+//         return;
+//     }
+//     queue<Treenode*> q;
+//     q.push(root);
+//     int depth = 1;
+//      while(!q.empty()){
+//       int sz = q.size();
+//       for(int i = 0; i<sz; i++){
+//         Treenode* cur = q.front();
+//         q.pop();
 
-        cout << "depth" << depth << "val " << cur->val;
+//         cout << "depth" << depth << "val " << cur->val;
 
-        if(cur->left != nullptr){
-             q.push(cur->left);
-        }
-        if(cur->left != nullptr){
-             q.push(cur->right);
-        }
-      }
-      depth++;
-     }
-}
-int main(){
-    
-}
+//         if(cur->left != nullptr){
+//              q.push(cur->left);
+//         }
+//         if(cur->left != nullptr){
+//              q.push(cur->right);
+//         }
+//       }
+//       depth++;
+//      }
+// }
+
+
+//            BFS  Level order traversal -- finding depth 
+// In this way, each node has its own depth variable, which is the most flexible and meets the needs of all BFS algorithms.
+//
+// #include <iostream>
+// #include <queue>
+
+// class Treenode {
+// public:
+//     int val;
+//     Treenode* left;
+//     Treenode* right;
+
+//     Treenode(int x): val(x), left(nullptr), right(nullptr) {}
+// };
+
+// class State {
+// public:
+//     Treenode* node;
+//     int depth;
+
+//     State(Treenode* node, int depth): node(node), depth(depth) {}
+// };
+
+// void levelOrderTraversal(Treenode* root) {
+//     if (root == nullptr) {
+//         return;
+//     }
+
+//     std::queue<Treenode*> q;
+//     q.push(root);
+
+//     while (!q.empty()) {
+//         Treenode* cur = q.front();
+//         q.pop();
+
+//           cout << "depth = " << cur.depth << ", val = " << cur.node->val << endl;
+
+//         if (cur->left != nullptr) {
+//             q.push(cur->left);
+//         }
+
+//         if (cur->right != nullptr) {
+//             q.push(cur->right);
+//         }
+//     }
+// }
+
+// int main() {
+//     Treenode* root = new Treenode(1);
+//     root->left = new Treenode(2);
+//     root->right = new Treenode(3);
+//     root->left->left = new Treenode(4);
+//     root->left->right = new Treenode(5);
+
+//     levelOrderTraversal(root);
+
+//     return 0;
+// }
+
+
+
 
 
 
