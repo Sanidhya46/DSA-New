@@ -65,7 +65,7 @@ using namespace std;
 // bool vis[N];
 
 // void dfs(int vertex){
-//     // take action on vertex before entering the vertex 
+//     // take action on vertex after entering the vertex 
 //     vis[vertex] = true;  // mark the visited  
 
 //     for(int child : g[vertex]){}
@@ -219,26 +219,251 @@ using namespace std;
 // 3) Don't fill if the initial color is the same as the new color (to avoid infinite loop or extra work).
 
  
-class Solution {
-    public:
-void dfs(int i, int j, int initialColor, int newColor , vector<vector<int>>& image){
-    if(i<0 || j<0 || i >= image.size() || j >= image[0].size() || image[i][j] != initialColor){
-        return;
-    }
-    image[i][j] = newColor;
-    dfs(i-1 , j , initialColor , newColor , image);
-    dfs(i+1 , j , initialColor , newColor , image);
-    dfs(i, j+1 , initialColor , newColor , image);
-    dfs(i , j-1 , initialColor , newColor , image);
-}
-vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int initialColor = image[sr][sc];
-        if(initialColor != newColor){
-            dfs(sr, sc , initialColor , newColor , image);
+// class Solution {
+//     public:
+// void dfs(int i, int j, int initialColor, int newColor , vector<vector<int>>& image){
+//     if(i<0 || j<0 || i >= image.size() || j >= image[0].size() || image[i][j] != initialColor){
+//         return;
+//     }
+//     image[i][j] = newColor;
+//     dfs(i-1 , j , initialColor , newColor , image);
+//     dfs(i+1 , j , initialColor , newColor , image);
+//     dfs(i, j+1 , initialColor , newColor , image);
+//     dfs(i , j-1 , initialColor , newColor , image);
+// }
+// vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+//         int initialColor = image[sr][sc];
+//         if(initialColor != newColor){
+//             dfs(sr, sc , initialColor , newColor , image);
             
-        }
-        return image;    // always return the image 
+//         }
+//         return image;    // always return the image 
+//     }
+// };    
+
+
+//   NOte - Height is maximum distance between  leaf node to the node
+// NOte - for dfs in trees no need for visited node 
+
+// dont run dfs for parent again 
+//         4). FOr height and depth of tree 
+// 1). edit before entering and after exiting the node in before entering add (depth[child] = depth[vertex] + 1) and for exiting (depth[vertex] = maximum of curr vertex + height[child] + 1)
+// const int N = 1e5;
+// vector<int> g[N];
+// int depth[N];
+// int height[N];
+
+// void dfs(int vertex, int par=0){
+//     for(int child : g[vertex]){
+      
+   
+//     if(child == par) continue;
+//          depth[child] = depth[vertex] + 1;  // adding 1 from parent node ..top to bottom
+//     dfs(child, vertex);
+//          height[vertex] = max(height[vertex] , height[child] + 1);   // calculating maximum of height[vertex] with increased height[child] + 1 ...bottom to top
+//     }
+// }
+// int main(){
+//     int n; // vertexes and edges 
+//     cin >> n;
+
+//     // no. of the edges no. of times 
+//     for(int i = 0; i< n-1; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+//     dfs(1,0);  // default value is 0 for parent 
+//     for(int i =0; i<= n; i++){
+//         cout << depth[i] <<  "" << height[i] << endl;
+//     }
+// }
+
+//                              Dfs subtree questions
+//  Question of subtree is also done by bottom to top like height and depth 
+// we only add when to come from bottom to top 
+// for counting of even number put even number condition after entring the vertex and add current vertexes ... and in after exiting the child node add current child in even_ct
+// NOte - for calculating even and sum of subtree first identify parent node and put dfs on it 
+// Questions print subtree sum of v & number of even numbers 
+// const int N = 1e5;
+// vector<int> g[N];
+// int depth[N];
+// int height[N];
+// vector<int> subtree_sum(N,0);
+// // int val[N];
+// vector<int> even_ct(N,0);
+
+// void dfs(int vertex, int par=0){
+//     // increase the count of even_ct[vertex] for joint vertex if it is even 
+//     if(vertex %  2 == 0) even_ct[vertex]++;
+//     subtree_sum[vertex] += vertex;
+//     for(int child : g[vertex]){
+//      // for adding the current joint vertex for each node 
+//     //    subtree_sum[vertex] += vertex;
+//        // for val of vertex it becames val[vertex]
+   
+//       if(child == par) continue;
+       
+//     dfs(child, vertex);
+//        subtree_sum[vertex] += subtree_sum[child];
+//        even_ct[vertex] += even_ct[child];
+//     }
+// }
+
+// int main(){
+//     int n; // edges 
+//     cin >> n;
+
+//     // no. of the edges no. of times 
+//     for(int i = 0; i< n-1; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+//    dfs(1);  // default value is 0 for parent 
+//     // int q;
+//     // while(q--){
+//     //    int v;
+//     //    cin >> v;
+//     //    cout << subtree_sum[v] << even_ct[v] << endl;
+//     // }
+//     for(int i =1; i<=n; i++){
+    
+//         cout << subtree_sum[i] <<" " << even_ct[i] << endl;
+//      }
+    
+// }
+//  the sum of subtree from leafnode is the sum of own node 
+
+
+//                         Diameter of tree  
+// 1). maximum NO. of edges b/w two vertices == diameter between vertices == max possible path b/w two vertices in tree
+// 2). Bruteforce -- calculate the maximum of all the depths from one node to the other node by imagining each node is root node 
+// 3). Optimise -- i). With any root find the maximum depth node  ii).find maximum depth node with that node .. run the dfs form maximum depth node 
+//    
+
+// const int N = 1e5;
+// vector<int> g[N];
+// int depth[N];
+// void dfs(int v, int par=-1){
+//      for(int child: g[v]){
+       
+//         if(child == par) continue;
+//         depth[child] = depth[v] + 1;
+//         dfs(child,v);
+
+//      }
+// }
+
+
+// int main(){
+//     int n; // edges 
+//     cin >> n;
+
+//     // no. of the edges no. of times 
+//     for(int i = 0; i< n-1; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+//     dfs(1);
+
+//     int mx_depth = -1;
+//     int mx_d_node;
+//     for(int i =1; i<=n; i++){
+//         if(mx_depth < depth[i]){
+//             mx_depth = depth[i];
+//             // now we get the node with maximum depth
+//             mx_d_node = i;
+//         }
+//         // depth of array is resseted;
+//         depth[i] = 0;
+//     }
+//     mx_depth = -1;
+//     dfs(mx_d_node);
+//     for(int i =1; i<=n; i++){
+//         if(mx_depth < depth[i]){
+//             mx_depth = depth[i];
+//             // now we get the node with maximum depth
+        
+//         }
+//         // depth of array is resseted;
+      
+//     }
+//     cout << mx_depth << endl;
+
+// }
+
+// O(n) + O(n)
+// 
+//           LCA -- first common ancestor is called as lowest common ancestor 
+//  there are multiple ways to find lowest common ancestors 
+// 1). First store the path from both node -- (call dfs and store parent node for each node) 
+// 2). last common will be the lca 
+
+const int N = 1e5;
+vector<int> g[N]; // tree
+int par[N];
+
+void dfs(int v, int p = -1){
+    // for storing the parent 
+    par[v] = p;
+    for(int child : g[v]){
+        if(child == p) continue;
+        dfs(child,v);
     }
-};
+}
+// it returns path from the node 
+ // Function to construct path from node to root
+vector<int> path(int v) {
+    vector<int> ans;
+    while (v != -1) {
+        ans.push_back(v);
+        v = par[v];
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main() {
+    int n; // number of nodes
+    cin >> n;
+
+    // Reading edges
+    for (int i = 0; i < n - 1; i++) {
+        int v1, v2;
+        cin >> v1 >> v2;
+        g[v1].push_back(v2);
+        g[v2].push_back(v1);
+    }
+
+    int x, y;
+    cin >> x >> y;
+
+    dfs(1); // Assuming 1 is the root of the tree
+
+    vector<int> path_x = path(x);
+    vector<int> path_y = path(y);
+
+    // Finding the Lowest Common Ancestor (LCA)
+    int min_ln = min(path_x.size(), path_y.size());
+    int lca = -1;
+    for (int i = 0; i < min_ln; i++) {
+        if (path_x[i] == path_y[i]) {
+            lca = path_x[i];
+        } else {
+            break;
+        }
+    }
+
+    cout << lca << endl;
+    return 0;
+}
+
+
+
 
 
