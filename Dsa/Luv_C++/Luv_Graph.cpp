@@ -15,7 +15,7 @@ using namespace std;
 //     for(int i =0; i<m; i++){  // Note loop run for vertex no. of times 
 //        int v1 , v2;
 //        graph[v1][v2] = 1;
-//        graph[v2][v1] = 1;
+//        graph[v2][v1] = 1;  
 //     }
 //     // O(N^2) - Space complexity 
 //     // N = 10^5  -- very high time complexity so adjaceny list come into range 
@@ -116,7 +116,7 @@ using namespace std;
 //     dfs(1);
 // }
 
-//           1).  Connected components -- count of dfs run -- two vectors connected nodes and cuurent nodes and indentify where you put in 4 condition
+//           1).  Connected components -- count of dfs run -- make two vectors connected components and cuurent nodes and indentify where you put in 4 condition
 //
 //  T. C = O(n + e)
 // const int N = 1e3;
@@ -399,70 +399,241 @@ using namespace std;
 
 // O(n) + O(n)
 // 
-//           LCA -- first common ancestor is called as lowest common ancestor 
+//           LCA -- first common ancestor is called as lowest common ancestor ... O(N) Times
 //  there are multiple ways to find lowest common ancestors 
 // 1). First store the path from both node -- (call dfs and store parent node for each node) 
 // 2). last common will be the lca 
 
-const int N = 1e5;
-vector<int> g[N]; // tree
-int par[N];
+// const int N = 1e5;
+// vector<int> g[N]; // tree
+// int par[N];
 
-void dfs(int v, int p = -1){
-    // for storing the parent 
-    par[v] = p;
-    for(int child : g[v]){
-        if(child == p) continue;
-        dfs(child,v);
-    }
-}
-// it returns path from the node 
- // Function to construct path from node to root
-vector<int> path(int v) {
-    vector<int> ans;
-    while (v != -1) {
-        ans.push_back(v);
-        v = par[v];
-    }
-    reverse(ans.begin(), ans.end());
-    return ans;
-}
+// void dfs(int v, int p = -1){
+//     // for storing the parent 
+//     par[v] = p;
+//     for(int child : g[v]){
+//         if(child == p) continue;
+//         dfs(child,v);
+//     }
+// }
+// // it returns path from the node 
+//  // Function to construct path from node to root
+// vector<int> path(int v) {
+//     vector<int> ans;
+//     while (v != -1) {
+//         ans.push_back(v);
+//         v = par[v];
+//     }
+//     reverse(ans.begin(), ans.end());
+//     return ans;
+// }
 
-int main() {
-    int n; // number of nodes
-    cin >> n;
+// int main() {
+//     int n; // number of nodes
+//     cin >> n;
 
-    // Reading edges
-    for (int i = 0; i < n - 1; i++) {
-        int v1, v2;
-        cin >> v1 >> v2;
-        g[v1].push_back(v2);
-        g[v2].push_back(v1);
-    }
+//     // Reading edges
+//     for (int i = 0; i < n - 1; i++) {
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
 
-    int x, y;
-    cin >> x >> y;
+//     int x, y;
+//     cin >> x >> y;
 
-    dfs(1); // Assuming 1 is the root of the tree
+//     dfs(1); // Assuming 1 is the root of the tree
 
-    vector<int> path_x = path(x);
-    vector<int> path_y = path(y);
+//     vector<int> path_x = path(x);
+//     vector<int> path_y = path(y);
 
-    // Finding the Lowest Common Ancestor (LCA)
-    int min_ln = min(path_x.size(), path_y.size());
-    int lca = -1;
-    for (int i = 0; i < min_ln; i++) {
-        if (path_x[i] == path_y[i]) {
-            lca = path_x[i];
-        } else {
-            break;
-        }
-    }
+//     // Finding the Lowest Common Ancestor (LCA)
+//     int min_ln = min(path_x.size(), path_y.size());
+//     int lca = -1;
+//     for (int i = 0; i < min_ln; i++) {
+//         if (path_x[i] == path_y[i]) {
+//             lca = path_x[i];
+//         } else {
+//             break;
+//         }
+//     }
 
-    cout << lca << endl;
-    return 0;
-}
+//     cout << lca << endl;
+//     return 0;
+// }
 
+
+//                 Deletion of Edge   -- first precompute whole sum of the graph and subtract the precompute sum of one part ... other part could be anything like set of prime numbers or something
+// const int N = 1e3+10;
+// const int M = 1e3+10;
+// vector<int> g[N];
+// bool vis[N];
+// int subtree_sum[N];
+// int val[N];
+
+// void dfs(int vertex, int par){
+//     // take action on vertex after entering the vertex 
+    
+//     subtree_sum[vertex] + val[vertex];
+//     for(int child : g[vertex]){
+//       // take action on child before entering the child 
+//        if(child == par) continue;
+      
+//       dfs(child,vertex);
+//       subtree_sum[vertex] += subtree_sum[child];
+//       // take action on child after exiting the child node 
+//     }
+//     // take action on vertex after exiting the vertex
+   
+// }
+
+// int main(){
+//     int n , m;
+//     cin >> n >> m;
+//     for(int i =0; i<m; i++){
+//     int v1, v2;
+//     cin >> v1 >> v2;
+//     g[v1].push_back(v2);
+//     g[v2].push_back(v1);
+   
+//     }
+//     dfs(1, 0);
+//     long long ans = 0;
+//     for(int i =2; i<=n; i++){
+//         int part1 = subtree_sum[i];
+//         int part2 = subtree_sum[1] - part1;
+//         ans = max(ans,(part1*1LL*part2)% M);
+//     }
+//     cout << ans << endl;
+// }
+//                      BFS
+//  Note -- we use queue data structure and visited array 
+//  2). when any element remove from queue then all of their child components enter into queue .. only for not visited 
+// NOte - in unweighted graph bfs is used to find shortest path between two node (because all of them in one level)
+// NOte - in bfs shortest distance stored first as level 
+// #include<bits/stdc++.h>
+// using namespace std;
+// const int N = 1e5+10;
+// vector<int> g[N];
+
+// int vis[N];
+// int level[N];  // level of each node 
+
+// void bfs(int source){
+//      queue<int> q;
+//      q.push(source);
+//      vis[source] = 1;
+
+//      while(!q.empty()){
+//         int curr_v = q.front();
+//         q.pop();
+//         cout << curr_v << " ";
+//         for(int child : g[curr_v]){
+//             if(!vis[child]){
+//                 q.push(child);
+//                 vis[child] =  1;
+//                 level[child] = level[curr_v] + 1;
+//             }
+//         }
+//      }
+//      cout << endl; 
+// }
+// // v for for loop and e for edges
+// // V - node , E - edge
+// // O(V+E)
+
+// int main(){
+//     int n; // edges 
+//     cin >> n;
+
+//     // no. of the edges no. of times 
+//     for(int i = 0; i< n-1; i++){
+//         int v1, v2;
+//         cin >> v1 >> v2;
+//         g[v1].push_back(v2);
+//         g[v2].push_back(v1);
+//     }
+//     bfs(1);
+// }
+//      Find the minimum number of steps a knight takes to move from square s1 to square s2 on a standard 8x8 chessboard.
+// i). coordinate conversion  ii). Coordinate Conversion  iii). Initialize - reset vis[8][8] and lev[8][8]  iv). BFS  -- mark visited update level push into queue iv). return answer
+// #include<bits/stdc++.h>
+// using namespace std;
+// const int N = 1e5+10;
+// vector<int> g[N];
+// const int INF = 1e9+10;   // initially level of each nodes 
+
+// int vis[8][8];
+// int lev[8][8];
+
+// // give the x cordinates from the string 
+// int getX(string s){
+//      return s[0] - 'a';  
+// }
+// int getY(string s){
+//      return s[1] - '1';   // coordinates from 1to 8 so we do characte 1 - 1
+// }
+
+// bool isValid(int x, int y){
+//     return x>= 0 && y >= 0 && x<8 && y < 8;
+// }
+// vector<pair<int, int>> movements = {
+//     {-1,2} , {-1,2},
+//     {-1,-2} , {1,-2},
+//     {1,-2} , {1,2},
+//     {2,-1} , {2,1},
+// };
+// int bfs(string source, string dest){
+//     int sourceX = getX(source);
+//     int sourceY = getY(source);
+//     int destX = getX(dest);
+//     int destY = getY(dest);
+//     // in matrix type question store values in pairs 
+//     queue<pair<int, int>> q;
+//     q.push({sourceX,sourceY});
+//     vis[sourceX][sourceY] = 1;   // mark them visited 
+
+//     while(!q.empty()){
+//       pair<int,int> v = q.front();  // extracting the vertex 
+//       int x= v.first, y=v.second;  // storing the child of the vertex 
+//       q.pop();
+//       for(auto movement : movements){
+//         int childX = movement.first + x;   // horse can move from one place to another 
+//         int childY = movement.second + y;  //
+//         if(!isValid(childX, childY)) continue;
+//         if(!vis[childX][childY]){
+//             q.push({childX , childY});
+//             lev[childX][childY] = lev[x][y] + 1;  // we increase the level 
+//             vis[childX][childY] = 1;
+//         }
+        
+//       }
+//       if(lev[destX][destY] != INF){   // when level is set so no need to run more dfs 
+//         break;
+//       }
+//     }
+//     return lev[destX][destY];
+// }
+// // for initialising all values with 0
+// void reset(){
+//     for(int i =0; i<8; i++){
+//         for(int j =0; j<8; j++){
+//            lev[i][j] = INF;
+//            vis[i][j] = 0;
+//         }
+//     }
+// }
+
+// int main(){
+//     int n;
+//     cin >> n;
+//     while(n--){
+//         string s1, s2;
+//         cin >> s1 >> s2;
+//         cout << bfs(s1,s2);
+//     }
+// }
 
 
 
