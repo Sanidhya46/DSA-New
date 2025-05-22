@@ -15,7 +15,7 @@ using namespace std;
 //     for(int i =0; i<m; i++){  // Note loop run for vertex no. of times 
 //        int v1 , v2;
 //        graph[v1][v2] = 1;
-//        graph[v2][v1] = 1;
+//        graph[v2][v1] = 1;  
 //     }
 //     // O(N^2) - Space complexity 
 //     // N = 10^5  -- very high time complexity so adjaceny list come into range 
@@ -556,82 +556,84 @@ using namespace std;
 //     }
 //     bfs(1);
 // }
+//      Find the minimum number of steps a knight takes to move from square s1 to square s2 on a standard 8x8 chessboard.
+// i). coordinate conversion  ii). Coordinate Conversion  iii). Initialize - reset vis[8][8] and lev[8][8]  iv). BFS  -- mark visited update level push into queue iv). return answer
+// #include<bits/stdc++.h>
+// using namespace std;
+// const int N = 1e5+10;
+// vector<int> g[N];
+// const int INF = 1e9+10;   // initially level of each nodes 
 
-#include<bits/stdc++.h>
-using namespace std;
-const int N = 1e5+10;
-vector<int> g[N];
-const int INF = 1e9+10;   // initially level of each nodes 
+// int vis[8][8];
+// int lev[8][8];
 
-int vis[8][8];
-int lev[8][8];
-// give the x cordinates from the string 
-int getX(string s){
-     return s[0] - 'a';  
-}
-int getY(string s){
-     return s[1] - '1';   // coordinates from 1to 8 so we do characte 1 - 1
-}
+// // give the x cordinates from the string 
+// int getX(string s){
+//      return s[0] - 'a';  
+// }
+// int getY(string s){
+//      return s[1] - '1';   // coordinates from 1to 8 so we do characte 1 - 1
+// }
 
-bool isValid(int x, int y){
-    return x>= 0 && y <= 0 && x<8 && y < 8;
-}
-vector<pair<int, int>> movements = {
-    {-1,2} , {-1,2},
-    {-1,-2} , {1,-2},
-    {1,-2} , {1,2},
-    {2,-1} , {2,1},
-};
-int bfs(string source, string dest){
-    int sourceX = getX(source);
-    int sourceY = getY(source);
-    int destX = getX(dest);
-    int destY = getY(dest);
-    // in matrix type question store values in pairs 
-    queue<pair<int, int>> q;
-    q.push({sourceX,sourceY});
-    vis[sourceX][sourceY] = 1;   // mark them visited 
+// bool isValid(int x, int y){
+//     return x>= 0 && y >= 0 && x<8 && y < 8;
+// }
+// vector<pair<int, int>> movements = {
+//     {-1,2} , {-1,2},
+//     {-1,-2} , {1,-2},
+//     {1,-2} , {1,2},
+//     {2,-1} , {2,1},
+// };
+// int bfs(string source, string dest){
+//     int sourceX = getX(source);
+//     int sourceY = getY(source);
+//     int destX = getX(dest);
+//     int destY = getY(dest);
+//     // in matrix type question store values in pairs 
+//     queue<pair<int, int>> q;
+//     q.push({sourceX,sourceY});
+//     vis[sourceX][sourceY] = 1;   // mark them visited 
 
-    while(!q.empty()){
-      pair<int,int> v = q.front();  // extracting the vertex 
-      int x= v.first, y=v.second;  // storing the child of the vertex 
-      q.pop();
-      for(auto movement : movements){
-        int childX = movement.first + x;   // horse can move from one place to another 
-        int childY = movement.second + y;  //
-        if(!isValid(childX, childY)) continue;
-        if(!vis[childX][childY]){
-            q.push({childX , childY});
-            lev[childX][childY] = lev[x][y] + 1;  // we increase the level 
-            vis[childX][childY] = 1;
-        }
+//     while(!q.empty()){
+//       pair<int,int> v = q.front();  // extracting the vertex 
+//       int x= v.first, y=v.second;  // storing the child of the vertex 
+//       q.pop();
+//       for(auto movement : movements){
+//         int childX = movement.first + x;   // horse can move from one place to another 
+//         int childY = movement.second + y;  //
+//         if(!isValid(childX, childY)) continue;
+//         if(!vis[childX][childY]){
+//             q.push({childX , childY});
+//             lev[childX][childY] = lev[x][y] + 1;  // we increase the level 
+//             vis[childX][childY] = 1;
+//         }
         
-      }
-      if(lev[destX][destY] != INF){   // when level is set so no need to run more dfs 
-        break;
-      }
-    }
-    return lev[destX][destY];
-}
-// for initialising all values with 0
-void reset(){
-    for(int i =0; i<8; i++){
-        for(int j =0; j<8; j++){
-           lev[i][j] = 0;
-           vis[i][j] = 0;
-        }
-    }
-}
+//       }
+//       if(lev[destX][destY] != INF){   // when level is set so no need to run more dfs 
+//         break;
+//       }
+//     }
+//     return lev[destX][destY];
+// }
+// // for initialising all values with 0
+// void reset(){
+//     for(int i =0; i<8; i++){
+//         for(int j =0; j<8; j++){
+//            lev[i][j] = INF;
+//            vis[i][j] = 0;
+//         }
+//     }
+// }
 
-int main(){
-    int n;
-    cin >> n;
-    while(n--){
-        string s1, s2;
-        cin >> s1 >> s2;
-        cout << bfs(s1,s2);
-    }
-}
+// int main(){
+//     int n;
+//     cin >> n;
+//     while(n--){
+//         string s1, s2;
+//         cin >> s1 >> s2;
+//         cout << bfs(s1,s2);
+//     }
+// }
 
 
 
