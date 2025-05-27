@@ -29,8 +29,8 @@ using namespace std;
 //                       Adjaency list 
 // 1). advantages -- we can store large graphs 
 // think about how the vertices connect  
-//  int graph1[N][N];
-
+//  int graph1[N][N];   
+    
 //  // array of vectors where each vector stores pairs of integers
 //  vector<pair<int , int>> graph2[N];
 
