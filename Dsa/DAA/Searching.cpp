@@ -9,7 +9,7 @@
 //         return;
 //         }
 //     }
-//     cout << "match not found" << endl;
+//     cout << "match not found" << endl;    
 // }
 // int main(){
 //     int a[] = {40,20,10};
