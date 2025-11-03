@@ -14,7 +14,7 @@ using namespace std;  //it is used for using the standard namespace which contai
 //     return 0;  //it is used for returns the value from functioni and 0 is used for successful execution
 // }
 
-// 
+//                  
 
 // int main(){
 //     int a = 55; //int is used for declaring integer variable
